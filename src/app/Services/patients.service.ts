@@ -10,7 +10,7 @@ import {Patients} from '../Models/patients'
 export class PatientsService {
   httpOption;
 
-  constructor(private httpClient:HttpClient) { 
+  constructor(private httpClient:HttpClient) {
     this.httpOption={
       headers:new HttpHeaders({
         'Content-Type':'application/json',
@@ -18,7 +18,7 @@ export class PatientsService {
       })
     }
   }
-  
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -60,8 +60,8 @@ export class PatientsService {
         retry(2),
         catchError(this.handleError)
         );
-  } 
-  
+  }
+
   updatePatient(patientID:number, updatedPatint:Patients)
   {
       return this.httpClient
