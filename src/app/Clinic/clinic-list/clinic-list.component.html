@@ -1,0 +1,47 @@
+<!-- <p>clinic-list works!</p> -->
+
+||
+<a routerLink="/clinics/add">Add Clinic </a>
+<div class="table-responsive">
+    <table class="table table-primary  text-center">
+        <thead>
+            <tr>
+                <th scope="col"> ID</th>
+                <th scope="col">Clinic Name</th>
+                <th scope="col">Clinic Location</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let clinic of clinics">
+                <td >{{clinic._id}}</td>
+                <td>{{clinic.clinicName}}</td>
+                <td>{{ clinic.clinic_location ? clinic.clinic_location.city : '' }} 
+                    , {{ clinic.clinic_location ? clinic.clinic_location.street : '' }},
+                    {{ clinic.clinic_location ? clinic.clinic_location.building : '' }}</td>
+                <td><a [routerLink]="['/clinics','details',clinic._id]">Details</a></td>
+                <td><button (click)="delete(clinic._id)">Delete</button></td>
+
+                <td>
+                    <button (click)="show(clinic)" class="btn btn-warning">Edit</button>
+
+                </td>
+               
+            </tr>
+         
+        </tbody>
+    </table>
+
+    <div *ngIf="editFlag">
+        <input type="text" placeholder="ID" [(ngModel)]="editedClinic._id">
+        <input type="text" placeholder="Name" [(ngModel)]="editedClinic.clinicName">
+        <input type="text" [(ngModel)]="editedClinic.clinic_location.city" >
+        <input type="text" [(ngModel)]="editedClinic.clinic_location.street" >
+        <input type="number" [(ngModel)]="editedClinic.clinic_location.building" >
+
+        <br>
+        <button (click)="save(editedClinic)" class='btn btn-info mt-2' >Save</button>
+        
+
+    </div>
+</div>
