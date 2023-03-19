@@ -59,7 +59,7 @@ export class DoctorsService {
 
   updateDoctor(id:number, doctor:Doctors){
     return this.httpClient
-      .put<Doctors>(`${environment.apiUrl}/doctors/${id}`,JSON.stringify(doctor), this.httpOption)
+      .patch<Doctors>(`${environment.apiUrl}/doctors/${id}`,JSON.stringify(doctor), this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)

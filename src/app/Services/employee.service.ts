@@ -10,7 +10,7 @@ import { Employee } from '../Models/employee';
 export class EmployeeService {
   httpOption;
 
-  constructor(private httpClient:HttpClient) { 
+  constructor(private httpClient:HttpClient) {
     this.httpOption={
       headers:new HttpHeaders({
         'Content-Type':'application/json',
@@ -32,7 +32,7 @@ export class EmployeeService {
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
-  
+
   getAllEmployees(){
     return this.httpClient
     .get<Employee[]>(`${environment.apiUrl}/employees`,this.httpOption)
@@ -62,13 +62,13 @@ export class EmployeeService {
 
   edit(employee:Employee){
     return this.httpClient
-      .put<Employee>(`${environment.apiUrl}/employees/${employee._id}`,JSON.stringify(employee),this.httpOption)
+      .patch<Employee>(`${environment.apiUrl}/employees/${employee._id}`,JSON.stringify(employee),this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
-  
+
   add(employee:Employee){
     return this.httpClient
     .post<Employee>(`${environment.apiUrl}/employees`,JSON.stringify(employee),this.httpOption)
