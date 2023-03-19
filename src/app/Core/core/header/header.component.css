@@ -1,0 +1,18 @@
+
+.navbar-light .navbar-nav .nav-link{
+  font-family: 'Jost', sans-serif;
+  position: relative;
+  margin-left: 30px;
+  padding: 30px 0;
+  font-size: 18px;
+  color: var(--dark);
+  outline: none;
+  transition: .5s;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.nav-link .navbar-light .navbar-nav:active{
+  color: var(--primary);
+}
+
+

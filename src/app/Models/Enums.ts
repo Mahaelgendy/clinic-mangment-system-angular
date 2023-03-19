@@ -9,4 +9,12 @@ export enum Role{
     patient ="patient" ,
     employee= "employee"
 }
+export enum AppointmentStatus{
+    'First Time' ,
+    'Follow Up'
+}
+export enum ReservationMethod{
+    'Online' , 
+    'Offline'
+}
 
