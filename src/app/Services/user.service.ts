@@ -29,6 +29,7 @@ export class UserService {
     return throwError(()=> new Error('Something bad happened, Please try again later'));
 
   }
+
   getAllUsers() : Observable<User[]>{
     return this.httpClient
       .get<User[]>(`${environment.apiUrl}/users`)
@@ -65,7 +66,7 @@ export class UserService {
     )
   }
 
-  deleteUser(id:number){
+  deleteUserById(id:number){
     return this.httpClient
     .delete<User>(`${environment.apiUrl}/users/${id}`)
     .pipe(
