@@ -1,83 +1,85 @@
+
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { Doctors } from '../Models/doctors';
+import { Schedules } from '../Models/schedules';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DoctorsService {
+export class ScheduleService {
 
   httpOption;
-  constructor(private httpClient:HttpClient) {
-    this.httpOption= {
+  constructor(private httpClient: HttpClient) {
+    this.httpOption = {
       headers: new HttpHeaders({
-        'Content-Type':'application/json',
-        Authorization:''
+        'Content-Type': 'application/json',
+        Authorization: ''
       })
     }
   }
 
-  private handleError(error:HttpErrorResponse){
-    if(error.status === 0){
+  
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
       console.log("An error occured: ", error.error);
-    }else{
+    } else {
       console.error(
         `Backend returned code ${error.status}, body was: `, error.error);
     }
 
-    return throwError(()=> new Error('Something bad happened, Please try again later'));
-
+    return throwError(() => new Error('Something bad happened, Please try again later'));
   }
-  getAllDoctors():Observable<Doctors[]>{
+
+  getAllSchedules():Observable<Schedules[]>{
     return this.httpClient
-    .get<Doctors[]>(`${environment.apiUrl}/doctors`)
+    .get<Schedules[]>(`${environment.apiUrl}/schedules`)
     .pipe(
       retry(2),
       catchError(this.handleError)
     );
   }
 
-  getDoctorByID(id:number):Observable<Doctors>{
+  getScheduleByID(id:number):Observable<Schedules>{
     return this.httpClient
-      .get<Doctors>(`${environment.apiUrl}/doctors/${id}`)
+      .get<Schedules>(`${environment.apiUrl}/schedules/${id}`)
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
 
-  addDoctor(doctor:Doctors):Observable<Doctors>{
+  addSchedule(schedule:Schedules):Observable<Schedules>{
     return this.httpClient
-      .post<Doctors>(`${environment.apiUrl}/doctors`,JSON.stringify(doctor),this.httpOption)
+      .post<Schedules>(`${environment.apiUrl}/schedules`,JSON.stringify(Schedules),this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  updateDoctor(id:number, doctor:Doctors){
+  updateSchedule(id:number, schedule:Schedules){
     return this.httpClient
-      .patch<Doctors>(`${environment.apiUrl}/doctors/${id}`,JSON.stringify(doctor), this.httpOption)
+      .patch<Schedules>(`${environment.apiUrl}/schedules/${id}`,JSON.stringify(schedule), this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
 
-  deleteDoctorByID(id:number){
+  deleteScheduleByID(id:number){
     return this.httpClient
-      .delete<Doctors>(`${environment.apiUrl}/doctors/${id}`, this.httpOption)
+      .delete<Schedules>(`${environment.apiUrl}/schedules/${id}`, this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
 
-  deleteAllDoctors(){
+  deleteAllSchedules(){
     return this.httpClient
-      .delete<Doctors>(`${environment.apiUrl}/doctors`, this.httpOption)
+      .delete<Schedules>(`${environment.apiUrl}/schedules`, this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)

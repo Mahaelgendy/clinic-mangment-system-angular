@@ -11,7 +11,7 @@ type NewType = Observable<Appointment[]>;
 })
 export class AppointmentService {
   httpOption;
-  constructor(private httpClient: HttpClient) { 
+  constructor(private httpClient: HttpClient) {
     this.httpOption={
       headers:new HttpHeaders({
         'Content-Type':'application/json',
@@ -19,7 +19,7 @@ export class AppointmentService {
       })
     }
   }
-  
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
@@ -29,7 +29,7 @@ export class AppointmentService {
     }
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
-  
+
   getAllAppointments(){
     return this.httpClient
     .get<Appointment[]>(`${environment.apiUrl}/appointments`,this.httpOption)
@@ -58,7 +58,7 @@ export class AppointmentService {
   }
   edit(appointment:Appointment){
     return this.httpClient
-      .put<Appointment>(`${environment.apiUrl}/appointments/${appointment._id}`,JSON.stringify(appointment),this.httpOption)
+      .patch<Appointment>(`${environment.apiUrl}/appointments/${appointment._id}`,JSON.stringify(appointment),this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)

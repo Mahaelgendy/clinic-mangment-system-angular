@@ -59,7 +59,7 @@ export class UserService {
 
   updateUser(id : number , updateduser :User){
     return this.httpClient
-    .put<User>(`${environment.apiUrl}/users`,JSON.stringify(updateduser),this.httpOption)
+    .patch<User>(`${environment.apiUrl}/users`,JSON.stringify(updateduser),this.httpOption)
     .pipe(
       retry(2),
       catchError(this.handleError)
