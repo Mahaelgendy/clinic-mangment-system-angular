@@ -1,0 +1,36 @@
+<table class="table">
+    <thead class="thead-dark">
+      <tr class="text-light">
+        <th scope="col">#</th>
+        <th scope="col">Clinic</th>
+        <th scope="col">Doctor</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Employee</th>
+        <th scope="col">Date</th>
+        <th scope="col">From</th>
+        <th scope="col">To</th>
+        <th scope="col">Status</th>
+        <th scope="col">Reservation</th>
+        <th scope="col">Update</th>
+      </tr>
+    </thead>
+    <tbody >
+        <tr *ngFor="let item of appointments; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.clinic_id?.clinicName}}</td>
+          <td>{{item.doctor_id?.userData?.fullName}}</td>
+          <!-- <td>{{item.patient_id}}</td> -->
+          <td>test</td>
+          <td>{{item.employee_id?.employeeData?.fullName}}</td>
+          <td>{{item.date}}</td>
+          <td>{{item.from.split("T")[1].split(".")[0]}}</td>
+          <td>{{item.to.split("T")[1].split(".")[0]}}</td>
+          <td>{{item.status}}</td>
+          <td>{{item.reservation_method}}</td>
+          <td><a [routerLink]="['/appointment','edit',item._id]" class="btn btn-warning">Update</a></td>
+          <!-- <td><a [routerLink]="['/department','details',item._id]">Details</a></td>
+          <td><a [routerLink]="['/department','delete',item._id]">Delete</a></td>
+          <td><a [routerLink]="['/department','edit',item._id]">Update</a></td> -->
+      </tr>
+    </tbody>
+  </table>
