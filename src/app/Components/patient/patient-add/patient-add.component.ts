@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Patients } from 'src/app/Models/patients';
 import { PatientStatus } from "src/app/Models/PatientStatus";
 import { User } from 'src/app/Models/user';
@@ -16,17 +16,15 @@ import { AlertComponent } from '../alert/alert.component';
 })
 export class PatientAddComponent implements OnInit {
   public newPatientform!: FormGroup;
-  patientEmail: string = "salawaa@gmail.com";
   public user!: User[];
   public patient!: Patients;
   public patientid! :any;
-  public patientStaus =["First Time" , "follow Up"];
-  public hasInsuranceValues =["true", "false"];
   selectedStatus!:string;
   patientStatus! :PatientStatus;
   added:boolean=false;
   
   constructor(public route: ActivatedRoute,
+    public router : Router,
     private patientservice: PatientsService,
     private userService: UserService,
     public dialog: MatDialog) {
@@ -49,7 +47,7 @@ export class PatientAddComponent implements OnInit {
         this.user = user;
         if(user[0] != null &&user[0].role == 'patient' )
          {
-           console.log(this.user[0]._id);
+          //  console.log(this.user[0]._id);
            this.patient = new Patients(
              this.newPatientform.get('status')?.value,
              this.newPatientform.get('history')?.value,
@@ -59,10 +57,11 @@ export class PatientAddComponent implements OnInit {
              this.newPatientform.get('phone')?.value,
              this.user[0],
              this.newPatientform.get('email')?.value);
-             console.log(this.newPatientform.get('hasInsurance')?.value);
              this.patientservice.addPatient(this.patient).subscribe(x=>
-              this.added=true
-             )
+             this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+              this.router.navigate(['/patients'])})
+            )
+
         }
         else{
           this.dialog.open(AlertComponent);

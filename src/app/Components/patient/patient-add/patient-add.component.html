@@ -49,6 +49,7 @@
         <small class="text-danger" *ngIf="getControl('phone')?.errors?.['required']"> Please Enter patient phone </small>
         <small class="text-danger" *ngIf="getControl('phone')?.errors?.['pattern']"> phone must match 0xxx-xxx-xxxx </small>
       </div>
+
       <div>
         <mat-label style="font-size: 18px;">Patient Status </mat-label>
         <mat-radio-group formControlName="status" aria-label="Select an option">
@@ -63,7 +64,9 @@
           <mat-radio-button value="false">false</mat-radio-button>
         </mat-radio-group>
       </div>
-      <button class="btn btn-primary " (click)="onSubmit()">submit</button>
+      <div class="m-3 d-flex justify-content-center " >
+        <button class="btn btn-primary px-3" (click)="onSubmit()">submit</button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>
