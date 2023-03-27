@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, withJsonpSupport } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, withJsonpSupport } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -43,8 +43,20 @@ export class PatientsService {
       );
   }
 
-  getPatientByID(patientID:number):Observable <Patients>
+
+  getPatientByEmail(patientEmail: String):Observable <Patients>{
+    const params = new HttpParams().set('email', patientEmail.toString());
+
+    return this.httpClient
+    .get<Patients>(`${environment.apiUrl}/patients`,{params})
+    .pipe(
+      retry(2),
+      catchError(this.handleError)
+      );
+  }
+  getPatientByID(patientID:number |undefined):Observable <Patients>
   {
+    if(patientID == undefined) patientID=-1;
     return this.httpClient
     .get<Patients>(`${environment.apiUrl}/patients/${patientID}`)
     .pipe(
@@ -65,15 +77,16 @@ export class PatientsService {
   updatePatient(patientID:number, updatedPatint:Patients)
   {
       return this.httpClient
-      .patch<Patients>(`${environment.apiUrl}/patients`,JSON.stringify(updatedPatint),this.httpOption)
+      .patch<Patients>(`${environment.apiUrl}/patients/${patientID}`,JSON.stringify(updatedPatint),this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
 
-  deletePatientByID(patientID:number)
-  {
+  deletePatientByID(patientID:number |undefined)
+  { 
+    if(patientID == undefined) patientID = -1;
       return this.httpClient
       .delete<Patients>(`${environment.apiUrl}/patients/${patientID}`,this.httpOption)
       .pipe(
@@ -91,4 +104,5 @@ export class PatientsService {
       catchError(this.handleError)
       );
   }
+
 }

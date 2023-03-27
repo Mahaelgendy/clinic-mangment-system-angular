@@ -11,18 +11,21 @@ import { LogOutComponent } from './Components/log-out/log-out.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
 import { RegisterComponent } from './Components/register/register.component'
+import {PatientListComponent} from './Components/patient/patient-list/patient-list.component'
 import { FormsModule } from '@angular/forms';
 import { TopbarComponent } from './Core/core/topbar/topbar.component'
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MaterialModule } from 'src/material.module';
+
 @NgModule({
   declarations: [
     AppComponent, 
     UserLoginComponent, 
     NotFoundComponent, 
-    RegisterComponent
+    RegisterComponent,
+    PatientListComponent
   ],
   imports: [
     BrowserModule,
