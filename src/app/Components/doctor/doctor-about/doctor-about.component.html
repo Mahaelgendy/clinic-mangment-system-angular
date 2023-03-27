@@ -1,0 +1,19 @@
+
+<div class="w-100" >
+  <mat-card class="doctor-card">
+    <div class="doctor-card-image">
+      <img src="assets/profile-img.jpg" alt="Doctor Image">
+    </div>
+    <div class="doctor-card-content">
+      <mat-card-header>
+        <mat-card-title class="mb-3 fs-2">{{doctor.userData?.fullName}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="fs-6"><strong>Specialization:</strong> {{doctor.specialization}}</p>
+        <p class="fs-6"><strong>Email:</strong> {{doctor.userData?.email}}</p>
+        <p class="fs-6"><strong>Address:</strong> {{doctor.userData?.address?.city +", " +doctor.userData?.address?.street  +", " + doctor.userData?.address?.building}}</p>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>
+

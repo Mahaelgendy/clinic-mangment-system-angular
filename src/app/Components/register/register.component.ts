@@ -16,7 +16,7 @@ export class RegisterComponent {
   constructor(private builder:FormBuilder,
     private authServices:AuthenticationService,private router:Router)
   {
-      
+
   }
 
   registerForm= this.builder.group({
@@ -34,7 +34,7 @@ export class RegisterComponent {
     image: this.builder.control(this.imagePath),
     isactive:this.builder.control(false)
   });
-  
+
   getControl(fullName:any): AbstractControl |null
   {
     return this.registerForm.get(fullName);
@@ -53,13 +53,13 @@ export class RegisterComponent {
   }
   proceedRegisteration() {
     this.registerForm.markAllAsTouched();
-  
-    
+
+
     if (this.registerForm.errors) {
       // this.toastr.warning('Please enter valid data');
       return;
     }
-  
+
     if (this.registerForm.valid) {
       this.authServices.register(this.registerForm.value).subscribe(res => {
         // this.toastr.success('Registered Successfully')

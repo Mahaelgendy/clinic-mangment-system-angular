@@ -1,0 +1,8 @@
+
+.table-container {
+  display: flex;
+  width: 1100px;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 100px; /*adjust the left margin as needed*/
+}
