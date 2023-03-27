@@ -31,7 +31,7 @@ export class RegisterComponent {
       street:['',Validators.required,Validators.maxLength(10),Validators.minLength(4)],
       building:['' ,Validators.min(1)]
     }),
-    // image: this.builder.control(this.imagePath),
+    image: this.builder.control(this.imagePath),
     isactive:this.builder.control(false)
   });
 

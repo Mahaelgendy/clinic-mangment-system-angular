@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: "appointment", loadChildren: () => import("./appointment/appointment.module").then(m => m.AppointmentModule) },
+  { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
   { path:'doctors', loadChildren:()=>import("./Components/doctor/doctor.module").then(a=>a.DoctorModule)},
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: UserLoginComponent },

@@ -11,7 +11,7 @@ export class User {
         public address : Address,
         public gender : Gender,
         public role : Role ,
-        // public image : File,
+        public image ?: File,
         public _id? :number,
     )
     {}

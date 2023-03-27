@@ -47,8 +47,6 @@ export class DoctorAddComponent {
 
   onSubmit(){
 
-    if(this.doctorForm.valid){
-
       const user = new User(
         this.doctorForm.value.fullName,
         this.doctorForm.value.password,
@@ -70,22 +68,7 @@ export class DoctorAddComponent {
         })
       });
 
-    }else{
-      alert("Please check that all data is valid");
-    }
   }
 
-  // onFileSelected(event: any) {
-  //   if (event.target.files && event.target.files.length) {
-  //     const file = event.target.files[0].name;
-  //     console.log(event.target.files[0]);
-  //     if (file!=null) {
-  //       console.log(event.target.files[0]);
-
-  //       this.doctorForm.get('image')?.setValue(file);
-  //       console.log(file);
-  //     }
-  //   }
-  // }
 
 }
