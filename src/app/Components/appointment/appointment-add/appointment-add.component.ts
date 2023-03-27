@@ -59,9 +59,14 @@ export class AppointmentAddComponent {
     this.employeeService.getAllEmployees().subscribe(data=>{
       this.employees = data;
     })
-    this.scheduleService.getAllSchedules().subscribe(data=>{
-      this.schedules = data;
-    })
+    this.scheduleService.getbyQueryString('').subscribe(
+      schedules => {
+        this.schedules =schedules;
+      },
+      error => {
+        // handle error
+      }
+    );
   }
   onSubmit() {
     console.log(this.appointmentForm.value);

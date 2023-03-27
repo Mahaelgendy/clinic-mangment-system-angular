@@ -59,6 +59,16 @@ export class ScheduleService {
       )
   }
 
+  getbyQueryString(queryParam: string){
+    const url = `${environment.apiUrl}/schedules?${queryParam}`;
+    return this.httpClient
+      .get<Schedules[]>(url, this.httpOption)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
   updateSchedule(id:number, schedule:Schedules){
     return this.httpClient
       .patch<Schedules>(`${environment.apiUrl}/schedules/${id}`,JSON.stringify(schedule), this.httpOption)
