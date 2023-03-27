@@ -16,8 +16,9 @@ const routes: Routes = [
   { path: 'logout', component: LogOutComponent },
   // { path: "clinics", loadChildren: () => import("./Clinic/clinic.module").then(m => m.ClinicModule) },
   // {path:"services",loadChildren: () => import("./service/service.module").then(m => m.ServiceModule)}
-  {path :"patients", loadChildren:() => import("./Components/patient/patient.module").then(m => m.PatientModule)},
+  { path :"patients", loadChildren:() => import("./Components/patient/patient.module").then(m => m.PatientModule)},
   { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
+  { path:"employee",loadChildren:()=> import("./Components/employee/employee.module").then(m=>m.EmployeeModule)},
   { path: '**', component: NotFoundComponent }
 ];
 
