@@ -1,47 +1,70 @@
+<mat-card >
+  <mat-card-header>
+    <h2 class="text-primary">Add New patient</h2>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="newPatientform">
+      <mat-form-field class="input">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" [ngClass]="{error:getControl('email')?.errors&&getControl('email')?.touched}">
+      </mat-form-field>
+      <div *ngIf="getControl('email')?.errors && getControl('email')?.touched">
+        <small class="text-danger" *ngIf="getControl('email')?.errors?.['required']"> Please Enter your Email </small>
+        <small class="text-danger" *ngIf="getControl('email')?.errors?.['pattern']"> please enter a valid email</small>
+      </div>
 
-<form [formGroup]="newPatientform">
-    <!-- <div class="mb-3" >
-        <label for="status" class="form-label">status</label>
-        <input type="email" formControlName="patientStatus" class="form-control" >
-    </div> -->
-    <label for="patientStatus">Status:</label> 
-     <select formControlName="status">
-      <option [value]="">First Time</option>
-      <option [value]="">follow Up</option>
-    </select>
-    <div class="mb-3" >
-      <label for="status" class="form-label">Patient Email</label>
-      <input type="email" formControlName="email" class="form-control" >
-  </div>
-    <div class="mb-3">
-        <label for="" class="form-label">History</label>
-        <input type=" text" formControlName="history" class="form-control" >
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Height</label>
-        <input type="number" formControlName="height" class="form-control" >
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">weight</label>
-        <input type="number" formControlName="weight" class="form-control" >
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Phone</label>
-        <input type="text" formControlName="phone" class="form-control" >
-    </div>
-  <div>
-    <label for="hasInsurance">hasInsurance:</label>
-    <select formControlName="hasInsurance">
-      <option value="true">true</option>
-      <option value="false">false</option>
-    </select>
-    <div class="error">
-      Gender is required
-    </div>
-  </div>
+      <mat-form-field class="input">
+        <mat-label>History</mat-label>
+        <input matInput formControlName="history" [ngClass]="{error:getControl('history')?.errors&&getControl('history')?.touched}">
+      </mat-form-field>
+      <div *ngIf="getControl('history')?.errors && getControl('history')?.touched">
+        <small class="text-danger" *ngIf="getControl('history')?.errors?.['required']"> Please Enter your Email </small>
+      </div>
 
-  <button class="btn btn-primary " (click)="onSubmit()">submit</button>
-</form>
+      <mat-form-field class="input">
+        <mat-label>Height</mat-label>
+        <input matInput formControlName="height" [ngClass]="{error:getControl('height')?.errors&&getControl('height')?.touched}" min="0" max="250" pattern="[0-9]*">
+      </mat-form-field>
+      <div *ngIf="getControl('height')?.errors && getControl('height')?.touched">
+        <small class="text-danger" *ngIf="getControl('height')?.errors?.['required']"> Please Enter patient height </small>
+        <small class="text-danger" *ngIf="getControl('height')?.errors?.['max']"> Max Height is 250  </small>
+        <small class="text-danger" *ngIf="getControl('height')?.errors?.['pattern']"> Height must be a number </small>
+      </div>
 
+      <mat-form-field class="input">
+        <mat-label>Weight</mat-label>
+        <input matInput formControlName="weight" [ngClass]="{error:getControl('weight')?.errors&&getControl('weight')?.touched}" min="0" max="250" pattern="[0-9]*">
+      </mat-form-field>
+      <div *ngIf="getControl('weight')?.errors && getControl('weight')?.touched">
+        <small class="text-danger" *ngIf="getControl('height')?.errors?.['required']"> Please Enter patient weight </small>
+        <small class="text-danger" *ngIf="getControl('height')?.errors?.['max']"> Max weight is 250  </small>
+        <small class="text-danger" *ngIf="getControl('height')?.errors?.['pattern']"> weight must be a number </small>
+      </div>
 
-
+      <mat-form-field class="input">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" [ngClass]="{error:getControl('phone')?.errors&&getControl('phone')?.touched}">
+      </mat-form-field>
+      <div *ngIf="getControl('phone')?.errors && getControl('phone')?.touched">
+        <small class="text-danger" *ngIf="getControl('phone')?.errors?.['required']"> Please Enter patient phone </small>
+        <small class="text-danger" *ngIf="getControl('phone')?.errors?.['pattern']"> phone must match 0xxx-xxx-xxxx </small>
+      </div>
+      <div>
+        <mat-label style="font-size: 18px;">Patient Status </mat-label>
+        <mat-radio-group formControlName="status" aria-label="Select an option">
+          <mat-radio-button value="First Time">First Time</mat-radio-button>
+          <mat-radio-button value="follow Up">follow Up</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div>
+        <mat-label style="font-size: 18px;">Patient Insurance </mat-label>
+        <mat-radio-group formControlName="hasInsurance" aria-label="Select an option">
+          <mat-radio-button value="true">true</mat-radio-button>
+          <mat-radio-button value="false">false</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <button class="btn btn-primary " (click)="onSubmit()">submit</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+<div>
