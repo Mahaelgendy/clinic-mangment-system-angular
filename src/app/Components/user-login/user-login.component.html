@@ -1,18 +1,25 @@
+<mat-card class="card">
 <mat-card-header>
-  <h2>User Login</h2>
+  <h2>Login </h2>
 </mat-card-header>
-<mat-card>
+
   <mat-card-content>
     <form [formGroup]="loginForm" (ngSubmit)="proceedLogin()">
       <mat-form-field class="input">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email">
       </mat-form-field>
-
+      <div *ngIf="getControl('email')?.errors && getControl('email')?.touched">
+        <small class="text-danger" *ngIf="getControl('email')?.errors?.['required']"> Please Enter your email</small>
+        <small class="text-danger" *ngIf="getControl('email')?.errors?.['pattern']"> please enter a valid email</small>
+      </div>
       <mat-form-field class="input">
         <mat-label>Password</mat-label>
         <input type="password" matInput formControlName="password">
       </mat-form-field>
+      <div *ngIf="getControl('password')?.errors && getControl('password')?.touched">
+        <small class="text-danger" *ngIf="getControl('email')?.errors?.['required']"> Please Enter your password</small>
+      </div>
       <div>
         <button mat-raised-button color="primary">Submit</button>
         <a routerLink="/register" class="mx-4" mat-raised-button color="basic">Register</a>
