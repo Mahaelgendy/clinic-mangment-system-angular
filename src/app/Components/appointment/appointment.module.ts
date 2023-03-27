@@ -8,6 +8,8 @@ import { AppointmentDeleteComponent } from './appointment-delete/appointment-del
 import { AppointmentUpdateComponent } from './appointment-update/appointment-update.component';
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -16,12 +18,13 @@ import { FormsModule } from '@angular/forms';
     AppointmentAddComponent,
     AppointmentDeleteComponent,
     AppointmentUpdateComponent,
-    AppointmentDetailsComponent
+    AppointmentDetailsComponent,
   ],
   imports: [
     CommonModule,
     AppointmentRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AppointmentModule { }
