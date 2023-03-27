@@ -17,6 +17,7 @@ export class DoctorEditComponent {
   doctorForm!:FormGroup;
 
   doctor!:Doctors;
+  doctorId?:number;
 
   GenderObtion = [
     { label: 'Male', value: 'Male' },
@@ -31,7 +32,6 @@ export class DoctorEditComponent {
       email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(`${/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/}`)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       age: new FormControl(null, Validators.required),
-      phone: new FormControl('', [Validators.required, Validators.pattern(`${/^01[0-2,5]\d{8}$/}`)]),
       city: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
       building: new FormControl(null, Validators.required),
@@ -45,6 +45,7 @@ export class DoctorEditComponent {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((a)=>{
+      this.doctorId = a['id'];
       this.doctorService.getDoctorByID(a['id']).subscribe(data=>{
         this.doctor = data;
 
@@ -53,7 +54,6 @@ export class DoctorEditComponent {
           email: data.userData?.email || '',
           password: data.userData?.password || '',
           age: data.userData?.age || '',
-          phone: data.phone || '',
           city: data.userData?.address?.city || '',
           street: data.userData?.address?.street || '',
           building: data.userData?.address?.building || '',
@@ -71,6 +71,14 @@ export class DoctorEditComponent {
 
   onSubmit(){
 
+
+    if(this.doctorId!=undefined){
+
+      this.doctorForm.markAllAsTouched();
+      if(this.doctorForm.errors){
+        return;
+      }
+      
       console.log("this.doctorForm.value");
       console.log(this.doctorForm.value);
 
@@ -84,14 +92,16 @@ export class DoctorEditComponent {
         Role.doctor,
       );
 
-      const doctor = new Doctors(user, this.doctorForm.value.specialization, this.doctorForm.value.price, this.doctorForm.value.phone,this.doctor._id, );
-      this.doctorService.updateDoctor(doctor._id??-1,doctor).subscribe(result => {
+      const doctor = new Doctors(user, this.doctorForm.value.specialization, this.doctorForm.value.price, this.doctorForm.value.phone);
+      this.doctorService.updateDoctor(this.doctorId,doctor).subscribe(result => {
           console.log("Doctor from subscribe");
           console.log(result);
           this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
           this.router.navigate(['/doctors']);
         })
       });
+    }
+
 
   }
 

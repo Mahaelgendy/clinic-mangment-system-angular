@@ -29,12 +29,6 @@
     <mat-error *ngIf="doctorForm.get('age')?.hasError('min')">Age must be a positive number</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <mat-label>Phone</mat-label>
-    <input matInput type="tel" formControlName="phone" pattern="[0-9]{11}" required>
-    <mat-error *ngIf="doctorForm.get('phone')?.hasError('required')">Phone number is required</mat-error>
-    <mat-error *ngIf="doctorForm.get('phone')?.hasError('pattern')">Phone number must be a 11-digit number</mat-error>
-  </mat-form-field>
 
   <mat-form-field class="example-full-width">
     <mat-label>City</mat-label>

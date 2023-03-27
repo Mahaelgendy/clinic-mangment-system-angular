@@ -1,85 +1,3 @@
-<!--
-
-<div class="row">
-  <div class="col-xl-4">
-    <div class="card">
-      <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-        <img src="assets/profile-img.jpg" alt="Profile" class="rounded-circle">
-        <h2>{{doctor.userData?.fullName}}</h2>
-        <h3>{{doctor.specialization}}</h3>
-        <div class="social-links mt-2">
-          <a href="" class="text-body px-2">
-            <i class="fab fa-facebook"></i>
-          </a>
-          <a href="" class="text-body px-2">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="" class="text-body px-2">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="" class="text-body px-2">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-xl-8 p-0">
-    <div class="card">
-      <div class="card-body pt-3">
-
-        <div class="tab-content pt-2">
-          <div class="tab-pane fade show active profile-overview" id="profile-overview">
-
-            <h5 class="card-title">Profile Details </h5>
-
-            <div class="row mt-3">
-              <div class="col-lg-3 col-md-4 label">Full Name</div>
-              <div class="col-lg-9 col-md-8">{{doctor.userData?.fullName}}</div>
-            </div>
-
-              <div class="row mt-3">
-                <div class="col-lg-3 col-md-4 label">Address</div>
-                <div class="col-lg-9 col-md-8">{{doctor.userData?.address?.city +", " +doctor.userData?.address?.street  +", " + doctor.userData?.address?.building}}</div>
-              </div>
-
-              <div class="row mt-3">
-                <div class="col-lg-3 col-md-4 label">Phone</div>
-                <div class="col-lg-9 col-md-8">{{doctor.phone}}</div>
-              </div>
-
-              <div class="row mt-3">
-                <div class="col-lg-3 col-md-4 label">Email</div>
-                <div class="col-lg-9 col-md-4">{{doctor.userData?.email}}</div>
-              </div>
-
-          </div>
-          <br>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-</div> -->
-
-
-
- <!-- <mat-card class="doctor-card">
-  <mat-card-header>
-    <mat-card-title>{{doctor.userData?.fullName}}</mat-card-title>
-  </mat-card-header>
-  <img mat-card-image src="assets/profile-img.jpg">
-  <mat-card-content>
-    <p><strong>Specialization:</strong> {{doctor.specialization}}</p>
-    <p><strong>Email:</strong> {{doctor.userData?.email}}</p>
-    <p><strong>Phone:</strong> {{doctor.phone}}</p>
-    <p><strong>Address:</strong>{{doctor.userData?.address?.city +", " +doctor.userData?.address?.street  +", " + doctor.userData?.address?.building}}</p>
-  </mat-card-content>
-</mat-card> -->
 
 <div class="w-100" >
   <mat-card class="doctor-card">
@@ -93,7 +11,6 @@
       <mat-card-content>
         <p class="fs-6"><strong>Specialization:</strong> {{doctor.specialization}}</p>
         <p class="fs-6"><strong>Email:</strong> {{doctor.userData?.email}}</p>
-        <p class="fs-6"><strong>Phone:</strong> {{doctor.phone}}</p>
         <p class="fs-6"><strong>Address:</strong> {{doctor.userData?.address?.city +", " +doctor.userData?.address?.street  +", " + doctor.userData?.address?.building}}</p>
       </mat-card-content>
     </div>

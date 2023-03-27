@@ -30,7 +30,6 @@ export class DoctorAddComponent {
       email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(`${/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/}`)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       age: new FormControl(null, Validators.required),
-      phone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{11}')]),
       city: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
       building: new FormControl(null, Validators.required),
@@ -47,6 +46,10 @@ export class DoctorAddComponent {
 
   onSubmit(){
 
+    this.doctorForm.markAllAsTouched();
+    if(this.doctorForm.errors){
+      return;
+    }
       const user = new User(
         this.doctorForm.value.fullName,
         this.doctorForm.value.password,
@@ -58,7 +61,7 @@ export class DoctorAddComponent {
         // this.doctorForm.value.image
       );
 
-      const doctor = new Doctors(user, this.doctorForm.value.specialization, this.doctorForm.value.price,this.doctorForm.value.phone,);
+      const doctor = new Doctors(user, this.doctorForm.value.specialization, this.doctorForm.value.price);
       this.doctorService.addDoctor(doctor).subscribe(result => {
           console.log("From subscribe");
 

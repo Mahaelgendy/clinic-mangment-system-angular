@@ -27,16 +27,6 @@
           <td mat-cell *matCellDef="let element"> {{element.userData?.address?.city +", " +element.userData?.address?.street  +", " + element.userData?.address?.building}} </td>
         </ng-container>
 
-        <!-- <ng-container matColumnDef="Phone">
-          <th mat-header-cell *matHeaderCellDef> Phone </th>
-          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-        </ng-container> -->
-
-        <!-- <ng-container matColumnDef="Gender">
-          <th mat-header-cell *matHeaderCellDef> Gender </th>
-          <td mat-cell *matCellDef="let element"> {{element.userData?.gender}} </td>
-        </ng-container> -->
-
         <ng-container matColumnDef="Specialization">
           <th mat-header-cell *matHeaderCellDef> Specialization </th>
           <td mat-cell *matCellDef="let element"> {{element.specialization}} </td>
@@ -46,7 +36,6 @@
           <th mat-header-cell *matHeaderCellDef> Price </th>
           <td mat-cell *matCellDef="let element"> {{element.price}} </td>
         </ng-container>
-
 
 
         <ng-container matColumnDef="action">
