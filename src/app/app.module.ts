@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MaterialModule } from 'src/material.module';
+import { ConfirmDeleteDialogComponent } from './Components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MaterialModule } from 'src/material.module';
     UserLoginComponent,
     NotFoundComponent,
     RegisterComponent,
-    PatientListComponent
+    PatientListComponent,
+    ConfirmDeleteDialogComponent
   ],
   imports: [
     BrowserModule,

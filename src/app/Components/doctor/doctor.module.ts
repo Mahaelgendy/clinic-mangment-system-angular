@@ -9,7 +9,8 @@ import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
 import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.component';
-import { DoctorDeleteComponent } from './doctor-delete/doctor-delete.component';
+
+
 @NgModule({
   declarations: [
     DoctorAboutComponent,
@@ -18,7 +19,6 @@ import { DoctorDeleteComponent } from './doctor-delete/doctor-delete.component';
     DoctorHomeComponent,
     DoctorEditComponent,
     DoctorSidebarComponent,
-    DoctorDeleteComponent
   ],
   imports: [
     CommonModule,
