@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Patients } from 'src/app/Models/patients';
 import { PatientsService } from 'src/app/Services/patients.service';
+import { ConfirmDeleteDialogComponent } from '../../confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-patient-list',
@@ -10,9 +12,15 @@ import { PatientsService } from 'src/app/Services/patients.service';
 })
 export class PatientListComponent {
   public Allpatients:Patients[]=[];
-  constructor(public patientService:PatientsService ,private router: Router , public activatedRoute:ActivatedRoute ){
+  displayedColumns: string[] = [ "Name" , "Status", "History","Phone","Details","Update" , "Delete"];
+  clickedRows = new Set<Patients>();
+  constructor(public patientService:PatientsService ,
+    private router: Router , 
+    public activatedRoute:ActivatedRoute,
+    public dialog: MatDialog ){
   }
   ngOnChanges(): void {
+
   }
   ngOnInit(): void {
     this.patientService.getAllPatients().subscribe(patient =>
@@ -33,15 +41,22 @@ export class PatientListComponent {
   }
 
   DeletePatient(id:number|undefined){
-    if(confirm("Are You Sure?")){
-      this.activatedRoute.params.subscribe(data=>{
-        this.patientService.deletePatientByID(id).subscribe(res=>{
-          this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
-            this.router.navigate(['/patients']);
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      width: '300px',
+      data: 'Are you sure you want to delete this patoent?'
+    });
+    dialogRef.afterClosed().subscribe (result => {
+      if(result){
+        this.activatedRoute.params.subscribe(data=>{
+          this.patientService.deletePatientByID(id).subscribe(res=>{
+            this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+              this.router.navigate(['/patients']);
+            })
           })
         })
-      })
-    }
+      }
+
+    })
   }
   
 }

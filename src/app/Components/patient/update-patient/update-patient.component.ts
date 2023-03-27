@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Patients } from 'src/app/Models/patients';
 import { User } from 'src/app/Models/user';
 import { PatientsService } from 'src/app/Services/patients.service';
 import { UserService } from 'src/app/Services/user.service';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-update-patient',
@@ -20,7 +22,9 @@ export class UpdatePatientComponent implements OnInit {
 
   constructor (private route : ActivatedRoute,
                 private patientService: PatientsService, 
-                private userService: UserService)
+                private userService: UserService,
+                private router :Router,
+                public dialog: MatDialog)
                 {
     this.route.params.subscribe((params: Params) => {
       this.patientId = params['id'];
@@ -29,14 +33,15 @@ export class UpdatePatientComponent implements OnInit {
       email : new FormControl('',[Validators.required, Validators.email]),
       status: new FormControl('', [Validators.required]),
       history: new FormControl('', [Validators.required]),
-      height: new FormControl('', [Validators.required , Validators.min(20),Validators.max(200)]),
-      weight: new FormControl('', [Validators.required , Validators.min(0), Validators.max(150)]),
+      height: new FormControl('', [Validators.required , Validators.min(20),Validators.max(250)]),
+      weight: new FormControl('', [Validators.required , Validators.min(0), Validators.max(250)]),
       hasInsurance: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required,Validators.pattern(/^\d{10}$/)])
+      phone: new FormControl('', [Validators.required,Validators.pattern(/^01[0-2,5]\d{8}$/)])
     });
+  }
+  ngOnInit(): void {
     this.patientService.getPatientByID(this.patientId).subscribe(patient =>{
       this.patientbeforUpdate = patient;
-      console.log(this.patientbeforUpdate);
       this.updatedPatientform.patchValue({
         status :this.patientbeforUpdate.status,
         history :this.patientbeforUpdate.history,
@@ -47,35 +52,38 @@ export class UpdatePatientComponent implements OnInit {
         email: this.patientbeforUpdate.patientData.email
       })
     })
-    }
-  ngOnInit(): void {}
+  }
 
   Update(){
     this.userService.getUserByEmail(this.updatedPatientform.get('email')?.value).subscribe(user =>{
       this.user= user[0];
       if(user[0] != null &&user[0].role == 'patient' && this.patientId != undefined )
        {
-         console.log(this.user._id);
+        //  console.log(this.user._id);
          this.pateientAfterUpdate = new Patients(
            this.updatedPatientform.get('status')?.value,
            this.updatedPatientform.get('history')?.value,
-           this.updatedPatientform.get('height')?.value,
-           this.updatedPatientform.get('weight')?.value,
+           parseInt(this.updatedPatientform.get('height')?.value),
+           parseInt(this.updatedPatientform.get('weight')?.value),
            this.updatedPatientform.get('hasInsurance')?.value,
            this.updatedPatientform.get('phone')?.value,
            this.user,
            this.updatedPatientform.get('email')?.value);
-           console.log(this.pateientAfterUpdate);
+          //  console.log(this.pateientAfterUpdate);
            this.patientService.updatePatient(this.patientId, this.pateientAfterUpdate).subscribe(x=>
-            console.log(x)
+              this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+                this.router.navigate(['/patients'])})
            )
       }
       else{
-        alert("this is not Patient ")
+        this.dialog.open(AlertComponent);
       }
       })
 
   }
-
+  getControl(fullName:any): AbstractControl |null
+  {
+    return this.updatedPatientform.get(fullName);
+  }
 
 }

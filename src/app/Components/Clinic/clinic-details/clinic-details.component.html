@@ -1,0 +1,26 @@
+
+
+
+<div class="card border-primary mb-3" style="max-width: 18rem;">
+    <address class="card-body ">
+      <h3 class="card-title text-primary">{{clinic.clinicName}} Clinic</h3>
+      <p class="card-text">
+        <i class="fa-solid fa-location-dot" style="color: #ed0226;"></i>
+         {{ clinic.clinic_location ? clinic.clinic_location.building :''}}
+        {{ clinic.clinic_location ? clinic.clinic_location.street : '' }} ST<br>
+        {{ clinic.clinic_location ? clinic.clinic_location.city : '' }}, Egypt
+        </p>
+    </address>
+</div>
+
+
+<a routerLink="/clinics" class="btn btn-info">Back</a> 
+
+
+<!-- <p>clinic-details works!</p> -->
+<!-- <h1 class="alert alert-danger"> {{clinic._id}}
+     ,{{clinic.clinicName}},
+     {{ clinic.clinic_location ? clinic.clinic_location.city : '' }}
+    ,{{ clinic.clinic_location ? clinic.clinic_location.street : '' }}
+    ,{{ clinic.clinic_location ? clinic.clinic_location.building :''}} 
+</h1>  -->

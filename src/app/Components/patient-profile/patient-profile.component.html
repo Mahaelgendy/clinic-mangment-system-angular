@@ -1,46 +1,25 @@
-
-
-
-  <section class="section profile mt-5 ">
-      <div class="row">
-        <div class="col-xl-4">
-          <div class="card card1">
-            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-              <img src="../../../../assets/download (4).jpg" alt="Profile" class="rounded-circle">
-              <h2>{{patientFullData.patientData?.fullName}}</h2>
-              <h3>{{patientFullData.patientData?.email}}</h3>
-              <h3>{{patientFullData.patientData?.address?.city}} , {{patientFullData.patientData?.address?.street}}, {{patientFullData.patientData?.address?.building}}</h3>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-8">
-
-          <div class="card   card1">
-            <div class="card-body pt-3">
-              <div class="tab-content pt-2">
-                  <div id="patient-Profile" class="tab-pane fade show active profile-overview">
-                      <app-patient-details></app-patient-details>
-                  </div>
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-                  <p>second section</p>
-                
-                </div>
-
-                <div class="tab-pane fade pt-3" id="profile-settings">
-                  <p>second section</p>
-                </div>
-
-                <div class="tab-pane fade pt-3" id="profile-change-password">
-                  <p>Change Password Form </p>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
+<div class="row ">
+  <div class="col-3">
+    <app-paientt-sidebar></app-paientt-sidebar>
+  </div>
+  <section class="body col-9  ">
+    <div class="m-3  ">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-subtitle>
+             <h2>{{patientFullData?.patientData?.fullName}}</h2>
+             <h3>{{patientFullData?.patientData?.email}}</h3> 
+             <h3>{{patientFullData?.patientData?.address?.city}} , {{patientFullData?.patientData?.address?.street}}, {{patientFullData?.patientData?.address?.building}}</h3>
+          </mat-card-subtitle> 
+          <img mat-card-lg-image src="../../../../assets/download (4).jpg" >
+        </mat-card-title-group>
+      </mat-card-header>
+    </mat-card>
+    </div >
+    <div class="">
+      <app-patient-details></app-patient-details>
+    </div>
+    
   </section>
+  </div>
