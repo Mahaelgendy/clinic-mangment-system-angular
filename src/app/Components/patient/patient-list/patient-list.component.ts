@@ -10,9 +10,12 @@ import { PatientsService } from 'src/app/Services/patients.service';
 })
 export class PatientListComponent {
   public Allpatients:Patients[]=[];
+  displayedColumns: string[] = [ "Name" , "Status", "History","Phone","Details","Update" , "Delete"];
+  clickedRows = new Set<Patients>();
   constructor(public patientService:PatientsService ,private router: Router , public activatedRoute:ActivatedRoute ){
   }
   ngOnChanges(): void {
+
   }
   ngOnInit(): void {
     this.patientService.getAllPatients().subscribe(patient =>
