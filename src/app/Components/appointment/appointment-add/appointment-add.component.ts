@@ -26,6 +26,10 @@ export class AppointmentAddComponent {
   doctors : Doctors[] =[];
   employees : Employee[]=[];
   schedules : Schedules[]= [];
+  from : string[]=[];
+  dates : string[]=[];
+  reservedAppointment : Appointment[]= [];
+  selectedDate: string = "";
   appointmentStatus = Object.values(AppointmentStatus);
   reserMethod = Object.values(ReservationMethod);
 
@@ -36,7 +40,6 @@ export class AppointmentAddComponent {
     employees: new FormControl(''),
     date: new FormControl(''),
     from: new FormControl(''),
-    to: new FormControl(''),
     status: new FormControl(''),
     reserMethod: new FormControl('')
   });
@@ -59,12 +62,11 @@ export class AppointmentAddComponent {
     this.employeeService.getAllEmployees().subscribe(data=>{
       this.employees = data;
     })
-    this.scheduleService.getbyQueryString('').subscribe(
+    this.scheduleService.getbyQueryString(`clinicId=1&doctorId=1`).subscribe(
       schedules => {
         this.schedules =schedules;
-      },
-      error => {
-        // handle error
+        console.log(this.schedules);
+        this.getDates();
       }
     );
   }
@@ -83,5 +85,48 @@ export class AppointmentAddComponent {
   }
   isString(value: any): boolean {
     return typeof value === 'string';
+  }
+  getDates(){
+    this.schedules.forEach(
+      schedule=> this.dates.push(schedule.date) 
+    )
+  }
+  onSelectDateChange() {
+    var selectedSchedule = this.schedules.find(x=>x.date == this.selectedDate);
+    this.appointmentService.getbyQueryString(`date=${this.selectedDate}`).subscribe(
+      appoinments => {
+        this.reservedAppointment =appoinments;
+        console.log(this.reservedAppointment);
+        this.from= this.getTimeRange(selectedSchedule?.from, selectedSchedule?.to, selectedSchedule?.duration_in_minutes);
+      });
+  }
+  
+  getTimeRange(start: any, end: any, selectedDuration: any): string[] {
+    const startTime = new Date(start);
+    const endTime = new Date(end);
+    const timeDiff = endTime.getTime() - startTime.getTime();
+    const times: string[] = [];
+    let isReserved=false;
+
+    for (let i = 0; i <= timeDiff; i += selectedDuration * 60 * 1000) {
+      const currentTime = new Date(startTime.getTime() + i);
+          
+      for(let j =0 ; j < this.reservedAppointment.length ; j++){
+        const date1 = new Date(this.reservedAppointment[j].from);
+        const date2 = new Date(currentTime);
+
+        if (date1.getTime() === date2.getTime()) {
+            isReserved = true;
+            break;
+        }
+      }
+      const timeString = currentTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit',second:'2-digit',hour12:false});
+
+      if(isReserved == false){
+        times.push(timeString);
+      }
+      isReserved = false;
+    }
+    return times;
   }
 }

@@ -28,19 +28,17 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-6">
-            <label for="date" class="form-label">Date</label>
-            <input type="date" name="date" class="form-control" formControlName="date">
+        <div class="form-group col-6" >
+            <label for="clinics" class="form-label">Dates</label>
+            <select class="form-select" formControlName="date"  (change)="onSelectDateChange()"[(ngModel)]="selectedDate"s>
+                <option *ngFor="let date of dates" [value]="date">{{ date }}</option>
+            </select>
         </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-6">
-            <label for="from" class="form-label">From</label>
-            <input type="time" name="from" class="form-control" formControlName="from">
-        </div>
-        <div class="form-group col-6">
-            <label for="from" class="form-label">To</label>
-            <input type="time" name="to" class="form-control" formControlName="to">
+        <div class="form-group col-6" >
+            <label for="from" class="form-label">Time</label>
+            <select class="form-select" formControlName="from">
+                <option *ngFor="let time of from" [value]="time">{{ time }}</option>
+            </select>
         </div>
     </div>
     <div class="row">

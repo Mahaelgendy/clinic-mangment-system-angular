@@ -65,6 +65,15 @@ export class AppointmentService {
       );
   }
 
+  getbyQueryString(queryParam: string){
+    const url = `${environment.apiUrl}/appointments?${queryParam}`;
+    return this.httpClient
+      .get<Appointment[]>(url, this.httpOption)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
   add(appointment:Appointment){
     return this.httpClient
     .post<Appointment>(`${environment.apiUrl}/appointments`,JSON.stringify(appointment),this.httpOption)
