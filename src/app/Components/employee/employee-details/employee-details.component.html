@@ -1,1 +1,70 @@
-<p>employee-details works!</p>
+
+<!-- <div class="card" style="width: 18rem;">
+   
+    <div class="card-body">
+      <h5 class="card-title">{{emp?.employeeData?.fullName}}</h5>
+      <div class="card-text"> 
+        <div>{{emp?.employeeData?.age}}</div>
+        <div>{{emp?.employeeData?.gender}}</div>
+        <div>{{emp?.employeeData?.email}}</div>
+        <div>{{emp?.phone}}</div>
+        <div>{{emp?.position}}</div>
+        <div>{{emp?.salary}}</div>
+        <div>{{emp?.clinicId}}</div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-warning mx-3" (click)="PreviousEmp()">Previous</button>
+            <button type="button" class="btn btn-success " (click)="goBack()">Back</button>
+            <button type="button" class="btn btn-warning mx-3" (click)="nextEmp()">Next</button>
+      </div>
+</div> -->
+
+<div class="card">
+  <h2 class="card-header">
+    {{emp?.employeeData?.fullName}}'s details'
+  </h2>
+  <div class="card-body">
+    <table class="table">
+      <tr>
+        <td>Name</td>
+        <td>{{emp?.employeeData?.fullName}}</td>
+      </tr>
+      <tr>
+        <td>Age</td>
+        <td>{{emp?.employeeData?.age}}</td>
+      </tr>
+      <tr>
+        <td>Gender</td>
+        <td>{{emp?.employeeData?.gender}}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{emp?.employeeData?.email}}</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>{{emp?.phone}}</td>
+      </tr>
+      <tr>
+        <td>Position</td>
+        <td>{{emp?.position}}</td>
+      </tr>
+      <tr>
+        <td>Salary</td>
+        <td>{{emp?.salary}}</td>
+      </tr>
+      <tr>
+        <td>ClinicId</td>
+        <td>{{emp?.clinicId}}</td>
+      </tr>
+    </table>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <!-- <button type="button" class="btn btn-warning mx-3" (click)="PreviousEmp()">Previous</button> -->
+        <button type="button" class="btn btn-primary px-5 my-3" (click)="goBack()" >Back</button>
+        <!-- <button type="button" class="btn btn-warning mx-3" (click)="nextEmp()">Next</button> -->
+  </div>
+  <div class="card-footer text-muted">
+    more details
+  </div>
+</div>
+

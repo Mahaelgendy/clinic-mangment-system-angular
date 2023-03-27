@@ -6,6 +6,7 @@ import { EmployeeAddComponent } from './employee-add/employee-add.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
+import { EmployeeDeleteComponent } from './employee-delete/employee-delete.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { EmployeeUpdateComponent } from './employee-update/employee-update.compo
     EmployeeAddComponent,
     EmployeeDetailsComponent,
     EmployeeListComponent,
-    EmployeeUpdateComponent
+    EmployeeUpdateComponent,
+    EmployeeDeleteComponent
   ],
   imports: [
     CommonModule,
