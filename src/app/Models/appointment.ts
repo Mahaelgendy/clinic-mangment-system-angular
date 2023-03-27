@@ -18,5 +18,19 @@ export class Appointment {
         public status:AppointmentStatus,
         public reservation_method?: ReservationMethod,
       ){}
+      static fromFormValues(formValues: any): Appointment {
+        return new Appointment(
+          formValues._id,
+          formValues.clinics,
+          formValues.patients,
+          formValues.doctors,
+          formValues.employees,
+          formValues.date,
+          formValues.from,
+          formValues.to,
+          formValues.status,
+          formValues.reserMethod,
+        );
+      }
 }
 

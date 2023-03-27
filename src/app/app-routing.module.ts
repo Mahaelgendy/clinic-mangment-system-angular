@@ -17,7 +17,7 @@ const routes: Routes = [
   // { path: "clinics", loadChildren: () => import("./Clinic/clinic.module").then(m => m.ClinicModule) },
   // {path:"services",loadChildren: () => import("./service/service.module").then(m => m.ServiceModule)}
   {path :"patients", loadChildren:() => import("./Components/patient/patient.module").then(m => m.PatientModule)},
-  { path: "appointment", loadChildren: () => import("./appointment/appointment.module").then(m => m.AppointmentModule) },
+  { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
   { path: '**', component: NotFoundComponent }
 ];
 
