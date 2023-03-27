@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, retry, throwError } from 'rxjs';
+import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Employee } from '../Models/employee';
 
@@ -33,7 +33,7 @@ export class EmployeeService {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
-  getAllEmployees(){
+  getAllEmployees():Observable<Employee[]>{
     return this.httpClient
     .get<Employee[]>(`${environment.apiUrl}/employees`,this.httpOption)
     .pipe(
