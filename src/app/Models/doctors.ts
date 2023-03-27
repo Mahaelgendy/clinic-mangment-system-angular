@@ -3,10 +3,11 @@ import { User } from "./user";
 export class Doctors {
 
   constructor(
-    public _id:number,
-    public userData: User,
+    public userData: User|null,
     public specialization:string,
-    public price:number
+    public price:number,
+    public phone:string,
+    public _id?:number,
   ){}
 
 }

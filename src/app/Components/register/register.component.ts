@@ -16,7 +16,7 @@ export class RegisterComponent {
   constructor(private builder:FormBuilder,
     private authServices:AuthenticationService,private router:Router)
   {
-      
+
   }
 
   registerForm= this.builder.group({
@@ -31,30 +31,32 @@ export class RegisterComponent {
       street:['',Validators.required],
       building:['',Validators.required]
     }),
-    image: this.builder.control(this.imagePath),
+    // image: this.builder.control(this.imagePath),
     isactive:this.builder.control(false)
   });
-  onFileSelected(event: any) {
-    if (event.target.files && event.target.files.length) {
-      const file = event.target.files[0].name;
-      console.log(event.target.files[0]);
-      if (file!=null) {
-        console.log(event.target.files[0]);
 
-        this.registerForm.get('image')?.setValue(file);
-        console.log(file);
-      }
-    }
-  }
+  // onFileSelected(event: any) {
+  //   if (event.target.files && event.target.files.length) {
+  //     const file = event.target.files[0].name;
+  //     console.log(event.target.files[0]);
+  //     if (file!=null) {
+  //       console.log(event.target.files[0]);
+
+  //       this.registerForm.get('image')?.setValue(file);
+  //       console.log(file);
+  //     }
+  //   }
+  // }
+  
   proceedRegisteration() {
     this.registerForm.markAllAsTouched();
-  
-    
+
+
     if (this.registerForm.errors) {
       // this.toastr.warning('Please enter valid data');
       return;
     }
-  
+
     if (this.registerForm.valid) {
       this.authServices.register(this.registerForm.value).subscribe(res => {
         // this.toastr.success('Registered Successfully')

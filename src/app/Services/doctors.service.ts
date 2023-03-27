@@ -30,6 +30,7 @@ export class DoctorsService {
     return throwError(()=> new Error('Something bad happened, Please try again later'));
 
   }
+  
   getAllDoctors():Observable<Doctors[]>{
     return this.httpClient
     .get<Doctors[]>(`${environment.apiUrl}/doctors`)

@@ -1,0 +1,67 @@
+
+<h2>Update Dr: {{doctor.userData?.fullName}}</h2>
+<form [formGroup]="doctorForm" (ngSubmit)="onSubmit()" class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Full Name</mat-label>
+    <input matInput formControlName="fullName" required>
+    <mat-error *ngIf="doctorForm.get('fullName')?.hasError('required')">Full name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" required>
+    <mat-error *ngIf="doctorForm.get('email')?.hasError('required')">Email is required</mat-error>
+    <mat-error *ngIf="doctorForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Age</mat-label>
+    <input matInput type="number" formControlName="age" required min="1">
+    <mat-error *ngIf="doctorForm.get('age')?.hasError('required')">Age is required</mat-error>
+    <mat-error *ngIf="doctorForm.get('age')?.hasError('min')">Age must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Phone</mat-label>
+    <input matInput type="tel" formControlName="phone" pattern="[0-9]{11}" required min="1">
+    <mat-error *ngIf="doctorForm.get('phone')?.hasError('required')">Phone number is required</mat-error>
+    <mat-error *ngIf="doctorForm.get('phone')?.hasError('pattern')">Phone number must be a 11-digit number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>City</mat-label>
+    <textarea matInput formControlName="city" required></textarea>
+    <mat-error *ngIf="doctorForm.get('city')?.hasError('required')">City is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Street</mat-label>
+    <textarea matInput formControlName="street" required></textarea>
+    <mat-error *ngIf="doctorForm.get('street')?.hasError('required')">Street is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Building</mat-label>
+    <input matInput type="number" formControlName="building" required>
+    <mat-error *ngIf="doctorForm.get('building')?.hasError('required')">Building is required</mat-error>
+    <mat-error *ngIf="doctorForm.get('building')?.hasError('min')">Building must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Specialization</mat-label>
+    <input matInput formControlName="specialization" required>
+    <mat-error *ngIf="doctorForm.get('specialization')?.hasError('required')">Specialization is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Price</mat-label>
+    <input matInput type="number" formControlName="price" required>
+    <mat-error *ngIf="doctorForm.get('price')?.hasError('required')">Price is required</mat-error>
+    <mat-error *ngIf="doctorForm.get('price')?.hasError('min')">Price must be a positive number</mat-error>
+  </mat-form-field>
+
+  <div>
+    <a mat-raised-button color="primary"  (click)="onSubmit()">Update</a>
+  </div>
+</form>
+

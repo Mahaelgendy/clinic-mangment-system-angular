@@ -17,17 +17,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MaterialModule } from 'src/material.module';
+import {DoctorModule} from './Components/doctor/doctor.module'
 @NgModule({
   declarations: [
-    AppComponent, 
-    UserLoginComponent, 
-    NotFoundComponent, 
+    AppComponent,
+    UserLoginComponent,
+    NotFoundComponent,
     RegisterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    DoctorModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
