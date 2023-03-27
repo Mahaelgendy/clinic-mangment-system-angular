@@ -1,51 +1,81 @@
-<mat-card>
+<mat-card class="card col-10">
   <mat-card-header>
-    <h2>Registe Here</h2>
+    <h2>Register </h2>
   </mat-card-header>
   <mat-card-content>
-    <form [formGroup]="registerForm" (ngSubmit)="proceedRegisteration()">
+    <form [formGroup]="registerForm" (ngSubmit)= "proceedRegisteration()">
       <mat-form-field class="input">
         <mat-label>Name</mat-label>
-        <input matInput formControlName="fullName">
+        <input matInput formControlName="fullName" [ngClass]="{error:getControl('fullName')?.errors&&getControl('fullName')?.touched}">
       </mat-form-field>
+      <div *ngIf="getControl('fullName')?.errors && getControl('fullName')?.touched">
+        <small class="text-danger" *ngIf="getControl('fullName')?.errors?.['required']"> Please Enter your full name </small>
+        <small class="text-danger" *ngIf="getControl('fullName')?.errors?.['maxlength']"> only 20 characters are allowed </small>
+        <small class="text-danger" *ngIf="getControl('fullName')?.errors?.['minlength']"> Min length is 3 </small>
+      </div>
       <mat-form-field class="input">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
+        <input matInput formControlName="email" [ngClass]="{error:getControl('email')?.errors&&getControl('email')?.touched}">
       </mat-form-field>
+      <div *ngIf="getControl('email')?.errors && getControl('email')?.touched">
+        <small class="text-danger" *ngIf="getControl('email')?.errors?.['required']"> Please Enter your Email </small>
+        <small class="text-danger" *ngIf="getControl('email')?.errors?.['pattern']"> please enter a valid email</small>
+      </div>
       <mat-form-field class="input">
         <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="password">
+        <input type="password" matInput formControlName="password" [ngClass]="{error:getControl('password')?.errors&&getControl('password')?.touched}">
       </mat-form-field>
+      <div *ngIf="getControl('password')?.errors && getControl('password')?.touched">
+        <small class="text-danger" *ngIf="getControl('password')?.errors?.['required']"> Please enter password </small>
+        <small class="text-danger" *ngIf="getControl('password')?.errors?.['maxlength']"> Max characters are 10 </small>
+        <small class="text-danger" *ngIf="getControl('password')?.errors?.['minlength']"> Min characters are 4 </small>
+      </div>
       <mat-form-field class="input">
         <mat-label>Age</mat-label>
-        <input type="number" min="1" max="100" matInput formControlName="age">
+        <input type="number" min="1" max="100" matInput formControlName="age" [ngClass]="{error:getControl('age')?.errors&&getControl('age')?.touched}">
       </mat-form-field>
+      <div *ngIf="getControl('age')?.errors && getControl('age')?.touched">
+        <small class="text-danger" *ngIf="getControl('age')?.errors?.['required']"> Please Enter your Age </small>
+        <small class="text-danger" *ngIf="getControl('age')?.errors?.['max']"> max age is 100 </small>
+        <small class="text-danger" *ngIf="getControl('age')?.errors?.['min']"> min age is 1 </small>
+      </div>
       <mat-radio-group formControlName="gender" aria-label="Select an option">
         <mat-radio-button value="Male">Male</mat-radio-button>
         <mat-radio-button value="Female">Female</mat-radio-button>
       </mat-radio-group>
-      <div>
+      <div class="address">
         <fieldset formGroupName="address">
-          <mat-form-field class="input">
-            <mat-label>City</mat-label>
-            <input type="text" matInput formControlName="city">
+          <mat-form-field  >
+            <mat-label >City</mat-label>
+            <input type="text" matInput formControlName="city" [ngClass]="{error:getControl('address.city')?.errors&&getControl('address.city')?.touched}">
           </mat-form-field>
-          <mat-form-field class="input">
+
+          <mat-form-field class="mx-2">
             <mat-label>Street</mat-label>
-            <input type="text" matInput formControlName="street">
+            <input type="text" matInput formControlName="street" [ngClass]="{error:getControl('address.street')?.errors&&getControl('address.street')?.touched}">
           </mat-form-field>
-          <mat-form-field class="input">
+          <mat-form-field >
             <mat-label>building</mat-label>
-            <input type='number' min="1" matInput formControlName="building">
+            <input type='number' min="1" matInput formControlName="building" [ngClass]="{error:getControl('address.building')?.errors&&getControl('address.building')?.touched}">
           </mat-form-field>
+          <div *ngIf="getControl('address.city')?.errors && getControl('address.city')?.touched">
+            <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['required']"> Please Enter your city </small>
+            <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['maxlength']">only 10 characters are allowed</small>
+            <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['minlength']"> min charachters are 4 </small>
+          </div>
+          <div *ngIf="getControl('address.street')?.errors && getControl('address.street')?.touched">
+            <small class="text-danger" *ngIf="getControl('address.street')?.errors?.['required']"> Please Enter your street </small>
+            <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['maxlength']">only 10 characters are allowed</small>
+            <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['minlength']"> min charachters are 4 </small>
+          </div>
         </fieldset>
       </div>
-      <!-- <div class="form-group">
+      <div class="form-group" >
         <label for="file">Choose File</label>
 
         <input type="file" (change)="onFileSelected($event)">
-      </div> -->
-      <div>
+      </div>
+      <div class="my-3">
         <button mat-raised-button color="primary">Submit</button>
         <a routerLink="/login" class="mx-4" mat-raised-button color="basic">Back to login</a>
       </div>

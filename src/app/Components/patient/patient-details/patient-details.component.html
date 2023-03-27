@@ -1,0 +1,54 @@
+  
+<div >
+  <p class="small fst-italic">Welcom  to ypur profile ! {{patient?.patientData?.fullName}} </p>
+ 
+    <div class="card w-100 p-1">
+      <div class="card-body">
+        <h5 class="card-title text-primary">About</h5>
+        <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+
+        <h5 class="card-title text-primary">Profile Details</h5>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">Phone</div>
+              <div class="col-lg-9 col-md-8">{{patient?.phone}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">Email</div>
+              <div class="col-lg-9 col-md-8">{{patient?.patientData?.email}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">Address</div>
+              <div class="col-lg-9 col-md-8">{{patient?.patientData?.address?.city}}, {{patient?.patientData?.address?.street}},{{patient?.patientData?.address?.building}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">Age</div>
+              <div class="col-lg-9 col-md-8">{{patient?.patientData?.age}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">Gender</div>
+              <div class="col-lg-9 col-md-8">{{patient?.patientData?.gender}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">Status</div>
+              <div class="col-lg-9 col-md-8">{{patient?.status}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">History</div>
+              <div class="col-lg-9 col-md-8">{{patient?.history}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">Height</div>
+              <div class="col-lg-9 col-md-8">{{patient?.height}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">weight</div>
+              <div class="col-lg-9 col-md-8">{{patient?.weight}}</div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label text-secondary">Has Insurace</div>
+              <div class="col-lg-9 col-md-8">{{patient?.hasInsurance}}</div>
+            </div>
+      </div>
+      
+    </div>

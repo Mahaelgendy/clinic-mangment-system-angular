@@ -10,7 +10,7 @@ import { AuthenticationService } from 'src/app/Services/authentication.service';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent {
-
+  emailRagex=/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   token:any
   constructor(private builder:FormBuilder,
     private authServices:AuthenticationService,private router:Router)
@@ -19,10 +19,14 @@ export class UserLoginComponent {
   }
 
   loginForm=this.builder.group({
-    email:this.builder.control('',Validators.compose([Validators.required,Validators.email])),
+    email:this.builder.control('',Validators.compose([Validators.required,Validators.email,Validators.pattern(this.emailRagex)])),
     password:this.builder.control('',Validators.required)
   })
- 
+
+  getControl(email:any)
+  {
+    return this.loginForm.get(email);
+  }
   proceedLogin() {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -48,6 +48,16 @@ export class UserService {
     )
   }
 
+  getUserByEmail(userEmail: String):Observable<User[]>{
+    const params = new HttpParams().set('email', userEmail.toString());
+
+    return this.httpClient
+    .get<User[]>(`${environment.apiUrl}/users`,{params})
+    .pipe(
+      retry(2),
+      catchError(this.handleError)
+      );
+  }
   addUser(user :User):Observable<User>{
     return this.httpClient
     .post<User>(`${environment.apiUrl}/users`,JSON.stringify(user), this.httpOption)
