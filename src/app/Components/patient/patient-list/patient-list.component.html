@@ -1,0 +1,33 @@
+<table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);">
+    <thead class="t_header">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>History</th>
+            <th>Phone</th>
+            <th>Dtails</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>    
+    <tbody style="color: rgb(80, 80, 146);">
+        <tr *ngFor="let patient of Allpatients; let i = index" >
+            <td>{{i+1}} </td>
+            <td>{{patient.patientData?.fullName}}</td>
+            <td>{{patient.status}}</td>
+            <td>{{patient.history}}</td>
+            <td>{{patient.phone}}</td> 
+            <td>
+                <a class="btn btn-primary" (click)="showPatientDetails(patient._id)">Details</a>
+            </td>
+            <td>
+                <a class="btn btn-primary" (click)="UpdatePatientData(patient._id)">update</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" (click)="DeletePatient(patient._id)">Delete</a>
+            </td>
+        </tr>
+    
+    </tbody>
+</table>
