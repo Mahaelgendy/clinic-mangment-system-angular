@@ -17,7 +17,7 @@
         <div class="form-group col-6" >
             <label for="doctors" class="form-label">Doctor</label>
             <select class="form-select" formControlName="doctors">
-                <option *ngFor="let doctor of doctors" [value]="doctor._id">{{ doctor.userData.fullName }}</option>
+                <option *ngFor="let doctor of doctors" [value]="doctor._id">{{ doctor.userData?.fullName }}</option>
             </select>
         </div>
         <div class="form-group col-6" >
@@ -61,8 +61,8 @@
             </select>
         </div>
       </div>
-      
-      
+
+
 
     <button type="submit" [disabled]="!appointmentForm.valid" class="btn btn-primary mt-3">Submit</button>
   </form>

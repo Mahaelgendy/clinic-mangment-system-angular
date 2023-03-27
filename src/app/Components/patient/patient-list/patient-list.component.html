@@ -1,33 +1,52 @@
-<table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);">
-    <thead class="t_header">
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Status</th>
-            <th>History</th>
-            <th>Phone</th>
-            <th>Dtails</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-    </thead>    
-    <tbody style="color: rgb(80, 80, 146);">
-        <tr *ngFor="let patient of Allpatients; let i = index" >
-            <td>{{i+1}} </td>
-            <td>{{patient.patientData?.fullName}}</td>
-            <td>{{patient.status}}</td>
-            <td>{{patient.history}}</td>
-            <td>{{patient.phone}}</td> 
-            <td>
-                <a class="btn btn-primary" (click)="showPatientDetails(patient._id)">Details</a>
+
+<div class="m-3 d-flex justify-content-center">
+    <a mat-raised-button color="primary" class="col-2 " routerLink="/patients/add">Add Doctor</a>
+</div>
+
+<div class="table-responsiv">
+    <table mat-table [dataSource]="Allpatients" class="mat-elevation-z8 demo-table" Class="table table-striped">
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let patient">{{patient.patientData?.fullName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let patient">{{patient.status}}</td>
+        </ng-container>
+        <ng-container matColumnDef="History">
+            <th mat-header-cell *matHeaderCellDef>History</th>
+            <td mat-cell *matCellDef="let patient">{{patient.history}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Phone">
+            <th mat-header-cell *matHeaderCellDef>phone</th>
+            <td mat-cell *matCellDef="let patient">{{patient.phone}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Details">
+            <th mat-header-cell *matHeaderCellDef>Details</th>
+            <td mat-cell *matCellDef="let patient">
+                <a mat-raised-button color="primary" class="col-2" (click)="showPatientDetails(patient._id)" >Details</a>
             </td>
-            <td>
-                <a class="btn btn-primary" (click)="UpdatePatientData(patient._id)">update</a>
+        </ng-container>
+        <ng-container matColumnDef="Update">
+            <th mat-header-cell *matHeaderCellDef>Update</th>
+            <td mat-cell *matCellDef="let patient">
+                <a mat-raised-button color="primary" class="col-2" (click)="UpdatePatientData(patient._id)" >Update</a>
             </td>
-            <td>
-                <a class="btn btn-danger" (click)="DeletePatient(patient._id)">Delete</a>
+        </ng-container>
+        <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let patient">
+                <a mat-raised-button color="warn" class="col-2" (click)="DeletePatient(patient._id)" >Delete</a>
             </td>
-        </tr>
+          </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     
-    </tbody>
-</table>
+        <tr mat-row
+        (click)="clickedRows.add(row)"
+        [class.demo-row-is-clicked]="clickedRows.has(row)"
+        *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+    
+    
+</div>

@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-3"></div>
+  <h2 class="text-center col-6">Doctor List</h2>
+  <a mat-raised-button color="primary" class="col-2" routerLink="/doctors/add">Add Doctor</a>
+</div>
+<div  class="table-container">
+
+      <table mat-table [dataSource]="doctors" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="FullName">
+          <th mat-header-cell *matHeaderCellDef> FullName </th>
+          <td mat-cell *matCellDef="let element"> {{element.userData?.fullName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.userData?.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Age">
+          <th mat-header-cell *matHeaderCellDef> Age </th>
+          <td mat-cell *matCellDef="let element"> {{element.userData?.age}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Address">
+          <th mat-header-cell *matHeaderCellDef> Address </th>
+          <td mat-cell *matCellDef="let element"> {{element.userData?.address?.city +", " +element.userData?.address?.street  +", " + element.userData?.address?.building}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Specialization">
+          <th mat-header-cell *matHeaderCellDef> Specialization </th>
+          <td mat-cell *matCellDef="let element"> {{element.specialization}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Price">
+          <th mat-header-cell *matHeaderCellDef> Price </th>
+          <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <div>
+              <a [routerLink]="['/doctors', 'details',element._id]" mat-raised-button color="primary" class="me-2">Details</a>
+              <a [routerLink]="['/doctors', 'edit',element._id]" mat-raised-button color="primary" class="me-2">Edit</a>
+              <a  mat-raised-button color="primary" (click)="alertToDelte(element._id)">Delete</a>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+      </table>
+
+</div>
