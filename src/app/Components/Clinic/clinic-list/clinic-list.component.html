@@ -1,0 +1,124 @@
+
+<!-- <a routerLink="/clinics/add">Add Clinic </a> -->
+<div class="table-responsive">
+    <table class="table table  text-center">
+        <thead class="bg-info">
+            <tr>
+                <th scope="col"> #</th>
+                <th scope="col">Clinic Name</th>
+                <th scope="col">Clinic Location</th>
+                <th scope="col">Details</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+
+            </tr>                
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let clinic of clinics,let i=index">
+                <td>{{i+1}}</td>
+                <td>{{clinic.clinicName}}</td>
+                <td>{{ clinic.clinic_location ? clinic.clinic_location.building :''}}
+                    {{ clinic.clinic_location ? clinic.clinic_location.street : '' }} Street, 
+                    {{ clinic.clinic_location ? clinic.clinic_location.city : '' }}, Egypt</td>
+                 <td><a [routerLink]="['/clinics','details',clinic._id]" class="btn btn-secondary">Details</a></td>
+                <td>
+                    <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" (click)="show(clinic)">
+                        <i class="fa-solid fa-pen-to-square"></i></button>
+
+                </td> 
+
+                <td>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="deleteDialog(clinic._id)">
+                    <i class="fa-solid fa-trash"></i></button>
+                </td>
+
+            </tr>
+         
+        </tbody>
+    </table>
+  
+  <!-- Edit Modal -->
+  <div class="modal fade" id="exampleModalCenter" [ngClass]="{'show':showModal}"
+  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+  data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Update</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="showModal=false">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+            <form [formGroup]="registerForm"  class="form-group px-3 py-3" >
+
+                <label for="clinicName">Clinic Name</label>
+                <input type='text' class="form-control mx-2" placeholder="Name"
+                 formControlName="clinicName" />
+                
+            
+                <fieldset formGroupName="clinic_location">
+                    <label for="city" class="mt-2">City</label>
+                    <input type="text" class="form-control mx-2" placeholder="City"
+                     formControlName="city">
+        
+                    <label for="street" class="mt-2">Street</label>
+                    <input type="text" class="form-control mx-2" placeholder="Street"
+                     formControlName="street">
+        
+                    <label for="building" class="mt-2">Building</label>
+                    <input type="number"  min="1" class="form-control mx-2" placeholder="Building"
+                     formControlName="building">
+
+        
+                  </fieldset>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-backdrop="false" (click)="showModal=false">Close</button>
+          <button type="button" class="btn btn-primary" (click)="save(registerForm)">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+
+  <!-- Delete Modal -->
+  <div class="modal" tabindex="-1" id="deleteModal" [ngClass]="{'show':deleteModal}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger">Delete Confirmation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="deleteModal=false"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="delete(deletedId)">Yes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deleteModal=false">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <a routerLink="/clinics/add">Add Clinic </a>
+
+    <!-- <div *ngIf="editFlag">
+        <input type="text" placeholder="ID" [(ngModel)]="editedClinic._id">
+        <input type="text" placeholder="Name" [(ngModel)]="editedClinic.clinicName">
+        <input type="text" [(ngModel)]="editedClinic.clinic_location.city" >
+        <input type="text" [(ngModel)]="editedClinic.clinic_location.street" >
+        <input type="number" [(ngModel)]="editedClinic.clinic_location.building" >
+
+        <br>
+        <button (click)="save(editedClinic)" class='btn btn-info mt-2' >Save</button>
+        
+
+    </div> -->
+</div>
