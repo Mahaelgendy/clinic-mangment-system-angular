@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
   { path:'doctors', loadChildren:()=>import("./Components/doctor/doctor.module").then(a=>a.DoctorModule)},
+  { path:'invoice', loadChildren:()=>import("./Components/invoice/invoice.module").then(a=>a.InvoiceModule)},
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: UserLoginComponent },
   { path: 'logout', component: LogOutComponent },

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -51,6 +51,16 @@ export class EmployeeService {
       );
   }
 
+  getEmployeeByName(name:string):Observable<Employee>{
+    const fullName = new HttpParams().set('fullName', name);
+    return this.httpClient
+      .get<Employee>(`${environment.apiUrl}/employees/fullName/:${fullName}`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+  
   deleteById(id:number){
     return this.httpClient
     .delete<Employee>(`${environment.apiUrl}/employees/${id}`,this.httpOption)

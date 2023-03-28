@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/Models/address';
 import { Doctors } from 'src/app/Models/doctors';
 import { Role } from 'src/app/Models/Enums';
 import { User } from 'src/app/Models/user';
 import { DoctorsService } from 'src/app/Services/doctors.service';
+import { AlertComponent } from '../alert/alert.component';
+
 
 @Component({
   selector: 'app-doctor-add',
@@ -22,7 +25,7 @@ export class DoctorAddComponent {
   ];
 
 
-  constructor(public doctorService:DoctorsService, public router: Router){
+  constructor(public doctorService:DoctorsService, public router: Router, public dialog: MatDialog){
 
     this.count = 0;
     this.doctorForm = new FormGroup({
@@ -62,9 +65,13 @@ export class DoctorAddComponent {
       );
 
       const doctor = new Doctors(user, this.doctorForm.value.specialization, this.doctorForm.value.price);
-      this.doctorService.addDoctor(doctor).subscribe(result => {
-          console.log("From subscribe");
 
+      const dialogRef = this.dialog.open(AlertComponent, {
+        width: '300px',
+        data: 'Doctor Added Successfully'
+      });
+
+      this.doctorService.addDoctor(doctor).subscribe(result => {
 
           this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
           this.router.navigate(['/doctors']);

@@ -1,0 +1,33 @@
+
+<form>
+  <mat-form-field appearance="fill">
+    <mat-label>Select Doctor</mat-label>
+    <input matInput placeholder="Search for doctor" [formControl]="searchInput" [(ngModel)]="searchText">
+    <mat-select [formControl]="selectedOption">
+      <mat-option *ngFor="let doctor of doctorList | filter: searchText" [value]="doctor?._id">
+        {{ doctor.userData?.fullName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput [formControl]="patientSearch" [errorStateMatcher]="matcher">
+    <button mat-icon-button matSuffix (click)="search()" [disabled]="patientSearch.invalid">
+      <mat-icon>search</mat-icon>
+    </button>
+    <div>
+      <mat-error *ngIf="patientSearch.invalid && (patientSearch.dirty || patientSearch.touched)">Invalid Patient Name</mat-error>
+    </div>
+
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [value]="today" placeholder="Today's Date" disabled>
+  </mat-form-field>
+  
+
+  <mat-form-field>
+    <input matInput [value]="time" placeholder="Current Time" disabled>
+  </mat-form-field>
+</form>
