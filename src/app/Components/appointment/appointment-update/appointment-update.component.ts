@@ -13,7 +13,7 @@ import {ScheduleService} from '../../../Services/schedule.service';
 import{EmployeeService} from '../../../Services/employee.service';
 import { Appointment } from '../../../Models/appointment';
 import { Schedules } from '../../../Models/schedules';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-update',
@@ -21,7 +21,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./appointment-update.component.css']
 })
 export class AppointmentUpdateComponent {
-  
+
+  appointment!:Appointment;
+  appointmentId:number =0;
+
   clinics: ClinicModels[] =[];
   patients : Patients[] =[];
   doctors : Doctors[] =[];
@@ -31,7 +34,9 @@ export class AppointmentUpdateComponent {
   dates : string[]=[];
   reservedAppointment : Appointment[]= [];
   selectedDate: string = "";
-  SelectedDoctor: number = 0;
+  SelectedDoctor: number  = 0 ;
+  SelectedClinicId: number = 0;
+  appointmentTime : string = "";
   appointmentStatus = Object.values(AppointmentStatus);
   reserMethod = Object.values(ReservationMethod);
 
@@ -48,13 +53,13 @@ export class AppointmentUpdateComponent {
 
   constructor(public appointmentService: AppointmentService,public clinicService:ClinicService ,public patientService: PatientsService,
      public doctorService: DoctorsService, public employeeService:EmployeeService,
-      public scheduleService: ScheduleService,private fb: FormBuilder,private router: Router)
+      public scheduleService: ScheduleService,private fb: FormBuilder,private router: Router, private activatedRoute:ActivatedRoute)
   {
     this.appointmentForm = this.fb.group({
-      clinics: ['', Validators.required],
-      patients: ['', Validators.required],
-      doctors: ['', Validators.required],
-      employees: ['', Validators.required],
+      clinics: [{value: '', disabled: true}, Validators.required,],
+      patients: [{value: '', disabled: true}, Validators.required],
+      doctors: [{value: '', disabled: true}, Validators.required],
+      employees: [{value: '', disabled: true}],
       date: ['', Validators.required],
       from: ['', Validators.required],
       status: ['', Validators.required],
@@ -76,6 +81,28 @@ export class AppointmentUpdateComponent {
     this.employeeService.getAllEmployees().subscribe(data=>{
       this.employees = data;
     })
+    this.activatedRoute.params.subscribe((a)=>{
+      this.appointmentId = a['id'];
+      this.appointmentService.getAppointmentById(a['id']).subscribe(data=>{
+        console.log(data)
+        this.appointment = data;
+        console.log(this.appointment)
+        this.getSchedule(this.appointment.doctor_id?._id);
+          
+
+        this.appointmentForm.setValue({
+          clinics: data.clinic_id.clinicName || '',
+          patients: data.patient_id?.patientData?.fullName || '',
+          doctors: data.doctor_id?.userData?.fullName || '',
+          employees :data.employee_id?.employeeData?.fullName || '',
+          date: data.date,
+          from : data.from || '',
+          status : data.status.toString() || '',
+          reserMethod: data.reservation_method?.toString() || ''
+        });
+
+      })
+    })
   }
 
   onSubmit() {
@@ -83,12 +110,13 @@ export class AppointmentUpdateComponent {
       return;
     }
     else{
-      console.log(this.appointmentForm.value);
       const appointment =  Appointment.fromFormValues(this.appointmentForm.value);
+      appointment._id = this.appointment._id;
+
       console.log(appointment)
-      this.appointmentService.add(appointment).subscribe(
+      this.appointmentService.edit(appointment).subscribe(
         (response) => {
-          console.log('Added appointment:', response);
+          console.log('updated appointment:', response);
         },
         (error) => {
           console.error('Error adding appointment:', error);
@@ -108,26 +136,40 @@ export class AppointmentUpdateComponent {
   }
   onSelectDateChange() {
     this.from=[];
-    var selectedSchedule = this.schedules.find(x=>x.date == this.selectedDate);
-    this.appointmentService.getbyQueryString(`date=${this.selectedDate}`).subscribe(
+    this.getSceduleTimes(this.selectedDate);
+  }
+  private getSceduleTimes(date:string) {
+    var selectedSchedule = this.schedules.find(x => x.date == date);
+    this.appointmentService.getbyQueryString(`date=${date}`).subscribe(
       appoinments => {
-        this.reservedAppointment =appoinments;
-        console.log(this.reservedAppointment);
-        this.from= this.getTimeRange(selectedSchedule?.from, selectedSchedule?.to, selectedSchedule?.duration_in_minutes);
+        this.reservedAppointment = appoinments;
+        this.from = this.getTimeRange(selectedSchedule?.from, selectedSchedule?.to, selectedSchedule?.duration_in_minutes);
+        
+        if(this.isString(this.SelectedDoctor) || this.appointment.doctor_id?._id == this.SelectedDoctor){
+          const now = new Date(this.appointment.from);
+          this.appointmentTime = now.toLocaleTimeString("en-US", { hour12: false });
+          this.from.push(this.appointmentTime);
+        }
       });
   }
+
   onSelectDoctorChange(){
     this.dates=[];
     this.from=[];
-    this.scheduleService.getbyQueryString(`clinicId=1&doctorId=${this.SelectedDoctor}`).subscribe(
+    this.appointmentTime="";
+    this.getSchedule(this.SelectedDoctor);
+  }
+  
+  private getSchedule(docotrId:number | undefined) {
+    this.scheduleService.getbyQueryString(`clinicId=1&doctorId=${docotrId}`).subscribe(
       schedules => {
-        this.schedules =schedules;
-        console.log(this.schedules);
+        this.schedules = schedules;
         this.getDates();
+        this.getSceduleTimes(this.appointment.date);
       }
     );
   }
-  
+
   getTimeRange(start: any, end: any, selectedDuration: any): string[] {
     const startTime = new Date(start);
     const endTime = new Date(end);
@@ -135,7 +177,7 @@ export class AppointmentUpdateComponent {
     const times: string[] = [];
     let isReserved=false;
 
-    for (let i = 0; i <= timeDiff; i += selectedDuration * 60 * 1000) {
+    for (let i = 0; i <= timeDiff -selectedDuration * 60 * 1000 ; i += selectedDuration * 60 * 1000) {
       const currentTime = new Date(startTime.getTime() + i);
           
       for(let j =0 ; j < this.reservedAppointment.length ; j++){

@@ -57,6 +57,7 @@ export class AppointmentService {
       );
   }
   edit(appointment:Appointment){
+    console.log(appointment._id)
     return this.httpClient
       .patch<Appointment>(`${environment.apiUrl}/appointments/${appointment._id}`,JSON.stringify(appointment),this.httpOption)
       .pipe(

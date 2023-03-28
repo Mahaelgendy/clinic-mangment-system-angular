@@ -134,7 +134,7 @@ export class AppointmentAddComponent {
     const times: string[] = [];
     let isReserved=false;
 
-    for (let i = 0; i <= timeDiff; i += selectedDuration * 60 * 1000) {
+    for (let i = 0; i <= timeDiff -selectedDuration * 60 * 1000 ; i += selectedDuration * 60 * 1000) {
       const currentTime = new Date(startTime.getTime() + i);
           
       for(let j =0 ; j < this.reservedAppointment.length ; j++){
