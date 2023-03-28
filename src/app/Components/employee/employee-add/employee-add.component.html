@@ -1,1 +1,101 @@
-<p>employee-add works!</p>
+
+<h2>Add Employee</h2>
+
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit(employeeForm)" class="example-form">
+  <mat-form-field class="input">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="fullName" required >
+    <mat-error *ngIf="employeeForm.get('fullName')?.hasError('required')">Full name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" required>
+    <mat-error *ngIf="employeeForm.get('password')?.hasError('required')">Password is required</mat-error>
+    <mat-error *ngIf="employeeForm.get('password')?.hasError('minlength')">Password must be at least 6 characters long</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" required>
+    <mat-error *ngIf="employeeForm.get('email')?.hasError('required')">Email is required</mat-error>
+    <mat-error *ngIf="employeeForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Age</mat-label>
+    <input matInput type="number" formControlName="age" required min="0">
+    <mat-error *ngIf="employeeForm.get('age')?.hasError('required')">Age is required</mat-error>
+    <mat-error *ngIf="employeeForm.get('age')?.hasError('min')">At least 1 year</mat-error>
+    <mat-error *ngIf="employeeForm.get('age')?.hasError('max')">At most 120</mat-error>
+  </mat-form-field>
+
+  <div class="address">
+    <fieldset formGroupName="address">
+      <mat-form-field  >
+        <mat-label >City</mat-label>
+        <input type="text" matInput formControlName="city" [ngClass]="{error:getControl('address.city')?.errors&&getControl('address.city')?.touched}">
+      </mat-form-field>
+
+      <mat-form-field class="mx-2">
+        <mat-label>Street</mat-label>
+        <input type="text" matInput formControlName="street" [ngClass]="{error:getControl('address.street')?.errors&&getControl('address.street')?.touched}">
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>building</mat-label>
+        <input type='number' min="1" matInput formControlName="building" [ngClass]="{error:getControl('address.building')?.errors&&getControl('address.building')?.touched}">
+      </mat-form-field>
+
+      <div *ngIf="getControl('address.city')?.errors && getControl('address.city')?.touched">
+        <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['required']"> Please Enter your city </small>
+        <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['maxlength']">only 10 characters are allowed</small>
+        <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['minlength']"> min charachters are 4 </small>
+      </div>
+      <div *ngIf="getControl('address.street')?.errors && getControl('address.street')?.touched">
+        <small class="text-danger" *ngIf="getControl('address.street')?.errors?.['required']"> Please Enter your street </small>
+        <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['maxlength']">only 10 characters are allowed</small>
+        <small class="text-danger" *ngIf="getControl('address.city')?.errors?.['minlength']"> min charachters are 4 </small>
+      </div>
+    </fieldset>
+  </div>
+
+  <mat-radio-group formControlName="gender" aria-label="Select an option">
+    <mat-radio-button value="Male">Male</mat-radio-button>
+    <mat-radio-button value="Female">Female</mat-radio-button>
+  </mat-radio-group>
+
+
+  <mat-form-field class="input">
+    <mat-label>Clinic Id</mat-label>
+    <input matInput type="number" formControlName="clinicId" required>
+    <mat-error *ngIf="employeeForm.get('clinicId')?.hasError('required')">Price is required</mat-error>
+    <mat-error *ngIf="employeeForm.get('clinicId')?.hasError('min')">Clinic Id must be a positive number</mat-error>
+  </mat-form-field>
+  
+  <mat-form-field class="input">
+    <mat-label>Salary</mat-label>
+    <input matInput type="number" formControlName="salary" required>
+    <mat-error *ngIf="employeeForm.get('salary')?.hasError('required')">Price is required</mat-error>
+    <mat-error *ngIf="employeeForm.get('salary')?.hasError('min')">Min salary is 2000</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone" required>
+    <mat-error *ngIf="employeeForm.get('phone')?.hasError('required')">Phone is required</mat-error>
+  </mat-form-field>
+
+  <mat-radio-group formControlName="position" aria-label="Select an option">
+    <mat-radio-button value="receptionist">Receptionist</mat-radio-button>
+    <mat-radio-button value="assistant">Assistant</mat-radio-button>
+  </mat-radio-group>
+
+  <!-- <div class="form-group" >
+    <label for="file">Choose File</label>
+    <input type="file" (change)="onFileSelected($event)">
+  </div> -->
+  <div>
+    <button mat-raised-button color="primary">Add</button>
+  </div>
+</form>

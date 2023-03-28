@@ -1,4 +1,8 @@
-<h2>All Employees Data</h2>
+<div>
+    <h2>All Employees Data</h2>
+    <a class="btn btn-primary" role="button" routerLink="/employees/add" >Add Employee</a>
+
+</div>
 <table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);" >
     <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
         <tr>
@@ -26,7 +30,7 @@
         
             <td> <a class="btn btn-success" role="button"[routerLink]="[employee._id]" >Details</a></td>
             <td> <a class="btn btn-primary" role="button">Edit</a></td>
-            <td> <a class="btn btn-danger" role="button">Delete</a></td>
+            <td> <a class="btn btn-danger" role="button" (click)="deleteDialog(employee._id)">Delete</a></td>
         </tr>
     </tbody>
 </table>

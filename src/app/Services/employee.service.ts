@@ -69,7 +69,8 @@ export class EmployeeService {
       );
   }
 
-  add(employee:Employee){
+  add(employee:Employee):Observable <Employee>
+  {
     return this.httpClient
     .post<Employee>(`${environment.apiUrl}/employees`,JSON.stringify(employee),this.httpOption)
     .pipe(
