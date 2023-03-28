@@ -1,69 +1,92 @@
+<div class="text-center bg-light mb-5 ">
+    <h1>Book an Appointment</h1>
+</div>
 <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
     <div class="row">
-        <div class="form-group col-6" >
-            <label for="clinics" class="form-label">Clinic</label>
-            <select class="form-select" formControlName="clinics">
-                <option *ngFor="let clinic of clinics" [value]="clinic._id">{{ clinic.clinicName }}</option>
+        <div class="form-group col-6">
+            <label for="clinics" class="form-label h6">Clinic</label>
+            <select class="form-select" formControlName="clinics" ngDefaultControl>
+              <option *ngFor="let clinic of clinics" [value]="clinic._id">{{ clinic.clinicName }}</option>
             </select>
-        </div>
+            <div *ngIf="appointmentForm.get('clinics')?.invalid && (appointmentForm.get('clinics')?.touched || appointmentForm.get('clinics')?.dirty)" class="invalid-feedback" style="display: block;">
+              <div *ngIf="appointmentForm.get('clinics')?.errors?.['required']">Clinic is required.</div>
+            </div>
+          </div>
+          
         <div class="form-group col-6" >
-            <label for="patients" class="form-label">Patient</label>
+            <label for="patients" class="form-label h6">Patient</label>
             <select class="form-select" formControlName="patients">
                 <option *ngFor="let patient of patients" [value]="patient._id">{{ patient.patientData.fullName }}</option>
             </select>
+            <div *ngIf="appointmentForm.get('patients')?.invalid && (appointmentForm.get('patients')?.touched || appointmentForm.get('patients')?.dirty)" class="invalid-feedback" style="display: block;">
+                <div *ngIf="appointmentForm.get('patients')?.errors?.['required']">Patient is required.</div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-6" >
-            <label for="doctors" class="form-label">Doctor</label>
-            <select class="form-select" formControlName="doctors">
+            <label for="doctors" class="form-label h6">Doctor</label>
+            <select class="form-select" formControlName="doctors"  (change)="onSelectDoctorChange()"[(ngModel)]="SelectedDoctor">
                 <option *ngFor="let doctor of doctors" [value]="doctor._id">{{ doctor.userData?.fullName }}</option>
             </select>
+            <div *ngIf="appointmentForm.get('doctors')?.invalid && (appointmentForm.get('doctors')?.touched || appointmentForm.get('doctors')?.dirty)" class="invalid-feedback" style="display: block;">
+                <div *ngIf="appointmentForm.get('doctors')?.errors?.['required']">Doctor is required.</div>
+            </div>
         </div>
         <div class="form-group col-6" >
-            <label for="employees" class="form-label">Employee</label>
+            <label for="employees" class="form-label h6">Employee</label>
             <select class="form-select" formControlName="employees">
                 <option *ngFor="let employee of employees" [value]="employee._id">{{ employee.employeeData.fullName }}</option>
             </select>
+            <div *ngIf="appointmentForm.get('employees')?.invalid && (appointmentForm.get('employees')?.touched || appointmentForm.get('employees')?.dirty)" class="invalid-feedback" style="display: block;">
+                <div *ngIf="appointmentForm.get('employees')?.errors?.['required']">Employee is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6" >
+            <label for="clinics" class="form-label h6">Dates</label>
+            <select class="form-select" formControlName="date"  (change)="onSelectDateChange()" [(ngModel)]="selectedDate"s>
+                <option *ngFor="let date of dates" [value]="date">{{ date }}</option>
+            </select>
+            <div *ngIf="appointmentForm.get('date')?.invalid && (appointmentForm.get('date')?.touched || appointmentForm.get('date')?.dirty)" class="invalid-feedback" style="display: block;">
+                <div *ngIf="appointmentForm.get('date')?.errors?.['required']">Date is required.</div>
+            </div>
+        </div>
+        <div class="form-group col-6" >
+            <label for="from" class="form-label h6">Time</label>
+            <select class="form-select" formControlName="from">
+                <option *ngFor="let time of from" [value]="time">{{ time }}</option>
+            </select>
+            <div *ngIf="appointmentForm.get('from')?.invalid && (appointmentForm.get('from')?.touched || appointmentForm.get('from')?.dirty)" class="invalid-feedback" style="display: block;">
+                <div *ngIf="appointmentForm.get('from')?.errors?.['required']">Time is required.</div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-6">
-            <label for="date" class="form-label">Date</label>
-            <input type="date" name="date" class="form-control" formControlName="date">
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-6">
-            <label for="from" class="form-label">From</label>
-            <input type="time" name="from" class="form-control" formControlName="from">
-        </div>
-        <div class="form-group col-6">
-            <label for="from" class="form-label">To</label>
-            <input type="time" name="to" class="form-control" formControlName="to">
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-6">
-            <label for="app-status">Status</label>
+            <label for="app-status" class="h6">Status</label>
             <select class="form-select" formControlName="status">
                 <ng-container *ngFor="let option of appointmentStatus">
                     <option  *ngIf="isString(option)" [value]="option">{{ option }}</option>
                 </ng-container>
             </select>
+            <div *ngIf="appointmentForm.get('status')?.invalid && (appointmentForm.get('status')?.touched || appointmentForm.get('status')?.dirty)" class="invalid-feedback" style="display: block;">
+                <div *ngIf="appointmentForm.get('status')?.errors?.['required']">Status is required.</div>
+            </div>
         </div>
         
         <div class="form-group col-6">
-            <label for="reserve-method">Reservation Method</label>
+            <label for="reserve-method" class="h6">Reservation Method</label>
             <select class="form-select"  formControlName="reserMethod">
                 <ng-container *ngFor="let option of reserMethod">
                     <option *ngIf="isString(option)" [value]="option">{{ option }}</option>
                 </ng-container>
             </select>
+            <div *ngIf="appointmentForm.get('reserMethod')?.invalid && (appointmentForm.get('reserMethod')?.touched || appointmentForm.get('reserMethod')?.dirty)" class="invalid-feedback" style="display: block;">
+                <div *ngIf="appointmentForm.get('reserMethod')?.errors?.['required']">ReserMethod is required.</div>
+            </div>
         </div>
       </div>
-
-
-
     <button type="submit" [disabled]="!appointmentForm.valid" class="btn btn-primary mt-3">Submit</button>
   </form>

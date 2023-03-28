@@ -8,7 +8,7 @@ import { Patients } from "./patients";
 export class Appointment {
     constructor(
         public _id:number,
-        public clinic_id:ClinicModels | null,
+        public clinic_id:ClinicModels ,
         public patient_id:Patients | null,
         public doctor_id:Doctors | null,
         public employee_id:Employee | null,

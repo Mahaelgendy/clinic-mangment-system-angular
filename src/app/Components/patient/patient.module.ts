@@ -7,14 +7,16 @@ import { PatientProfileComponent } from '../patient-profile/patient-profile.comp
 import { UpdatePatientComponent } from './update-patient/update-patient.component';
 import { PatientAddComponent } from './patient-add/patient-add.component'
 import {MaterialModule} from 'src/material.module';
-import { AlertComponent } from './alert/alert.component'
+import { AlertComponent } from './alert/alert.component';
+import { PaienttSidebarComponent } from './paientt-sidebar/paientt-sidebar.component'
 @NgModule({
   declarations: [
     PatientDetailsComponent,
     PatientProfileComponent,
     UpdatePatientComponent,
     PatientAddComponent,
-    AlertComponent
+    AlertComponent,
+    PaienttSidebarComponent
   ],
   imports: [
     CommonModule,

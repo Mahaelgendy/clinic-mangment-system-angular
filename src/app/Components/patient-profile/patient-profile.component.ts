@@ -1,3 +1,4 @@
+import { leadingComment } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Route } from '@angular/router';
 import { Patients } from 'src/app/Models/patients';
@@ -9,28 +10,28 @@ import { PrescriptionService } from 'src/app/Services/prescription.service';
   templateUrl: './patient-profile.component.html',
   styleUrls: ['./patient-profile.component.css']
 })
-export class PatientProfileComponent implements OnInit {
+export class PatientProfileComponent {
 
-  public PatientId!: number;
-  patientFullData!: Patients;
+  public PatientId?: number = -1;
+  patientFullData?: Patients;
   constructor(public patientServices : PatientsService,
               public prescriptionservices : PrescriptionService,
-              private route: ActivatedRoute){
-                this.route.params.subscribe((params: Params) => {
-                  this.PatientId = params['id'];
+               private route: ActivatedRoute){
+              this.route.params.subscribe((params: Params) => {
+                this.PatientId = params['id'];
                });
+          
+              this.patientServices.getPatientByID(this.PatientId).subscribe(patient =>{
+                {
+                  if(patient != null && patient.patientData != null ){
+                    this.patientFullData = patient;
+                  }
+                  else{
+                    alert("lmdm")
+                  }
+                }
+              })
    }
-  ngOnInit(): void {
 
-    this.patientServices.getPatientByID(this.PatientId).subscribe(patient =>{
-      {
-        if(patient.patientData != null){
-          this.patientFullData = patient;
-          console.log(patient);
-        }
-      }
-    })
-  }
-   
    
 }
