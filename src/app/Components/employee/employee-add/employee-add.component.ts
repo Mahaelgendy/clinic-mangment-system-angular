@@ -31,9 +31,9 @@ export class EmployeeAddComponent {
       age:this.builder.control(' ',Validators.compose([Validators.required,Validators.min(1),Validators.max(100)])),
       role:this.builder.control('employee'),
       address:this.builder.group({
-        city:['',Validators.required,Validators.maxLength(20),Validators.minLength(4)],
-        street:['',Validators.required,Validators.maxLength(20),Validators.minLength(4)],
-        building:['' ,Validators.min(1)]
+        city:(''),
+        street:(''),
+        building:(null)
       }),
       image: this.builder.control(this.imagePath),
       clinicId:this.builder.control(' ',Validators.min(1)),
