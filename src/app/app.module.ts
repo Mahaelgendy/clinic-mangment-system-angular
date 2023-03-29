@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/material.module';
 import { ConfirmDeleteDialogComponent } from './Components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { AuthIntercepentorService } from './Services/auth-intercepentor.service';
+import { LandingPagesModule } from './landing-pages/landing-pages.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AuthIntercepentorService } from './Services/auth-intercepentor.service'
     BrowserAnimationsModule,
     // ToastrModule.forRoot()
     CoreModule,
-    MaterialModule
+    MaterialModule,
+    LandingPagesModule
   ],
   providers: [
     {
