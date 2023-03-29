@@ -8,6 +8,8 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 import { MaterialModule } from 'src/material.module';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
+import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     EmployeeDetailsComponent,
     EmployeeListComponent,
     EmployeeUpdateComponent,
+    EmployeeProfileComponent,
+    EmployeeHomeComponent,
   ],
   imports: [
     CommonModule,
