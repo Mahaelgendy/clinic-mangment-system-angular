@@ -8,6 +8,7 @@ import {DoctorAddComponent} from './doctor-add/doctor-add.component';
 const routes: Routes = [
   {path:"" , component:DoctorListComponent},
   {path:"details/:id" , component:DoctorHomeComponent},
+  {path:"profile/:id" , component:DoctorHomeComponent},
   {path:"edit/:id", component:DoctorEditComponent},
   {path:"add" , component:DoctorAddComponent}
 ];

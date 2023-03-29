@@ -23,6 +23,7 @@ export class PatientDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.patientServices.getPatientByID(this.patientId).subscribe(data =>
     {
+      console.log(data);
       this.patient = data;
     }
     )
