@@ -237,7 +237,7 @@ export class InvoiceAddComponent{
     this.employeeService.getEmployeeById(3).subscribe(emp=>{
       console.log("From emp subs");
       this.targetemployee = emp;
-      this.employee_id = this.targetemployee._id;
+      this.employee_id = this.targetemployee._id??-1;
       console.log(this.targetemployee)
 
       this.getTargetClinic();
