@@ -57,6 +57,7 @@ export class AppointmentService {
       );
   }
   edit(appointment:Appointment){
+    console.log(appointment._id)
     return this.httpClient
       .patch<Appointment>(`${environment.apiUrl}/appointments/${appointment._id}`,JSON.stringify(appointment),this.httpOption)
       .pipe(
@@ -65,6 +66,15 @@ export class AppointmentService {
       );
   }
 
+  getbyQueryString(queryParam: string){
+    const url = `${environment.apiUrl}/appointments?${queryParam}`;
+    return this.httpClient
+      .get<Appointment[]>(url, this.httpOption)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
   add(appointment:Appointment){
     return this.httpClient
     .post<Appointment>(`${environment.apiUrl}/appointments`,JSON.stringify(appointment),this.httpOption)
