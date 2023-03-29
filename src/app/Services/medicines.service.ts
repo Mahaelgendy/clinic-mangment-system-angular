@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -45,6 +45,16 @@ export class MedicinesService {
       retry(2),
       catchError(this.handleError)
     )
+  }
+  getMedicineByspeciality(speciality: String):Observable<Medicines[]>{
+    const params = new HttpParams().set('speciality', speciality.toString());
+
+    return this.httpClinet
+    .get<Medicines[]>(`${environment.apiUrl}/medicines`,{params})
+    .pipe(
+      retry(2),
+      catchError(this.handleError)
+      );
   }
 
   addMedicines(medicine :Medicines): Observable<Medicines>{

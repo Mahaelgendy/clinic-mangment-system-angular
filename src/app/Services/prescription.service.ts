@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -37,16 +37,17 @@ export class PrescriptionService {
         catchError(this.handleError)
       )
   }
-
-  getPrescriptionById(id:number): Observable<Prescription>{
+  getPrescriptionById(prescriptionId:number |undefined): Observable<Prescription>{
+    if(prescriptionId == undefined ) prescriptionId ==-1;
     return this.httpClinet
-    .get<Prescription>(`${environment.apiUrl}/prescriptions/${id}`)
+    .get<Prescription>(`${environment.apiUrl}/prescriptions/${prescriptionId}`)
     .pipe(
       retry(2),
       catchError(this.handleError)
     )
   }
 
+  
   addPrescription(prescription :Prescription): Observable<Prescription>{
     return this.httpClinet
     .post<Prescription>(`${environment.apiUrl}/prescriptions`,JSON.stringify(prescription),this.httpOption)
@@ -56,9 +57,10 @@ export class PrescriptionService {
     )
   }
 
-  updatePrescription(id:number , updatedPrescription:Prescription){
+  updatePrescription(id:number |undefined , updatedPrescription:Prescription){
+    if(id == undefined ) id =-1;
     return this.httpClinet
-    .put<Prescription>(`${environment.apiUrl}/prescriptions`,JSON.stringify(updatedPrescription),this.httpOption)
+    .patch<Prescription>(`${environment.apiUrl}/prescriptions/${id}`,JSON.stringify(updatedPrescription),this.httpOption)
     .pipe(
       retry(2),
       catchError(this.handleError)
@@ -66,6 +68,7 @@ export class PrescriptionService {
   }
 
   deletePrescriptionByID(id:number){
+    if(id == undefined) id =-1;
     return this.httpClinet
     .delete<Prescription>(`${environment.apiUrl}/prescriptions/${id}`)
     .pipe(

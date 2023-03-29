@@ -20,9 +20,9 @@ const routes: Routes = [
   { path: 'logout', component: LogOutComponent },
   { path: "clinics", loadChildren: () => import("./Components/Clinic/clinic.module").then(m => m.ClinicModule) },
   // {path:"services",loadChildren: () => import("./service/service.module").then(m => m.ServiceModule)}
-
   {path :"patients", loadChildren:() => import("./Components/patient/patient.module").then(m => m.PatientModule)},
   { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
+  {path : "prescriptions", loadChildren:() => import("./Components/prescription/prescription.module").then(m =>m.PrescriptionModule)},     
   { path: '**', component: NotFoundComponent }
 ];
 
