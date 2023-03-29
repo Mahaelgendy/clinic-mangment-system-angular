@@ -1,0 +1,60 @@
+
+<div class="card d-flex justify-content-center">
+  <h1 class="title">Add Schedule</h1>
+  <form [formGroup] ="schecduleForm" >
+
+
+    <div class="m-3">
+      <label for="doc_id" class="form-label h6 mt-3">Doctor</label>
+      <select class="form-select" aria-label=" select doctor name" formControlName="doc_id" [ngClass]="{error:getControl('doc_id')?.errors&&getControl('doc_id')?.touched}">
+        <option *ngFor="let doctor of allDoctors" [value]="doctor._id">{{doctor.userData?.fullName}}</option>
+      </select>
+      <div *ngIf="getControl('doc_id')?.errors && getControl('doc_id')?.touched">
+        <small class="text-danger" *ngIf="getControl('doc_id')?.errors?.['required']"> Please select doctor </small>
+      </div>
+    </div>
+    
+    <div class="m-3">
+      <select class="form-select" aria-label=" select clinic name" formControlName="clinic_id" [ngClass]="{error:getControl('clinic_id')?.errors&&getControl('clinic_id')?.touched}">
+        <option *ngFor="let clinic of allClinic" [value]="clinic._id">{{clinic.clinicName}}</option>
+      </select>
+      <div *ngIf="getControl('clinic_id')?.errors && getControl('clinic_id')?.touched">
+        <small class="text-danger" *ngIf="getControl('doc_id')?.errors?.['required']"> Please select clinic </small>
+      </div>
+    </div>
+      <div class="m-3">
+      <label for="date" class="form-label">Date </label>
+      <input type="text" class="form-control" id="date" aria-describedby="emailHelp" formControlName = "date" [ngClass]="{error:getControl('date')?.errors&&getControl('date')?.touched}" >
+      <div *ngIf="getControl('date')?.errors && getControl('date')?.touched">
+        <small class="text-danger" *ngIf="getControl('date')?.errors?.['required']"> Please Enter valid Date </small>
+        <small class="text-danger" *ngIf="getControl('date')?.errors?.['pattern']"> please enter a valid formate</small>
+      </div>
+    </div>
+    <div class="m-3">
+      <label for="from" class="form-label">From</label>
+      <input type="text" class="form-control" id="from" aria-describedby="emailHelp" formControlName = "from" [ngClass]="{error:getControl('from')?.errors&&getControl('from')?.touched}" >
+      <div *ngIf="getControl('from')?.errors && getControl('from')?.touched">
+        <small class="text-danger" *ngIf="getControl('from')?.errors?.['required']"> Please Enter valid time</small>
+        <small class="text-danger" *ngIf="getControl('from')?.errors?.['pattern']"> please enter a valid formate</small>
+      </div>
+    </div>
+    <div class="m-3">
+      <label for="to" class="form-label">To</label>
+      <input type="text" class="form-control" id="to" aria-describedby="emailHelp" formControlName = "to" [ngClass]="{error:getControl('to')?.errors&&getControl('to')?.touched}" >
+      <div *ngIf="getControl('to')?.errors && getControl('to')?.touched">
+        <small class="text-danger" *ngIf="getControl('to')?.errors?.['required']"> Please Enter valid time</small>
+        <small class="text-danger" *ngIf="getControl('to')?.errors?.['pattern']"> please enter a valid formate</small>
+      </div>
+    </div>
+
+    <div class="mb-3 m-3">
+      <label for="duration" class="form-label">Duration</label>
+      <input type="number" class="form-control" id="duration" formControlName="duration_in_minutes" [ngClass]="{error:getControl('froduration_in_minutesm')?.errors&&getControl('duration_in_minutes')?.touched}">
+      <div *ngIf="getControl('duration_in_minutes')?.errors && getControl('duration_in_minutes')?.touched">
+        <small class="text-danger" *ngIf="getControl('duration_in_minutes')?.errors?.['required']"> Please Enter valid date </small>
+      </div>
+    </div>
+  
+    <button type="submit" class="btn btn-primary text-center w-100 my-3" (click)="submit()">Add</button>
+  </form>
+</div>
