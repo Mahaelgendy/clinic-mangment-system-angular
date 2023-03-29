@@ -1,1 +1,27 @@
-<p>employee-profile works!</p>
+<main id="main" class="main">
+    <section class="section profile">
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="row col-9">
+          <app-employee-profile></app-employee-profile>
+        </div>
+      </div>
+    </section>
+</main>
+<div class="w-100" >
+    <mat-card class="employee-card">
+      <div class="employee-card-image">
+        <img src="assets/profile-img.jpg" alt="employee Image">
+      </div>
+      <div class="employee-card-content">
+        <mat-card-header>
+          <mat-card-title class="mb-3 fs-2">{{employeeFullData?.employeeData?.fullName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="fs-6"><strong>Email:</strong> {{employeeFullData?.employeeData?.email}}</p>
+          <p class="fs-6"><strong>Salary:</strong> {{employeeFullData?.salary}}</p>
+          <p class="fs-6"><strong>Address:</strong> {{employeeFullData?.employeeData?.address?.city}} , {{employeeFullData?.employeeData?.address?.street}}, {{employeeFullData?.employeeData?.address?.building}}</p>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div>

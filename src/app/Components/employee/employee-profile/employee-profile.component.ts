@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Employee } from 'src/app/Models/employee';
+import { EmployeeService } from 'src/app/Services/employee.service';
 
 @Component({
   selector: 'app-employee-profile',
@@ -6,5 +9,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./employee-profile.component.css']
 })
 export class EmployeeProfileComponent {
+
+  public employeeId: number =-1;
+  employeeFullData? : Employee;
+  employeeData?: Employee;
+  constructor (public employeeService:EmployeeService,
+              public activatedRoute:ActivatedRoute){
+                this.activatedRoute.params.subscribe((params:Params)=>{
+                  this.employeeId= params ['id'];
+                });
+                this.employeeService.getEmployeeById(this.employeeId).subscribe(employee=>{
+                  if(employee !=null && employee.employeeData!=null){
+                    this.employeeFullData= employee;
+                  }
+                 
+                })
+              }
 
 }
