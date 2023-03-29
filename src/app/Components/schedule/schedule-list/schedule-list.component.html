@@ -1,8 +1,8 @@
 <a routerLink="/schedules/add" class="btn btn-primary" >Add Clinic </a>
 
 <div class="table-responsive mt-3">
-  <table class="table table  text-center">
-    <thead class="bg-info">
+  <table  class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);">
+    <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Doctor Name</th>
@@ -12,7 +12,7 @@
         <th scope="col">to </th>
         <th scope="col">Duration</th>
         <th scope="col">Update</th>
-        <th scope="col">delete</th>
+        <!-- <th scope="col">delete</th> -->
       </tr>
     </thead>
     <tbody>
@@ -26,12 +26,12 @@
         <td>{{schedule.to| date:'HH:mm:ss'}}</td>
         <td>{{schedule.duration_in_minutes}}</td>
         <td>
-          <a class="btn btn-warning" [routerLink]="['/schedules','update',schedule._id]" (click)="schedule">Update</a>
+          <a class="btn btn-primary" [routerLink]="['/schedules','update',schedule._id]" (click)="schedule">Update</a>
         </td>
-        <td>
+        <!-- <td>
           <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="deleteDialog(schedule._id)">
           Delete</button>
-      </td>
+        </td> -->
       </tr>  
     </tbody>
   </table>
