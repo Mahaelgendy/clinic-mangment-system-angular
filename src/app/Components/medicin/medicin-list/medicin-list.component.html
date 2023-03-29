@@ -10,6 +10,7 @@
           <th scope="col">Speciality</th>
           <th scope="col">Description</th>
           <th scope="col">Update</th>
+          <th scope="col">Details</th>
         </tr>
       </thead>
       <tbody >
@@ -20,6 +21,7 @@
             <td>{{item.speciality}}</td>
             <td>{{item.description}}</td>
             <td><a [routerLink]="['/medicine','edit',item._id]" class="btn btn-warning">Update</a></td>
+            <td><a [routerLink]="['/medicine','details',item._id]" class="btn btn-info">Details</a></td>
         </tr>
       </tbody>
     </table>
