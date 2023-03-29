@@ -1,1 +1,81 @@
-<p>invoice-edit works!</p>
+
+<form [formGroup]="invoiceFrom">
+  <mat-form-field appearance="fill">
+    <mat-label>Select Doctor</mat-label>
+    <input matInput placeholder="Search for doctor" formControlName="doctorInput" [(ngModel)]="searchText">
+    <mat-select formControlName="doctorOption">
+      <mat-option *ngFor="let doctor of doctorList | filter: searchText" [value]="doctor?._id">
+        {{ doctor.userData?.fullName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput [formControl]="patientSearch" [errorStateMatcher]="matcher">
+    <button mat-icon-button matSuffix (click)="search()" [disabled]="patientSearch.invalid">
+      <mat-icon>search</mat-icon>
+    </button>
+    <div>
+      <mat-error *ngIf="patientSearch.invalid && (patientSearch.dirty || patientSearch.touched)">Invalid Patient Name</mat-error>
+    </div>
+
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [value]="todayDate" placeholder="Today's Date" disabled>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput [value]="time" placeholder="Current Time" disabled>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput value="{{targetAppointment?.date}}" placeholder="Appointment" disabled>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput value="{{targetClinic?.clinicName}}" placeholder="Clinic Name" disabled>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select Service</mat-label>
+    <input matInput placeholder="Search for service" [formControl]="serviceInput" [(ngModel)]="serviceSearchText">
+    <mat-select [formControl]="serviceOptions">
+      <mat-option *ngFor="let service of servicesList | filter: serviceSearchText" [value]="service?._id">
+        {{ service.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Payment Method</mat-label>
+    <mat-select [formControl]="paymentMethodFC" required>
+      <mat-option *ngFor="let pMehtod of paymentMethods" [value]="pMehtod">{{pMehtod}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Payment Status</mat-label>
+    <mat-select [formControl]="paymentMethodFC" required>
+      <mat-option *ngFor="let pStatus of paymentStatus" [value]="pStatus">{{pStatus}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+
+  <mat-form-field>
+    <input matInput value="{{targetDoctor?.price}}"placeholder="Total Cost" disabled>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Actual Paid</mat-label>
+    <input matInput type="number" [formControl]="actualPaidFC" required min="0">
+  </mat-form-field>
+
+  <div>
+    <a mat-raised-button color="primary"  (click)="onSubmit()">Add</a>
+  </div>
+
+</form>

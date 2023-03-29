@@ -43,6 +43,7 @@ export class EmployeeService {
   }
 
   getEmployeeById(id:number){
+    console.log(`from emp get by id`)
     return this.httpClient
     .get<Employee>(`${environment.apiUrl}/employees/${id}`,this.httpOption)
     .pipe(
@@ -60,7 +61,7 @@ export class EmployeeService {
         catchError(this.handleError)
       );
   }
-  
+
   deleteById(id:number){
     return this.httpClient
     .delete<Employee>(`${environment.apiUrl}/employees/${id}`,this.httpOption)

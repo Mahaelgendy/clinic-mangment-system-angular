@@ -2,12 +2,12 @@ import { PaymentMethod, PaymentStatus } from "./Enums";
 
 export class Invoice {
   constructor(
-    public doctor_id:any,
-    public patient_id:any,
-    public employee_id:any,
-    public appointment_id:any,
-    public clinic_id:any,
-    public service_id:any,
+    public doctorId:any,
+    public patientId:any,
+    public employeeId:any,
+    public appointmentId:any,
+    public clinicId:any,
+    public serviceId:any,
     public paymentMethod:PaymentMethod,
     public paymentStatus:PaymentStatus,
     public totalCost:number,

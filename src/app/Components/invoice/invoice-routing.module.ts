@@ -7,7 +7,8 @@ import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 const routes: Routes = [
   // {path:'', component:InvoiceListComponent},
   {path:'' , component:InvoiceAddComponent},
-  {path:'edit/:id' , component:InvoiceEditComponent},
+  // {path:'' , component:InvoiceEditComponent},
+  // {path:'edit/:id' , component:InvoiceEditComponent},
 
 ];
 
