@@ -1,0 +1,42 @@
+
+<div class="card border-primary mb-3" style="max-width: 18rem;">
+    <div class="card-body ">
+        <h2 class="card-title text-primary">{{service.name}}</h2>
+        <div class="card-text">
+            <div>
+                <h3 class="d-inline-block">
+                    Cost: 
+                </h3>
+                <span> {{service.salary}}</span>
+            </div>
+            
+            <div>
+                <h3 class="d-inline-block">
+                    Doctor: 
+                </h3>
+                <span> {{service.doctor_id ? service.doctor_id.userData.fullName:""}}</span>
+            </div>
+
+            <div>
+                <h3 class="d-inline-block">
+                    Clinic: 
+                </h3>
+                <span> {{service.clinic_id ? service.clinic_id.clinicName:''}}</span>
+            </div>
+
+        </div>    
+    </div>
+</div>
+
+<a routerLink="/services"class="btn btn-info">Back</a>
+
+
+<!-- <p>service-details works!</p> -->
+
+<!-- 
+<h1 class="alert alert-danger"> {{service._id}},{{service.name}},{{service.salary}}
+
+</h1> 
+
+<a routerLink="/services"class="btn btn-info">Back</a> -->
+
