@@ -5,10 +5,9 @@ import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 
 const routes: Routes = [
-  // {path:'', component:InvoiceListComponent},
-  {path:'' , component:InvoiceAddComponent},
-  // {path:'' , component:InvoiceEditComponent},
-  // {path:'edit/:id' , component:InvoiceEditComponent},
+  {path:'', component:InvoiceListComponent},
+  {path:'add' , component:InvoiceAddComponent},
+  {path:'edit/:id' , component:InvoiceEditComponent},
 
 ];
 

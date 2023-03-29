@@ -1,10 +1,10 @@
 
-<form [formGroup]="invoiceFrom">
+<form>
   <mat-form-field appearance="fill">
     <mat-label>Select Doctor</mat-label>
-    <input matInput placeholder="Search for doctor" formControlName="doctorInput" [(ngModel)]="searchText">
-    <mat-select formControlName="doctorOption">
-      <mat-option *ngFor="let doctor of doctorList | filter: searchText" [value]="doctor?._id">
+    <input matInput placeholder="Search for doctor" [formControl]="doctorInput" [(ngModel)]="doctorText">
+    <mat-select [formControl]="doctorOption">
+      <mat-option *ngFor="let doctor of doctorList | filter: doctorText" [value]="doctor?._id">
         {{ doctor.userData?.fullName }}
       </mat-option>
     </mat-select>
@@ -23,7 +23,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [value]="todayDate" placeholder="Today's Date" disabled>
+    <input matInput [value]="today" placeholder="Today's Date" disabled>
   </mat-form-field>
 
 
@@ -31,9 +31,17 @@
     <input matInput [value]="time" placeholder="Current Time" disabled>
   </mat-form-field>
 
-  <mat-form-field>
-    <input matInput value="{{targetAppointment?.date}}" placeholder="Appointment" disabled>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select Appointment</mat-label>
+    <input matInput placeholder="Search for appointment" [formControl]="appointmentInput" [(ngModel)]="appointmentSearchText">
+    <mat-select [formControl]="appointmentOptions">
+      <mat-option *ngFor="let appointment of appointmentList | filter: appointmentSearchText" [value]="appointment?._id">
+        {{ appointment.date }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
+
 
   <mat-form-field>
     <input matInput value="{{targetClinic?.clinicName}}" placeholder="Clinic Name" disabled>
@@ -58,7 +66,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Payment Status</mat-label>
-    <mat-select [formControl]="paymentMethodFC" required>
+    <mat-select [formControl]="paymentStatusFC" required>
       <mat-option *ngFor="let pStatus of paymentStatus" [value]="pStatus">{{pStatus}}</mat-option>
     </mat-select>
   </mat-form-field>
@@ -66,7 +74,7 @@
 
 
   <mat-form-field>
-    <input matInput value="{{targetDoctor?.price}}"placeholder="Total Cost" disabled>
+    <input matInput value="{{(targetDoctor && targetDoctor.price || 0) + (targetService && targetService.salary || 0)}}"placeholder="Total Cost" disabled>
   </mat-form-field>
 
   <mat-form-field appearance="fill">

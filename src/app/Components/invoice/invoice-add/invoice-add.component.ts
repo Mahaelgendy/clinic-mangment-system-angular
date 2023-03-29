@@ -25,10 +25,11 @@ import { ServiceService } from 'src/app/Services/service.service';
 })
 export class InvoiceAddComponent{
 
-  invoiceFrom!:FormGroup;
   today!:string;
   time!: string;
 
+
+  targetInvoice!:Invoice;
   targetAppointment!:Appointment;
   targetDoctor!:Doctors;
   targetemployee!:Employee;
@@ -47,9 +48,9 @@ export class InvoiceAddComponent{
   servicesList!:Service[];
   appointmentList!:Appointment[];
 
-  selectedOption = new FormControl();
-  searchInput = new FormControl();
-  searchText!:string;
+  doctorOption = new FormControl();
+  doctorInput = new FormControl();
+  doctorText!:string;
 
   serviceOptions = new FormControl();
   serviceInput = new FormControl();
@@ -75,6 +76,7 @@ export class InvoiceAddComponent{
   paymethod!:string;
   paystat!:string;
   actpaid!:number;
+
   constructor(
     public invoiceService:InvoiceService,
     public doctorService:DoctorsService,
@@ -84,25 +86,8 @@ export class InvoiceAddComponent{
     public serviceService:ServiceService,
     public appointmentService:AppointmentService,
     public activatedRoute:ActivatedRoute,
-    public route:Router
+    public router:Router
   ){
-
-    this.invoiceFrom = new FormGroup({
-      doctor_id:new FormControl('', Validators.required),
-      patient_id:new FormControl('', Validators.required),
-      employee_id:new FormControl('', Validators.required),
-      appointment_id:new FormControl('', Validators.required),
-      clinic_id:new FormControl('', Validators.required),
-      service_id:new FormControl('', Validators.required),
-      paymentMethod:new FormControl('', Validators.required),
-      paymentStatus:new FormControl('', Validators.required),
-      totalCost:new FormControl('', Validators.required),
-      actualPaid:new FormControl('', Validators.required),
-      date:new FormControl('', Validators.required),
-      time:new FormControl('', Validators.required),
-    })
-
-
     const date = new Date();
     date.setDate(date.getDate() + 1);
     date.setHours(0,0,0,0);
@@ -112,39 +97,33 @@ export class InvoiceAddComponent{
     const minutes = now.getMinutes().toString().padStart(2, '0');
     const seconds = now.getSeconds().toString().padStart(2, '0');
     this.time = `${hours}:${minutes}:${seconds}`;
+
+    activatedRoute.params.subscribe(param=>{
+      invoiceService.getInvoiceByID(param['id']).subscribe(res=>{
+        this.targetInvoice = res;
+      })
+    })
+
   }
 
   ngOnInit(){
 
-    this.doctorService.getAllDoctors().subscribe(res=>{
-      console.log("00000")
-      this.doctorList = res;
-      console.log(this.doctorList)
-    })
+    this.getAllDoctors();
 
-    this.selectedOption.valueChanges.pipe(debounceTime(200)).subscribe(docId=>{
+    this.doctorOption.valueChanges.pipe(debounceTime(200)).subscribe(docId=>{
       this.doctor_id = docId;
-      this.searchInput.reset();
-      this.searchText=''
-      this.doctorService.getDoctorByID(this.doctor_id).subscribe(doc=>{
-        console.log(doc)
-        this.targetDoctor = doc;
-      })
+      this.doctorInput.reset();
+      this.doctorText=''
+      this.getTargetDoctor();
     });
 
-
-    this.serviceService.getAll().subscribe(ser=>{
-      this.servicesList = ser;
-    });
+    this.getAllServices();
 
     this.serviceOptions.valueChanges.pipe(debounceTime(200)).subscribe(serId=>{
       this.service_id = serId;
       this.serviceInput.reset();
       this.serviceSearchText=''
-      this.serviceService.getById(this.service_id).subscribe(service=>{
-        this.targetService = service;
-        console.log(service)
-      })
+      this.getTargetService();
     })
 
     this.appointmentOptions.valueChanges.pipe(debounceTime(200)).subscribe(appId=>{
@@ -169,13 +148,98 @@ export class InvoiceAddComponent{
       console.log(this.actpaid)
     })
 
+    this.getTargetEmployee();
+    this.getTargetPatient();
 
-    // this.activatedRoute.params.subscribe(param=>{
-    //   this.employeeService.getEmployeeById(param['id']).subscribe(data=>{
-    //     this.employee = data;
-    //   })
-    // })
+  }
+  getTargetDoctor(){
+    this.doctorService.getDoctorByID(this.doctor_id).subscribe(doc=>{
+      console.log(doc)
+      this.targetDoctor = doc;
+    })
 
+  }
+
+  getAllServices(){
+    this.serviceService.getAll().subscribe(ser=>{
+      this.servicesList = ser;
+    });
+  }
+  getAllDoctors(){
+    this.doctorService.getAllDoctors().subscribe(res=>{
+      console.log("00000")
+      this.doctorList = res;
+      console.log(this.doctorList)
+    })
+
+  }
+  getTargetService(){
+    this.serviceService.getById(this.service_id).subscribe(service=>{
+      this.targetService = service;
+      console.log(service)
+    })
+
+  }
+
+  getPatientById(){
+    this.patientService.getPatientByName(this.patientName).subscribe(
+      searchResults => {
+        console.log(this.patientSearch);
+        if(searchResults!=null){
+          console.log(searchResults);
+          this.targetPatient = searchResults;
+          this.patient_id = this.targetPatient._id??-1;
+          this.getAppointment();
+        }else{
+          this.patientSearch.setErrors({ apiError: true })
+          this.showError = true
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
+
+  }
+
+  getAppointment(){
+    this.appointmentService.getbyQueryString({
+      doctorId:this.doctor_id,
+      patientId:this.patient_id,
+      clinicId:this.clinic_id
+    }
+    ).subscribe(data=>{
+      console.log("From Appointment")
+      console.log(data[0].date)
+      this.appointmentList = data;
+    })
+
+  }
+
+  getTargetPatient(){
+    this.patientSearch.valueChanges
+    .subscribe(
+      searchResults => {
+        this.patientName = searchResults??'';
+        this.getPatientById()
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  getTargetClinic(){
+    this.clinicService.getById(this.targetemployee.clinicId).subscribe(clinic=>{
+      console.log("From clinic")
+      this.targetClinic = clinic;
+      this.clinic_id = this.targetClinic._id;
+      console.log(this.targetClinic)
+
+    })
+  }
+
+  getTargetEmployee(){
 
     this.employeeService.getEmployeeById(3).subscribe(emp=>{
       console.log("From emp subs");
@@ -183,78 +247,10 @@ export class InvoiceAddComponent{
       this.employee_id = this.targetemployee._id;
       console.log(this.targetemployee)
 
-      this.clinicService.getById(this.targetemployee.clinicId).subscribe(clinic=>{
-        console.log("From clinic")
-        this.targetClinic = clinic;
-        this.clinic_id = this.targetClinic._id;
-        console.log(this.targetClinic)
+      this.getTargetClinic();
 
-      })
     });
-
-    this.patientSearch.valueChanges
-      .subscribe(
-        searchResults => {
-          console.log(this.patientName)
-          this.patientName = searchResults??'';
-
-          this.patientService.getPatientByName(this.patientName).subscribe(
-            searchResults => {
-              console.log(this.patientSearch);
-              if(searchResults!=null){
-                console.log(searchResults);
-                this.targetPatient = searchResults;
-                this.patient_id = this.targetPatient._id??-1;
-
-                //------------------------------------------------//
-                this.appointmentService.getbyQueryString({
-                  doctorId:this.doctor_id,
-                  patientId:this.patient_id,
-                  clinicId:this.clinic_id
-                }
-                ).subscribe(data=>{
-                  console.log("From Appointment")
-                  console.log(data[0].date)
-                  this.appointmentList = data;
-                })
-                //-------------------------------------------------//
-
-              }else{
-                this.patientSearch.setErrors({ apiError: true })
-                this.showError = true
-              }
-            },
-            error => {
-              console.error(error);
-            }
-          );
-
-
-        },
-        error => {
-          console.error(error);
-        }
-      );
-
-      // this.appointmentService.getbyQueryString({
-      //       date:this.today,
-      //       doctorId:this.doctor_id,
-      //       patientId:this.targetPatient._id,
-      //       clinicId:1
-      //     }).subscribe(app=>{
-
-      //       console.log("From Appointment subs")
-      //       console.log(this.today)
-      //       console.log(this.doctor_id)
-      //       console.log(this.targetPatient._id)
-      //       console.log(this.targetemployee.clinicId)
-      //       console.log("-------------------")
-      //       this.targetAppointment = app[0];
-      //       console.log(this.targetAppointment)
-      //     });
-
   }
-
 
   search() {
     this.patientService.getPatientByName(this.patientName).subscribe(
@@ -275,60 +271,32 @@ export class InvoiceAddComponent{
     );
   }
 
-
   onSubmit(){
 
-    console.log(`paystat ${this.paystat}`)
-    this.invoiceFrom.value.doctor_id = this.doctor_id;
-    this.invoiceFrom.value.patient_id = this.patient_id;
-    this.invoiceFrom.value.employee_id = this.employee_id;
-    this.invoiceFrom.value.appointment_id = this.appointment_id;
-    this.invoiceFrom.value.clinic_id = this.clinic_id;
-    this.invoiceFrom.value.service_id = this.service_id;
-    this.invoiceFrom.value.paymentMethod= this.paymethod;
-    this.invoiceFrom.value.paymentStatus = this.paystat;
-    this.invoiceFrom.value.totalCost = this.targetDoctor.price;
-    this.invoiceFrom.value.actualPaid = this.actpaid;
-    this.invoiceFrom.value.date = this.today;
-    this.invoiceFrom.value.time = this.time;
-
-    console.log("___________________________________")
-    console.log(this.invoiceFrom.value);
-
     const newInvoice = new Invoice(
-      this.invoiceFrom.value.doctor_id,
-      this.invoiceFrom.value.patient_id,
-      this.invoiceFrom.value.employee_id,
-      this.invoiceFrom.value.appointment_id,
-      this.invoiceFrom.value.clinic_id,
-      this.invoiceFrom.value.service_id,
-      this.invoiceFrom.value.paymentMethod,
-      this.invoiceFrom.value.paymentStatus,
-      this.invoiceFrom.value.totalCost,
-      this.invoiceFrom.value.actualPaid,
-      this.invoiceFrom.value.date,
-      this.invoiceFrom.value.time
+      this.doctor_id,
+      this.patient_id,
+      this.employee_id,
+      this.appointment_id,
+      this.clinic_id,
+      this.service_id,
+      this.paymentMethodFC.value,
+      this.paymentStatusFC.value,
+      this.targetDoctor.price+this.targetService.salary,
+      this.actpaid,
+      this.today,
+      this.time
     )
-    // const newInvoice = new Invoice(
-    //   5,
-    //   2,
-    //   4,
-    //   6,
-    //   1,
-    //   1,
-    //   this.invoiceFrom.value.paymethod,
-    //   this.invoiceFrom.value.paymentStatus,
-    //   this.invoiceFrom.value.totalCost,
-    //   this.invoiceFrom.value.actualPaid,
-    //   this.invoiceFrom.value.data,
-    //   this.invoiceFrom.value.time
-    // )
 
     this.invoiceService.addInvoice(newInvoice).subscribe(data=>{
-      console.log("finished");
+      this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+        this.router.navigate(['/invoice']);
+
+      })
     })
 
   }
+
 
 }
 
