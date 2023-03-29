@@ -37,12 +37,15 @@ export class InvoiceEditComponent {
   targetClinic!:ClinicModels;
   targetService!:Service;
 
+  totalCost!:number;
   doctor_id!:number;
   clinic_id!:number;
   service_id!:number;
   patient_id!:number;
   employee_id!:number;
   appointment_id!:number;
+
+  invoice_id!:number;
 
   doctorList!:Doctors[];
   servicesList!:Service[];
@@ -56,10 +59,7 @@ export class InvoiceEditComponent {
   serviceInput = new FormControl();
   serviceSearchText!:string;
 
-  appointmentOptions = new FormControl();
-  appointmentInput = new FormControl();
-  appointmentSearchText!:string;
-
+  appointmentDate!:string;
   patientSearch = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
   patientSearchText!:string;
@@ -98,15 +98,29 @@ export class InvoiceEditComponent {
     const seconds = now.getSeconds().toString().padStart(2, '0');
     this.time = `${hours}:${minutes}:${seconds}`;
 
-    activatedRoute.params.subscribe(param=>{
-      invoiceService.getInvoiceByID(param['id']).subscribe(res=>{
-        this.targetInvoice = res;
-      })
-    })
+
 
   }
 
   ngOnInit(){
+
+    this.activatedRoute.params.subscribe(param=>{
+      this.invoice_id = param['id'];
+      this.invoiceService.getInvoiceByID(param['id']).subscribe(res=>{
+        this.targetInvoice = res;
+        this.doctorText = this.targetInvoice.doctor_id.userData.fullName;
+        this.patientName = this.targetInvoice.patient_id.patientData.fullName
+        this.serviceSearchText = this.targetInvoice.service_id.name;
+        this.appointmentDate =this.targetInvoice.appointment_id.date;
+        this.paymentMethodFC.setValue(this.targetInvoice.paymentMethod)
+        this.paymentStatusFC.setValue(this.targetInvoice.paymentStatus);
+        this.actualPaidFC.setValue(this.targetInvoice.actualPaid);
+        this.totalCost = this.targetInvoice.totalCost
+
+        this.doctor_id = this.targetInvoice.doctor_id
+        this.service_id = this.targetInvoice.service_id
+      })
+    })
 
     this.getAllDoctors();
 
@@ -126,12 +140,6 @@ export class InvoiceEditComponent {
       this.getTargetService();
     })
 
-    this.appointmentOptions.valueChanges.pipe(debounceTime(200)).subscribe(appId=>{
-      this.appointment_id = appId;
-      this.appointmentInput.reset();
-      this.serviceSearchText='';
-
-    })
 
     this.paymentMethodFC.valueChanges.subscribe(val=>{
       this.paymethod = val;
@@ -189,7 +197,6 @@ export class InvoiceEditComponent {
           console.log(searchResults);
           this.targetPatient = searchResults;
           this.patient_id = this.targetPatient._id??-1;
-          this.getAppointment();
         }else{
           this.patientSearch.setErrors({ apiError: true })
           this.showError = true
@@ -199,20 +206,6 @@ export class InvoiceEditComponent {
         console.error(error);
       }
     );
-
-  }
-
-  getAppointment(){
-    this.appointmentService.getbyQueryString({
-      doctorId:this.doctor_id,
-      patientId:this.patient_id,
-      clinicId:this.clinic_id
-    }
-    ).subscribe(data=>{
-      console.log("From Appointment")
-      console.log(data[0].date)
-      this.appointmentList = data;
-    })
 
   }
 
@@ -273,6 +266,7 @@ export class InvoiceEditComponent {
 
   onSubmit(){
 
+   
     const newInvoice = new Invoice(
       this.doctor_id,
       this.patient_id,
@@ -282,21 +276,21 @@ export class InvoiceEditComponent {
       this.service_id,
       this.paymentMethodFC.value,
       this.paymentStatusFC.value,
-      this.targetDoctor.price+this.targetService.salary,
+      this.totalCost,
       this.actpaid,
       this.today,
       this.time
     )
 
-    this.invoiceService.addInvoice(newInvoice).subscribe(data=>{
+    this.invoiceService.updateInvoice(this.invoice_id,newInvoice).subscribe(data=>{
       this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+        console.log("updated")
         this.router.navigate(['/invoice']);
 
       })
     })
 
   }
-
 
 }
 

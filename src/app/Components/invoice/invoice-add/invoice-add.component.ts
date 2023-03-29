@@ -97,13 +97,6 @@ export class InvoiceAddComponent{
     const minutes = now.getMinutes().toString().padStart(2, '0');
     const seconds = now.getSeconds().toString().padStart(2, '0');
     this.time = `${hours}:${minutes}:${seconds}`;
-
-    activatedRoute.params.subscribe(param=>{
-      invoiceService.getInvoiceByID(param['id']).subscribe(res=>{
-        this.targetInvoice = res;
-      })
-    })
-
   }
 
   ngOnInit(){

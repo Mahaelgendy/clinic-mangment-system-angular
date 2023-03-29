@@ -51,11 +51,11 @@ export class DoctorsService {
         catchError(this.handleError)
       );
   }
-  
+
   getDoctorByName(name:string):Observable<Doctors>{
     const fullName = new HttpParams().set('fullName', name);
     return this.httpClient
-      .get<Doctors>(`${environment.apiUrl}/doctors/fullName/:${fullName}`)
+      .get<Doctors>(`${environment.apiUrl}/doctors/fullName/${fullName}`)
       .pipe(
         retry(2),
         catchError(this.handleError)

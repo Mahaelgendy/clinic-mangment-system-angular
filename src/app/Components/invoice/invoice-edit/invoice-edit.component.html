@@ -10,17 +10,13 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Search</mat-label>
-    <input matInput [formControl]="patientSearch" [errorStateMatcher]="matcher">
-    <button mat-icon-button matSuffix (click)="search()" [disabled]="patientSearch.invalid">
-      <mat-icon>search</mat-icon>
-    </button>
-    <div>
-      <mat-error *ngIf="patientSearch.invalid && (patientSearch.dirty || patientSearch.touched)">Invalid Patient Name</mat-error>
-    </div>
 
+
+  <mat-form-field>
+    <input matInput value="{{patientName}}" placeholder="Patient Name" disabled>
   </mat-form-field>
+
+
 
   <mat-form-field>
     <input matInput [value]="today" placeholder="Today's Date" disabled>
@@ -32,14 +28,8 @@
   </mat-form-field>
 
 
-  <mat-form-field appearance="fill">
-    <mat-label>Select Appointment</mat-label>
-    <input matInput placeholder="Search for appointment" [formControl]="appointmentInput" [(ngModel)]="appointmentSearchText">
-    <mat-select [formControl]="appointmentOptions">
-      <mat-option *ngFor="let appointment of appointmentList | filter: appointmentSearchText" [value]="appointment?._id">
-        {{ appointment.date }}
-      </mat-option>
-    </mat-select>
+  <mat-form-field>
+    <input matInput value="{{appointmentDate}}" placeholder="Appointment Date" disabled>
   </mat-form-field>
 
 
@@ -83,7 +73,7 @@
   </mat-form-field>
 
   <div>
-    <a mat-raised-button color="primary"  (click)="onSubmit()">Add</a>
+    <a mat-raised-button color="primary"  (click)="onSubmit()">Update</a>
   </div>
 
 </form>
