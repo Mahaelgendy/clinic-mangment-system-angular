@@ -1,0 +1,36 @@
+<div>
+    <h2>All Employees Data</h2>
+    <a class="btn btn-primary" role="button" routerLink="/employees/add" >Add Employee</a>
+
+</div>
+<table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);" >
+    <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
+        <tr>
+            <th>#</th>
+           <th>Name</th> 
+           <th>Email</th>
+           <th>Age</th>  
+           <th>Position</th> 
+           <th>Phone</th> 
+           <th>Salary</th>
+           <th>Details</th>
+           <th>Edit</th>
+           <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody >
+        <tr *ngFor="let employee of employees ; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{employee.employeeData.fullName}}</td>
+            <td>{{employee.employeeData.email}}</td>
+            <td>{{employee.employeeData.age}}</td>
+            <td>{{employee.position}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.salary}}</td>
+        
+            <td> <a class="btn btn-success" role="button"[routerLink]="[employee._id]">Details</a></td>
+            <td> <a class="btn btn-primary" role="button"[routerLink]="['/employees', 'update',employee._id]">Edit</a></td>
+            <td> <a class="btn btn-danger" role="button" (click)="deleteDialog(employee._id)">Delete</a></td>
+        </tr>
+    </tbody>
+</table>

@@ -12,7 +12,7 @@ export class User {
         public gender : Gender,
         public role : Role ,
         public image ?: File,
-        public _id? :number,
+        public _id? :any,
     )
     {}
 }

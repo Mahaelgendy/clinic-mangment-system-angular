@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
+  { path: "medicine", loadChildren: () => import("./Components/medicin/medicin.module").then(m => m.MedicinModule) },
   { path:'doctors', loadChildren:()=>import("./Components/doctor/doctor.module").then(a=>a.DoctorModule)},
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: UserLoginComponent },
@@ -23,6 +24,8 @@ const routes: Routes = [
 
   {path :"patients", loadChildren:() => import("./Components/patient/patient.module").then(m => m.PatientModule)},
   { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
+  { path:"employees",loadChildren:()=> import("./Components/employee/employee.module").then(m=>m.EmployeeModule)},
+  {path : "prescriptions", loadChildren:() => import("./Components/prescription/prescription.module").then(m =>m.PrescriptionModule)},     
   { path: '**', component: NotFoundComponent }
 ];
 
