@@ -1,7 +1,8 @@
-import { Dialog } from '@angular/cdk/dialog';
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Appointment } from 'src/app/Models/appointment';
@@ -18,7 +19,8 @@ import { EmployeeService } from 'src/app/Services/employee.service';
 import { InvoiceService } from 'src/app/Services/invoice.service';
 import { PatientsService } from 'src/app/Services/patients.service';
 import { ServiceService } from 'src/app/Services/service.service';
-import { AlertComponent } from '../../patient/alert/alert.component';
+import { AlertComponent } from '../../doctor/alert/alert.component';
+
 
 @Component({
   selector: 'app-invoice-add',
@@ -89,7 +91,7 @@ export class InvoiceAddComponent{
     public appointmentService:AppointmentService,
     public activatedRoute:ActivatedRoute,
     public router:Router,
-    public dialog:Dialog
+    public dialog:MatDialog
   ){
     const date = new Date();
     date.setDate(date.getDate() + 1);
