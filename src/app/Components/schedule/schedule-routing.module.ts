@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ScheduleAddComponent } from './schedule-add/schedule-add.component';
+import { ScheduleListComponent } from './schedule-list/schedule-list.component';
 import { ScheduleUpdateComponent } from './schedule-update/schedule-update.component';
-import { ShceduleListComponent } from './shcedule-list/shcedule-list.component';
 
 const routes: Routes = [
-  {path:"", component: ShceduleListComponent},
-  {path:"add", component:ScheduleAddComponent},
-  {path:"update/:id" , component:ScheduleUpdateComponent}
+  {path:'',component:ScheduleListComponent},
+  {path:'update/:id',component:ScheduleUpdateComponent},
+  {path:'add',component:ScheduleAddComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ShceduleRoutingModule { }
+export class ScheduleRoutingModule { }

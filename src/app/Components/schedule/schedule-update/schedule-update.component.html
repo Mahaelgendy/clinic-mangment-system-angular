@@ -1,0 +1,60 @@
+<div class="card d-flex justify-content-center">
+    <h1 class="title">Update Schedule</h1>
+    <form [formGroup]="editForm"  class="form-group px-3 py-3" (ngSubmit)="save(editForm)">
+        
+          
+            <label for="doc_id" class="form-label h6 mt-3">Doctor</label>
+            <select class="form-select" formControlName="doc_id"   >
+                <option *ngFor="let doctor of doctors" [value]="doctor._id" [selected]="scheduleData?.doc_id?._id" >
+                    {{ doctor.userData?.fullName }} </option>
+            </select>
+            <div *ngIf="editForm.get('doc_id')?.invalid && (editForm.get('doc_id')?.dirty || editForm.get('doc_id')?.touched) "class="invalid-feedback" style="display: block;">
+              <div *ngIf="editForm.get('doc_id')?.errors?.['required']" class="text-danger">Doctor is required.</div>
+            </div>
+            
+                      
+            <label for="clinic_id" class="form-label h6 mt-3">Clinic</label>
+            <select class="form-select" formControlName="clinic_id" ngDefaultControl>
+              <option *ngFor="let clinic of clinics" [value]="clinic._id" >{{ clinic.clinicName }}</option>
+            </select>
+            <div *ngIf="editForm.get('clinic_id')?.invalid && (editForm.get('clinic_id')?.dirty || editForm.get('clinic_id')?.touched) "class="invalid-feedback" style="display: block;">
+              <div *ngIf="editForm.get('clinic_id')?.errors?.['required']" class="text-danger">Clinic is required.</div>
+            </div>
+          
+            <label for="date" class="form-label h6  mt-3">Date</label>
+            <input type='text' class="form-control mx-2" placeholder="date"
+             formControlName="date" />
+             <div *ngIf="editForm?.get('date')?.invalid && (editForm?.get('date')?.dirty || editForm?.get('date')?.touched)">
+              <div *ngIf="editForm?.get('date')?.errors?.['required']" class="text-danger">{{ dateValidationMessages['required'] }}</div>
+              <div *ngIf="editForm?.get('date')?.errors?.['pattern']" class="text-danger">{{ dateValidationMessages['pattern'] }}</div>
+            </div>
+            
+            
+        
+             <label for="from" class="form-label h6 mt-3">From</label>
+             <input type='text' class="form-control mx-2" placeholder="from"
+              formControlName="from" />
+              <div *ngIf="editForm?.get('from')?.invalid && (editForm?.get('from')?.dirty || editForm?.get('from')?.touched)">
+                <div *ngIf="editForm?.get('from')?.errors?.['required']" class="text-danger">{{ timeValidationMessages['required'] }}</div>
+                <div *ngIf="editForm?.get('from')?.errors?.['pattern']" class="text-danger">{{ timeValidationMessages['pattern'] }}</div>
+            </div>
+
+              <label for="to" class="form-label h6 mt-3">To</label>
+              <input type='text' class="form-control mx-2" placeholder="to"
+               formControlName="to" />
+               <div *ngIf="editForm?.get('to')?.invalid && (editForm?.get('to')?.dirty || editForm?.get('to')?.touched)">
+                <div *ngIf="editForm?.get('to')?.errors?.['required']" class="text-danger">{{ timeValidationMessages['required'] }}</div>
+                <div *ngIf="editForm?.get('to')?.errors?.['pattern']" class="text-danger">{{ timeValidationMessages['pattern'] }}</div>
+            </div>
+
+               <label for="duration_in_minutes" class="form-label h6 mt-3">Duration</label>
+             <input type='number' class="form-control mx-2" placeholder="duration_in_minutes"
+              formControlName="duration_in_minutes" />
+              <div *ngIf="editForm.get('duration_in_minutes')?.invalid && (editForm.get('duration_in_minutes')?.dirty || editForm.get('duration_in_minutes')?.touched) "class="invalid-feedback" style="display: block;">
+                <div *ngIf="editForm.get('duration_in_minutes')?.errors?.['required']" class="text-danger">Duration is required.</div>
+              </div>
+
+            <button class="btn btn-info  text-center w-100 my-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">save</button>
+    
+      </form>
+</div> 

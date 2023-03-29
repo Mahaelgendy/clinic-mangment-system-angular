@@ -24,13 +24,12 @@ const routes: Routes = [
    {path:"services",loadChildren: () => import("./Components/service/service.module").then(m => m.ServiceModule)},
 
   {path :"patients", loadChildren:() => import("./Components/patient/patient.module").then(m => m.PatientModule)},
-  //{ path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
-  //{ path:"employees",loadChildren:()=> import("./Components/employee/employee.module").then(m=>m.EmployeeModule)},
-  //{path : "prescriptions", loadChildren:() => import("./Components/prescription/prescription.module").then(m =>m.PrescriptionModule)},
-  {path:'schedule', loadChildren:() => import("./Components/shcedule/shcedule-routing.module").then(c => c.ShceduleRoutingModule)},
+  { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule) },
+  { path:"employees",loadChildren:()=> import("./Components/employee/employee.module").then(m=>m.EmployeeModule)},
+  {path : "prescriptions", loadChildren:() => import("./Components/prescription/prescription.module").then(m =>m.PrescriptionModule)}, 
+  {path:'schedules',loadChildren:()=>import("./Components/schedule/schedule.module").then(m=>m.ScheduleModule)},
   { path:"employees",loadChildren:()=> import("./Components/employee/employee.module").then(m=>m.EmployeeModule),canActivate:[AuthGuard]},
   {path : "prescriptions", loadChildren:() => import("./Components/prescription/prescription.module").then(m =>m.PrescriptionModule)},
-  //{path:'schedule', loadChildren:() => import("./Components/shcedule/shcedule-routing.module").then(c => c.ShceduleRoutingModule)},
   { path: '**', component: NotFoundComponent }
 ];
 
