@@ -43,6 +43,10 @@ export class EmployeeService {
   }
 
   getEmployeeById(id:number){
+    if(id== undefined)
+    {
+      id=-1
+    }
     return this.httpClient
     .get<Employee>(`${environment.apiUrl}/employees/${id}`,this.httpOption)
     .pipe(
@@ -60,9 +64,13 @@ export class EmployeeService {
       );
   }
 
-  edit(employee:Employee){
+  edit(employeeId:number,employee:Employee){
+    console.log(employee._id)
+    console.log(employee)
+    console.log("employee._id")
+
     return this.httpClient
-      .patch<Employee>(`${environment.apiUrl}/employees/${employee._id}`,JSON.stringify(employee),this.httpOption)
+      .patch<Employee>(`${environment.apiUrl}/employees/${employeeId}`,JSON.stringify(employee),this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)

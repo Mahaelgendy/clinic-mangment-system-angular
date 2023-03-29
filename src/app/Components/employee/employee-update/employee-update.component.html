@@ -1,1 +1,82 @@
-<p>employee-update works!</p>
+
+<h2>Update Employee</h2>
+<form [formGroup]="EmployeeForm" (ngSubmit)="onSubmit()" class="example-form">
+  <mat-form-field class="input">
+    <mat-label>Full Name</mat-label>
+    <input matInput formControlName="fullName" required>
+    <mat-error *ngIf="EmployeeForm.get('fullName')?.hasError('required')">Full name is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" required>
+    <mat-error *ngIf="EmployeeForm.get('email')?.hasError('required')">Email is required</mat-error>
+    <mat-error *ngIf="EmployeeForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" required>
+    <mat-error *ngIf="EmployeeForm.get('password')?.hasError('min')">phone must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Phone</mat-label>
+    <input matInput type="number" formControlName="phone" required>
+    <mat-error *ngIf="EmployeeForm.get('phone')?.hasError('min')">phone must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Clinic ID</mat-label>
+    <input matInput type="number" formControlName="clinicId" required min="1">
+    <mat-error *ngIf="EmployeeForm.get('clinicId')?.hasError('required')">clinicId is required</mat-error>
+    <mat-error *ngIf="EmployeeForm.get('clinicId')?.hasError('min')">clinicId must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Age</mat-label>
+    <input matInput type="number" formControlName="age" required min="1">
+    <mat-error *ngIf="EmployeeForm.get('age')?.hasError('required')">Age is required</mat-error>
+    <mat-error *ngIf="EmployeeForm.get('age')?.hasError('min')">Age must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>City</mat-label>
+    <textarea matInput formControlName="city" required></textarea>
+    <mat-error *ngIf="EmployeeForm.get('city')?.hasError('required')">City is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Street</mat-label>
+    <textarea matInput formControlName="street" required></textarea>
+    <mat-error *ngIf="EmployeeForm.get('street')?.hasError('required')">Street is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Building</mat-label>
+    <input matInput type="number" formControlName="building" required>
+    <mat-error *ngIf="EmployeeForm.get('building')?.hasError('required')">Building is required</mat-error>
+    <mat-error *ngIf="EmployeeForm.get('building')?.hasError('min')">Building must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Salary</mat-label>
+    <input matInput type="number" formControlName="salary" required>
+    <mat-error *ngIf="EmployeeForm.get('salary')?.hasError('required')">salary is required</mat-error>
+    <mat-error *ngIf="EmployeeForm.get('salary')?.hasError('min')">salary must be a positive number</mat-error>
+  </mat-form-field>
+
+  <mat-radio-group formControlName="gender" aria-label="Select an option">
+    <mat-radio-button value="Male">Male</mat-radio-button>
+    <mat-radio-button value="Female">Female</mat-radio-button>
+  </mat-radio-group>
+  <br>
+  <mat-radio-group formControlName="position" aria-label="Select an option">
+    <mat-radio-button value="receptionist">Receptionist</mat-radio-button>
+    <mat-radio-button value="assistant">Assistant</mat-radio-button>
+  </mat-radio-group>
+  <div>
+    <a mat-raised-button color="primary"  (click)="onSubmit()">Update</a>
+  </div>
+</form>
+

@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/Models/employee';
-import { Role } from 'src/app/Models/Enums';
 import { EmployeeService } from 'src/app/Services/employee.service';
 import { UserService } from 'src/app/Services/user.service';
-import { Address } from 'src/app/Models/address';
 
 @Component({
   selector: 'app-employee-add',

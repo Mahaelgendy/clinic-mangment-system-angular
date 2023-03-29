@@ -28,8 +28,8 @@
             <td>{{employee.phone}}</td>
             <td>{{employee.salary}}</td>
         
-            <td> <a class="btn btn-success" role="button"[routerLink]="[employee._id]" >Details</a></td>
-            <td> <a class="btn btn-primary" role="button">Edit</a></td>
+            <td> <a class="btn btn-success" role="button"[routerLink]="[employee._id]">Details</a></td>
+            <td> <a class="btn btn-primary" role="button"[routerLink]="['/employees', 'update',employee._id]">Edit</a></td>
             <td> <a class="btn btn-danger" role="button" (click)="deleteDialog(employee._id)">Delete</a></td>
         </tr>
     </tbody>
