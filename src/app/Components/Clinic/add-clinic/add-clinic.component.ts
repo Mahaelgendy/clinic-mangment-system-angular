@@ -12,13 +12,7 @@ import { ClinicService } from 'src/app/Services/clinic.service';
 })
 export class AddClinicComponent {
 
-   defaultLocation = { 
-    city:'', 
-     street:'',
-     building:0
-   };
-  
-  clinic: ClinicModels = new ClinicModels(0,'', this.defaultLocation)
+
   
   constructor(public builder:FormBuilder, public clinicService:ClinicService,public router:Router) {}
   
@@ -47,6 +41,13 @@ export class AddClinicComponent {
     
     } 
   }
+    //  defaultLocation = { 
+  //   city:'', 
+  //    street:'',
+  //    building:0
+  //  };
+  
+  // clinic: ClinicModels = new ClinicModels(0,'', this.defaultLocation)
     
   //   save() {
   //       console.log(this.clinic);

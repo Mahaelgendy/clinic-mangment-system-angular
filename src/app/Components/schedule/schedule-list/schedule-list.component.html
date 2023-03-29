@@ -1,0 +1,57 @@
+<a routerLink="/schedules/add" class="btn btn-primary" >Add Clinic </a>
+
+<div class="table-responsive mt-3">
+  <table class="table table  text-center">
+    <thead class="bg-info">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Doctor Name</th>
+        <th scope="col">Clinic Name  </th>
+        <th scope="col">Date </th>
+        <th scope="col">from </th>
+        <th scope="col">to </th>
+        <th scope="col">Duration</th>
+        <th scope="col">Update</th>
+        <th scope="col">delete</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let schedule of schedules,let i=index">
+        <td>{{i+1}}</td>
+        <td>{{schedule.doc_id.userData?.fullName}}</td>
+        <td>{{schedule.clinic_id.clinicName}}</td>
+        <td>{{schedule.date}}</td>
+        <td>{{schedule.from | date:'HH:mm:ss'}}</td>
+        <td>{{schedule.to| date:'HH:mm:ss'}}</td>
+        <td>{{schedule.duration_in_minutes}}</td>
+        <td>
+          <a class="btn btn-warning" [routerLink]="['/schedules','update',schedule._id]" (click)="schedule">Update</a>
+        </td>
+        <td>
+          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="deleteDialog(schedule._id)">
+          Delete</button>
+      </td>
+      </tr>  
+    </tbody>
+  </table>
+</div>
+
+   <!-- Delete Modal -->
+ <div class="modal" tabindex="-1" id="deleteModal" [ngClass]="{'show':deleteModal}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger">Delete Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="deleteModal=false"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete?</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="delete(deletedId)">Yes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="deleteModal=false">No</button>
+      </div>
+    </div>
+  </div>
+</div>

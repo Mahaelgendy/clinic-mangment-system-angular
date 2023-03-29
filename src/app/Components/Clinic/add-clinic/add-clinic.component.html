@@ -1,35 +1,23 @@
 
 <div class="card d-flex justify-content-center">
-    <form [formGroup]="registerForm" (ngSubmit)="save(registerForm)" class="form-group px-3 py-3 ">
+    <form [formGroup]="registerForm" (ngSubmit)="save(registerForm)" class="form-group px-3 py-3">
+      <label for="clinicName">Clinic Name</label>
+      <input type='text' class="form-control mx-2" placeholder="Name" formControlName="clinicName" />
 
-        <label for="clinicName">Clinic Name</label>
-        <input type='text' class="form-control mx-2" placeholder="Name"
-         formControlName="clinicName" />
+  
+      <fieldset formGroupName="clinic_location">
+        <label for="city" class="mt-2">City</label>
+        <input type="text" class="form-control mx-2" placeholder="City" formControlName="city">
+      
+        <label for="street" class="mt-2">Street</label>
+        <input type="text" class="form-control mx-2" placeholder="Street" formControlName="street">
         
-    
-        <fieldset formGroupName="clinic_location">
-            <label for="city" class="mt-2">City</label>
-            <input type="text" class="form-control mx-2" placeholder="City"
-             formControlName="city">
-
-            <label for="street" class="mt-2">Street</label>
-            <input type="text" class="form-control mx-2" placeholder="Street"
-             formControlName="street">
-
-            <label for="building" class="mt-2">Building</label>
-            <input type="number"  min="1" class="form-control mx-2" placeholder="Building"
-             formControlName="building">
-
-          </fieldset>
-
-        <button class="btn btn-info  text-center w-100 my-3">Add</button>
-    
-    
+        <label for="building" class="mt-2">Building</label>
+        <input type="number"  min="1" class="form-control mx-2" placeholder="Building" formControlName="building">
+        
+      </fieldset>
+  
+      <button class="btn btn-info text-center w-100 my-3">Add</button>
     </form>
-</div>
-
-        <!-- <input type='text' [(ngModel)]="clinic._id"/> -->
-<!-- <input type="text" [(ngModel)]="clinic.clinic_location.city" formControlName="city">
-        <input type="text" [(ngModel)]="clinic.clinic_location.street" formControlName="street">
-        <input type="number" [(ngModel)]="clinic.clinic_location.building" formControlName="building"> -->
-                <!-- <button (click)="save()">save</button> -->
+  </div>
+  

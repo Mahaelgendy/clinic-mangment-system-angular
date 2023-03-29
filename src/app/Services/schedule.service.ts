@@ -52,7 +52,7 @@ export class ScheduleService {
 
   addSchedule(schedule:Schedules):Observable<Schedules>{
     return this.httpClient
-      .post<Schedules>(`${environment.apiUrl}/schedule`,JSON.stringify(Schedules),this.httpOption)
+      .post<Schedules>(`${environment.apiUrl}/schedule`,JSON.stringify(schedule),this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -69,9 +69,11 @@ export class ScheduleService {
       );
   }
 
-  updateSchedule(id:number, schedule:Schedules){
+  updateSchedule(schedule:Schedules){
+    // console.log("***")
+    // console.log(schedule)
     return this.httpClient
-      .patch<Schedules>(`${environment.apiUrl}/schedule/${id}`,JSON.stringify(schedule), this.httpOption)
+      .patch<Schedules>(`${environment.apiUrl}/schedule/${schedule._id}`,JSON.stringify(schedule), this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
