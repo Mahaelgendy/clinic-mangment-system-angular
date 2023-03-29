@@ -1,0 +1,24 @@
+.input{
+    display: block;
+    width: 41rem;
+}
+   
+.address{
+    display:flex;
+    justify-content:space-between;
+}
+
+.inputAddress{
+    margin-left: 10px;
+}
+
+.card{
+    width: 43rem;
+    margin: 10px auto;
+}
+.p{
+    text-align: center;
+}
+
+
+
