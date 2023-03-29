@@ -62,8 +62,6 @@ export class ClinicListComponent {
   }
 
 
-
-
   save(RegisterForm:any) {
 
     if (this.registerForm.errors) {
@@ -71,12 +69,7 @@ export class ClinicListComponent {
     }
 
    if (this.registerForm.valid) {
-      // console.log("**")
-      // console.log(this.editedClinic)
-      // console.log(RegisterForm.value)
-
-      this.clinicService.edit(RegisterForm.value).subscribe(data => {
-        //console.log(data);
+            this.clinicService.edit(RegisterForm.value).subscribe(data => {
         this.showModal = false;
         location.reload();
 

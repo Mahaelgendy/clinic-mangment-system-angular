@@ -39,7 +39,7 @@ export class UserService {
       )
   }
 
-  getUserById(id:number):Observable<User>{
+  getUserById(id:any):Observable<User>{
     return this.httpClient
     .get<User>(`${environment.apiUrl}/users/${id}`)
     .pipe(

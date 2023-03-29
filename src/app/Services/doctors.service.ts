@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -43,7 +43,7 @@ export class DoctorsService {
   getDoctorByID(id:number|undefined):Observable<Doctors>{
     if(id==undefined)
       id=-1;
-      
+
     return this.httpClient
       .get<Doctors>(`${environment.apiUrl}/doctors/${id}`)
       .pipe(
@@ -51,6 +51,16 @@ export class DoctorsService {
         catchError(this.handleError)
       );
   }
+
+  // getDoctorByName(name:string):Observable<Doctors>{
+  //   const fullName = new HttpParams().set('fullName', name);
+  //   return this.httpClient
+  //     .get<Doctors>(`${environment.apiUrl}/doctors/fullName/${fullName}`)
+  //     .pipe(
+  //       retry(2),
+  //       catchError(this.handleError)
+  //     );
+  // }
 
   addDoctor(doctor:Doctors):Observable<Doctors>{
     return this.httpClient

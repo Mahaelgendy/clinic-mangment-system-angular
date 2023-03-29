@@ -41,6 +41,10 @@ export class InvoiceService {
    }
 
    getInvoiceByID(id:number):Observable<Invoice>{
+
+    console.log("from service")
+    console.log(id);
+    
     return this.httpClient
     .get<Invoice>(`${environment.apiUrl}/invoice/${id}`)
     .pipe(

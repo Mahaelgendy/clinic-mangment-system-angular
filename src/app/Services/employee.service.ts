@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -43,6 +43,10 @@ export class EmployeeService {
   }
 
   getEmployeeById(id:number){
+    if(id== undefined)
+    {
+      id=-1
+    }
     return this.httpClient
     .get<Employee>(`${environment.apiUrl}/employees/${id}`,this.httpOption)
     .pipe(
@@ -50,6 +54,16 @@ export class EmployeeService {
       catchError(this.handleError)
       );
   }
+
+  // getEmployeeByName(name:string):Observable<Employee>{
+  //   const fullName = new HttpParams().set('fullName', name);
+  //   return this.httpClient
+  //     .get<Employee>(`${environment.apiUrl}/employees/fullName/:${fullName}`)
+  //     .pipe(
+  //       retry(2),
+  //       catchError(this.handleError)
+  //     );
+  // }
 
   deleteById(id:number){
     return this.httpClient
@@ -60,16 +74,21 @@ export class EmployeeService {
       );
   }
 
-  edit(employee:Employee){
+  edit(employeeId:number,employee:Employee){
+    console.log(employee._id)
+    console.log(employee)
+    console.log("employee._id")
+
     return this.httpClient
-      .patch<Employee>(`${environment.apiUrl}/employees/${employee._id}`,JSON.stringify(employee),this.httpOption)
+      .patch<Employee>(`${environment.apiUrl}/employees/${employeeId}`,JSON.stringify(employee),this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
 
-  add(employee:Employee){
+  add(employee:Employee):Observable <Employee>
+  {
     return this.httpClient
     .post<Employee>(`${environment.apiUrl}/employees`,JSON.stringify(employee),this.httpOption)
     .pipe(
