@@ -1,9 +1,9 @@
 <div class="mb-3">
-  <a [routerLink]="['/invoice','add']" class="btn btn-success">Add Invoice </a>
+  <a [routerLink]="['/invoice','add']" class="btn btn-primary">Add Invoice </a>
 </div>
-<table class="table">
-    <thead class="thead-dark">
-      <tr class="text-light">
+<table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);">
+    <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
+      <tr >
         <th scope="col">#</th>
         <th scope="col">Clinic</th>
         <th scope="col">Doctor</th>
@@ -15,7 +15,7 @@
         <th scope="col">Payment Status</th>
         <th scope="col">Total Cost</th>
         <th scope="col">Actual Paid</th>
-        <th scope="col">Delete</th>
+        <!-- <th scope="col">Delete</th> -->
       </tr>
     </thead>
     <tbody >
@@ -31,7 +31,7 @@
           <td>{{item.paymentStatus}}</td>
           <td>{{item.totalCost}}</td>
           <td>{{item.actualPaid}}</td>
-          <td><a class="btn btn-danger" (click)="alertToDelte(item._id)">Delete</a></td>
+          <!-- <td><a class="btn btn-danger" (click)="alertToDelte(item._id)">Delete</a></td> -->
       </tr>
     </tbody>
   </table>
