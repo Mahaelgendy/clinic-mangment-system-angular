@@ -15,6 +15,7 @@
         <th scope="col">Status</th>
         <th scope="col">Reservation</th>
         <th scope="col">Update</th>
+        <th scope="col">Details</th>
       </tr>
     </thead>
     <tbody >
@@ -22,8 +23,7 @@
           <th scope="row">{{i+1}}</th>
           <td>{{item.clinic_id?.clinicName}}</td>
           <td>{{item.doctor_id?.userData?.fullName}}</td>
-          <!-- <td>{{item.patient_id}}</td> -->
-          <td>test</td>
+          <td>{{item.patient_id?.patientData?.fullName}}</td>
           <td>{{item.employee_id?.employeeData?.fullName}}</td>
           <td>{{item.date}}</td>
           <td>{{item.from | date:'HH:mm:ss'}}</td>
@@ -31,9 +31,7 @@
           <td>{{item.status}}</td>
           <td>{{item.reservation_method}}</td>
           <td><a [routerLink]="['/appointment','edit',item._id]" class="btn btn-warning">Update</a></td>
-          <!-- <td><a [routerLink]="['/department','details',item._id]">Details</a></td>
-          <td><a [routerLink]="['/department','delete',item._id]">Delete</a></td>
-          <td><a [routerLink]="['/department','edit',item._id]">Update</a></td> -->
+          <td><a [routerLink]="['/appointment','detailsAppointment',item._id]" class="btn btn-info">Details</a></td>
       </tr>
     </tbody>
   </table>
