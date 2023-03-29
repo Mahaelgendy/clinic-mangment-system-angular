@@ -31,20 +31,20 @@
     <input matInput [value]="time" placeholder="Current Time" disabled>
   </mat-form-field>
 
-  <mat-form-field>
+  <!-- <mat-form-field>
     <input matInput value="{{targetAppointment?.date}}" placeholder="Appointment" disabled>
-  </mat-form-field>
+  </mat-form-field> -->
 
 
-  <!-- <mat-form-field appearance="fill">
-    <mat-label>Select Doctor</mat-label>
-    <input matInput placeholder="Search for appointment" [formControl]="searchInput" [(ngModel)]="searchText">
-    <mat-select [formControl]="selectedOption">
-      <mat-option *ngFor="let doctor of doctorList | filter: searchText" [value]="doctor?._id">
-        {{ doctor.userData?.fullName }}
+  <mat-form-field appearance="fill">
+    <mat-label>Select Appointment</mat-label>
+    <input matInput placeholder="Search for appointment" [formControl]="appointmentInput" [(ngModel)]="appointmentSearchText">
+    <mat-select [formControl]="appointmentOptions">
+      <mat-option *ngFor="let appointment of appointmentList | filter: appointmentSearchText" [value]="appointment?._id">
+        {{ appointment.date }}
       </mat-option>
     </mat-select>
-  </mat-form-field> -->
+  </mat-form-field>
 
 
   <mat-form-field>

@@ -41,6 +41,7 @@ export class InvoiceAddComponent{
   service_id!:number;
   patient_id!:number;
   employee_id!:number;
+  appointment_id!:number;
 
   doctorList!:Doctors[];
   servicesList!:Service[];
@@ -146,7 +147,12 @@ export class InvoiceAddComponent{
       })
     })
 
+    this.appointmentOptions.valueChanges.pipe(debounceTime(200)).subscribe(appId=>{
+      this.appointment_id = appId;
+      this.appointmentInput.reset();
+      this.serviceSearchText='';
 
+    })
 
     this.paymentMethodFC.valueChanges.subscribe(val=>{
       this.paymethod = val;
@@ -200,6 +206,7 @@ export class InvoiceAddComponent{
                 this.targetPatient = searchResults;
                 this.patient_id = this.targetPatient._id??-1;
 
+                //------------------------------------------------//
                 this.appointmentService.getbyQueryString({
                   doctorId:this.doctor_id,
                   patientId:this.patient_id,
@@ -207,9 +214,10 @@ export class InvoiceAddComponent{
                 }
                 ).subscribe(data=>{
                   console.log("From Appointment")
-                  console.log(data)
+                  console.log(data[0].date)
+                  this.appointmentList = data;
                 })
-                
+                //-------------------------------------------------//
 
               }else{
                 this.patientSearch.setErrors({ apiError: true })
@@ -274,7 +282,7 @@ export class InvoiceAddComponent{
     this.invoiceFrom.value.doctor_id = this.doctor_id;
     this.invoiceFrom.value.patient_id = this.patient_id;
     this.invoiceFrom.value.employee_id = this.employee_id;
-    this.invoiceFrom.value.appointment_id = 9;
+    this.invoiceFrom.value.appointment_id = this.appointment_id;
     this.invoiceFrom.value.clinic_id = this.clinic_id;
     this.invoiceFrom.value.service_id = this.service_id;
     this.invoiceFrom.value.paymentMethod= this.paymethod;
