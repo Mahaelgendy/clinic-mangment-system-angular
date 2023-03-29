@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from './Services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,14 @@ export class AppComponent {
   title = 'clinic-managment-system';
 
   ismenuerequired=false;
-  constructor(private router:Router)
+  isAdmin = false;
+  isDoctor = false;
+  isEmployee = false;
+  isPatient = false;
+
+  role!:string;
+
+  constructor(private router:Router , private authService:AuthenticationService)
   {
 
   }
@@ -25,6 +33,25 @@ export class AppComponent {
     else
     {
       this.ismenuerequired=true;
+    }
+
+  }
+
+  getRole(){
+    this.authService.getRole()
+    this.role = this.authService.getRole()
+    if(this.role=='admin'){
+      this.isAdmin = true;
+      this.router.navigate(['']);
+    }else if(this.role=='doctor'){
+      this.isDoctor = true;
+      this.router.navigate(['']);
+    }else if(this.role=='patient'){
+      this.isPatient = true;
+      this.router.navigate(['']);
+    }else if(this.role=='employee'){
+      this.isEmployee = true;
+      this.router.navigate(['']);
     }
   }
 }
