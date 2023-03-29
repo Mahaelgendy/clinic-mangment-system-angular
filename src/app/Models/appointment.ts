@@ -18,6 +18,7 @@ export class Appointment {
         public status:AppointmentStatus,
         public reservation_method?: ReservationMethod,
       ){}
+      
       static fromFormValues(formValues: any): Appointment {
         return new Appointment(
           formValues._id,

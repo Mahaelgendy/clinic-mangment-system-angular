@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -66,15 +66,32 @@ export class AppointmentService {
       );
   }
 
-  getbyQueryString(queryParam: string){
-    const url = `${environment.apiUrl}/appointments?${queryParam}`;
+  // getbyQueryString(queryParam: string){
+  //   const url = `${environment.apiUrl}/appointments?${queryParam}`;
+  //   return this.httpClient
+  //     .get<Appointment[]>(url, this.httpOption)
+  //     .pipe(
+  //       retry(2),
+  //       catchError(this.handleError)
+  //     );
+  // }
+
+  getbyQueryString(queryParam: any){
+    console.log("lkkjhjhh");
+    let params = new HttpParams();
+    Object.keys(queryParam).forEach(key => {
+      params = params.append(key, queryParam[key]);
+    });
+
+    const url = `${environment.apiUrl}/appointments`;
     return this.httpClient
-      .get<Appointment[]>(url, this.httpOption)
+      .get<Appointment[]>(url, {params})
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
+
   add(appointment:Appointment){
     return this.httpClient
     .post<Appointment>(`${environment.apiUrl}/appointments`,JSON.stringify(appointment),this.httpOption)

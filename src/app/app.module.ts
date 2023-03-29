@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './Core/core/core.module';
@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MaterialModule } from 'src/material.module';
 import { ConfirmDeleteDialogComponent } from './Components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { AuthIntercepentorService } from './Services/auth-intercepentor.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { ConfirmDeleteDialogComponent } from './Components/confirm-delete-dialog
     NotFoundComponent,
     RegisterComponent,
     PatientListComponent,
-    ConfirmDeleteDialogComponent
+    ConfirmDeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +43,13 @@ import { ConfirmDeleteDialogComponent } from './Components/confirm-delete-dialog
     CoreModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthIntercepentorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
