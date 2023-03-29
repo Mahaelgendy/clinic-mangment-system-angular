@@ -78,7 +78,7 @@ export class DoctorEditComponent {
       if(this.doctorForm.errors){
         return;
       }
-      
+
       console.log("this.doctorForm.value");
       console.log(this.doctorForm.value);
 
@@ -98,6 +98,9 @@ export class DoctorEditComponent {
           console.log(result);
           this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
           this.router.navigate(['/doctors']);
+
+          
+
         })
       });
     }

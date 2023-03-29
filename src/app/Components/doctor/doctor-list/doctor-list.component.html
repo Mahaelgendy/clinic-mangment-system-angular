@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
   <div class="col-3"></div>
   <h2 class="text-center col-6">Doctor List</h2>
   <a mat-raised-button color="primary" class="col-2" routerLink="/doctors/add">Add Doctor</a>
@@ -44,7 +44,7 @@
             <div>
               <a [routerLink]="['/doctors', 'details',element._id]" mat-raised-button color="primary" class="me-2">Details</a>
               <a [routerLink]="['/doctors', 'edit',element._id]" mat-raised-button color="primary" class="me-2">Edit</a>
-              <a  mat-raised-button color="primary" (click)="alertToDelte(element._id)">Delete</a>
+               <a  mat-raised-button color="primary" (click)="alertToDelte(element._id)">Delete</a>
             </div>
           </td>
         </ng-container>
@@ -55,4 +55,44 @@
 
       </table>
 
+</div> -->
+
+
+<div class="mb-3">
+  <a [routerLink]="['/doctors','add']" class="btn btn-success">Add Doctor </a>
+</div>
+<div class="mt-3 row justify-content-center" >
+  <table class="table mt-3">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">FullName</th>
+        <th scope="col">Email</th>
+        <th scope="col">Age</th>
+        <th scope="col">Address </th>
+        <th scope="col">Gender</th>
+        <th scope="col">Specialization</th>
+        <th scope="col">Price</th>
+        <th scope="col">Details</th>
+        <th scope="col">Update </th>
+        <!-- <th scope="col">Delete</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doctor of doctors">
+        <td>{{doctor.userData?.fullName}}</td>
+        <td>{{doctor.userData?.age}}</td>
+        <td>{{doctor.userData?.email}}</td>
+        <td>{{doctor.userData?.address?.city +", " +doctor.userData?.address?.street  +", " + doctor.userData?.address?.building}}</td>
+        <td>{{doctor.userData?.gender}}</td>
+        <td>{{doctor.specialization}}</td>
+        <td>{{doctor.price}}</td>
+
+        <td> <a [routerLink]="['/doctors', 'details',doctor._id]" class="btn btn-primary">Details</a> </td>
+        <td> <a [routerLink]="['/doctors', 'edit', doctor._id]" class="btn btn-warning">Update</a> </td>
+        <!-- <td>
+          <button class="btn btn-danger" (click)="alertToDelte(doctor._id)">Delete</button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
 </div>
