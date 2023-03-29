@@ -10,6 +10,9 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { MatFormField } from "@angular/material/form-field";
+import { MatListModule } from '@angular/material/list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -25,6 +28,9 @@ import { MatFormField } from "@angular/material/form-field";
         MatDialogModule,
         MatButtonModule,
         
+        MatListModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ]
 
 })

@@ -26,8 +26,8 @@
           <td>test</td>
           <td>{{item.employee_id?.employeeData?.fullName}}</td>
           <td>{{item.date}}</td>
-          <td>{{item.from.split("T")[1].split(".")[0]}}</td>
-          <td>{{item.to.split("T")[1].split(".")[0]}}</td>
+          <td>{{item.from | date:'HH:mm:ss'}}</td>
+          <td>{{item.to | date:'HH:mm:ss'}}</td>
           <td>{{item.status}}</td>
           <td>{{item.reservation_method}}</td>
           <td><a [routerLink]="['/appointment','edit',item._id]" class="btn btn-warning">Update</a></td>

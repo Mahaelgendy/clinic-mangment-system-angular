@@ -10,8 +10,8 @@ import { ConfirmDeleteDialogComponent } from '../../confirm-delete-dialog/confir
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.css']
 })
-export class PatientListComponent {
-  public Allpatients:Patients[]=[];
+export class PatientListComponent  {
+  public Allpatients!:Patients[];
   displayedColumns: string[] = [ "Name" , "Status", "History","Phone","Details","Update" , "Delete"];
   clickedRows = new Set<Patients>();
   constructor(public patientService:PatientsService ,

@@ -60,7 +60,7 @@ export class ScheduleService {
   }
 
   getbyQueryString(queryParam: string){
-    const url = `${environment.apiUrl}/schedules?${queryParam}`;
+    const url = `${environment.apiUrl}/schedule?${queryParam}`;
     return this.httpClient
       .get<Schedules[]>(url, this.httpOption)
       .pipe(
