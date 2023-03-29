@@ -15,7 +15,6 @@
         <th scope="col">Payment Status</th>
         <th scope="col">Total Cost</th>
         <th scope="col">Actual Paid</th>
-        <th scope="col">Update</th>
         <th scope="col">Delete</th>
       </tr>
     </thead>
@@ -32,7 +31,6 @@
           <td>{{item.paymentStatus}}</td>
           <td>{{item.totalCost}}</td>
           <td>{{item.actualPaid}}</td>
-          <td><a [routerLink]="['/invoice','edit',item._id]" class="btn btn-warning">Update</a></td>
           <td><a class="btn btn-danger" (click)="alertToDelte(item._id)">Delete</a></td>
       </tr>
     </tbody>

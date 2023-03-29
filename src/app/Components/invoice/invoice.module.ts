@@ -6,7 +6,6 @@ import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { InvoiceRoutingModule } from './invoice-routing.module';
 import { InvoiceAddComponent } from './invoice-add/invoice-add.component';
 import { InvoiceListComponent } from './invoice-list/invoice-list.component';
-import { InvoiceEditComponent } from './invoice-edit/invoice-edit.component';
 import { FilterPipe } from './filter.pipe';
 
 
@@ -14,7 +13,6 @@ import { FilterPipe } from './filter.pipe';
   declarations: [
     InvoiceAddComponent,
     InvoiceListComponent,
-    InvoiceEditComponent,
     FilterPipe
   ],
   imports: [
@@ -28,7 +26,6 @@ import { FilterPipe } from './filter.pipe';
   exports: [
     InvoiceAddComponent,
     InvoiceListComponent,
-    InvoiceEditComponent
   ]
 })
 export class InvoiceModule { }

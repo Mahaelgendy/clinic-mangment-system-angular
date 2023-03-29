@@ -296,6 +296,7 @@ export class InvoiceAddComponent{
         })
       })
 
+      this.error=false
     }else{
       this.error = true;
     }
