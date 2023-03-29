@@ -25,7 +25,10 @@ export class DoctorAddComponent {
   ];
 
 
-  constructor(public doctorService:DoctorsService, public router: Router, public dialog: MatDialog){
+  constructor(
+    public doctorService:DoctorsService,
+    public router: Router,
+    public dialog: MatDialog){
 
     this.count = 0;
     this.doctorForm = new FormGroup({

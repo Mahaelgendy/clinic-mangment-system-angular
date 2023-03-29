@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
@@ -27,7 +27,7 @@ export class InvoiceAddComponent{
 
   today!:string;
   time!: string;
-
+  error = false;
 
   targetInvoice!:Invoice;
   targetAppointment!:Appointment;
@@ -86,7 +86,7 @@ export class InvoiceAddComponent{
     public serviceService:ServiceService,
     public appointmentService:AppointmentService,
     public activatedRoute:ActivatedRoute,
-    public router:Router
+    public router:Router,
   ){
     const date = new Date();
     date.setDate(date.getDate() + 1);
@@ -265,28 +265,41 @@ export class InvoiceAddComponent{
   }
 
   onSubmit(){
+    if(
+      (this.doctorOption.valid && this.doctorOption.touched)&&
+      (this.serviceOptions.valid && this.serviceOptions.touched)&&
+      (this.appointmentOptions.valid && this.appointmentOptions.touched)&&
+      (this.patientSearch.valid && this.patientSearch.touched)&&
+      (this.paymentMethodFC.valid && this.paymentMethodFC.touched)&&
+      (this.paymentStatusFC.valid && this.paymentStatusFC.touched)&&
+      (this.actualPaidFC.valid && this.actualPaidFC.touched)
+    ){
+      const newInvoice = new Invoice(
+        this.doctor_id,
+        this.patient_id,
+        this.employee_id,
+        this.appointment_id,
+        this.clinic_id,
+        this.service_id,
+        this.paymentMethodFC.value,
+        this.paymentStatusFC.value,
+        this.targetDoctor.price+this.targetService.salary,
+        this.actpaid,
+        this.today,
+        this.time
+      )
 
-    const newInvoice = new Invoice(
-      this.doctor_id,
-      this.patient_id,
-      this.employee_id,
-      this.appointment_id,
-      this.clinic_id,
-      this.service_id,
-      this.paymentMethodFC.value,
-      this.paymentStatusFC.value,
-      this.targetDoctor.price+this.targetService.salary,
-      this.actpaid,
-      this.today,
-      this.time
-    )
+      this.invoiceService.addInvoice(newInvoice).subscribe(data=>{
+        this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+          this.router.navigate(['/invoice']);
 
-    this.invoiceService.addInvoice(newInvoice).subscribe(data=>{
-      this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
-        this.router.navigate(['/invoice']);
-
+        })
       })
-    })
+
+    }else{
+      this.error = true;
+    }
+
 
   }
 

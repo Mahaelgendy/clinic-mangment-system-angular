@@ -52,15 +52,15 @@ export class EmployeeService {
       );
   }
 
-  getEmployeeByName(name:string):Observable<Employee>{
-    const fullName = new HttpParams().set('fullName', name);
-    return this.httpClient
-      .get<Employee>(`${environment.apiUrl}/employees/fullName/:${fullName}`)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      );
-  }
+  // getEmployeeByName(name:string):Observable<Employee>{
+  //   const fullName = new HttpParams().set('fullName', name);
+  //   return this.httpClient
+  //     .get<Employee>(`${environment.apiUrl}/employees/fullName/:${fullName}`)
+  //     .pipe(
+  //       retry(2),
+  //       catchError(this.handleError)
+  //     );
+  // }
 
   deleteById(id:number){
     return this.httpClient

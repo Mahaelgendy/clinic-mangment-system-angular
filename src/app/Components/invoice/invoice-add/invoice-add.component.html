@@ -82,6 +82,10 @@
     <input matInput type="number" [formControl]="actualPaidFC" required min="0">
   </mat-form-field>
 
+  <div class="mb-1 ">
+    <mat-error *ngIf="error">Invalid Data....Please check that you enter right data</mat-error>
+  </div>
+
   <div>
     <a mat-raised-button color="primary"  (click)="onSubmit()">Add</a>
   </div>
