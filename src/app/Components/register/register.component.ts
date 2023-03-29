@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {AbstractControl, FormBuilder,Validators} from '@angular/forms'
+import {AbstractControl, FormBuilder,ValidationErrors,Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 // import {ToastrService} from 'ngx-toastr'
 import { Address } from 'src/app/Models/address';
 import { AuthenticationService } from 'src/app/Services/authentication.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -27,8 +28,8 @@ export class RegisterComponent {
     age:this.builder.control('',Validators.compose([Validators.required,Validators.min(1),Validators.max(100)])),
     role:this.builder.control('patient'),
     address:this.builder.group({
-      city:['',Validators.required,Validators.maxLength(10),Validators.minLength(4)],
-      street:['',Validators.required,Validators.maxLength(10),Validators.minLength(4)],
+      city:[''],
+      street:[''],
       building:['' ,Validators.min(1)]
     }),
     image: this.builder.control(this.imagePath),
@@ -39,6 +40,7 @@ export class RegisterComponent {
   {
     return this.registerForm.get(fullName);
   }
+
   onFileSelected(event: any) {
     if (event.target.files && event.target.files.length) {
       const file = event.target.files[0].name;
@@ -56,19 +58,28 @@ export class RegisterComponent {
 
 
     if (this.registerForm.errors) {
-      // this.toastr.warning('Please enter valid data');
-      return;
+       return;
     }
 
     if (this.registerForm.valid) {
       this.authServices.register(this.registerForm.value).subscribe(res => {
-        // this.toastr.success('Registered Successfully')
+
         this.router.navigate(['login'])
       });
-    } else {
-      // this.toastr.warning('Please enter valid data');
-    }
+    } 
   }
+  myAsyncValidator(address: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (address.value === 'invalid') {
+          resolve({ invalidCity: true });
+        } else {
+          resolve(null);
+        }
+      }, 1000); 
+    });
+  }
+  
 }
 
 
