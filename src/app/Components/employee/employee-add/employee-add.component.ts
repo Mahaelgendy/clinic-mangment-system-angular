@@ -53,7 +53,7 @@ export class EmployeeAddComponent {
           console.log(event.target.files[0]);
           if (file!=null) {
             console.log(event.target.files[0]);
-    
+
             this.employeeForm.get('image')?.setValue(file);
             console.log(file);
           }
@@ -67,7 +67,9 @@ export class EmployeeAddComponent {
         return;
       }
 
+      console.log(form.value);
       this.employeeService.add(form.value).subscribe(res=>{
+
         this.router.navigateByUrl('/employees');
       })
     }

@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
+
       if(this.authenticationService.isUserlogged())
       {
         if(route.url.length>0){
@@ -23,15 +23,15 @@ export class AuthGuard implements CanActivate {
           if(
             ( menu == '/employees'||
               menu == '/patients' ||
-              menu == '/doctor/add'|| 
+              menu == '/doctor/add'||
               menu == '/employees/add'||
-              menu == '/doctor/edit/:id' 
+              menu == '/doctor/edit/:id'
             )&& this.authenticationService.getRole() == 'admin'
           ){
             return true
           }
           else if (
-            (menu =='/employees' ||menu == '/employee/details/:id' 
+            (menu =='/employees' ||menu == '/employee/details/:id'
             )&& this.authenticationService.getRole() =='employee'
           ){
             return true
@@ -44,26 +44,26 @@ export class AuthGuard implements CanActivate {
           }
           else if (
             (menu == '/patient' || menu =='patient/details/:id'
-            ) && this.authenticationService.getRole() == 'patient' 
+            ) && this.authenticationService.getRole() == 'patient'
           ){
             return true
           }
-          else 
+          else
           {
             return true;
           }
-          
+
         }
         else{
           return true;
         }
-        
+
       }
-      else 
+      else
       {
         this.router.navigate(['login']);
         return false;
       }
   }
-  
+
 }

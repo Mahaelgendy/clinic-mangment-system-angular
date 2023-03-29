@@ -7,15 +7,15 @@
     <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
         <tr>
             <th>#</th>
-           <th>Name</th> 
+           <th>Name</th>
            <th>Email</th>
-           <th>Age</th>  
-           <th>Position</th> 
-           <th>Phone</th> 
+           <th>Age</th>
+           <th>Position</th>
+           <th>Phone</th>
            <th>Salary</th>
            <th>Details</th>
            <th>Edit</th>
-           <th>Delete</th>
+           <!-- <th>Delete</th> -->
         </tr>
     </thead>
     <tbody >
@@ -27,10 +27,10 @@
             <td>{{employee.position}}</td>
             <td>{{employee.phone}}</td>
             <td>{{employee.salary}}</td>
-        
+
             <td> <a class="btn btn-success" role="button"[routerLink]="[employee._id]">Details</a></td>
             <td> <a class="btn btn-primary" role="button"[routerLink]="['/employees', 'update',employee._id]">Edit</a></td>
-            <td> <a class="btn btn-danger" role="button" (click)="deleteDialog(employee._id)">Delete</a></td>
+            <!-- <td> <a class="btn btn-danger" role="button" (click)="deleteDialog(employee._id)">Delete</a></td> -->
         </tr>
     </tbody>
 </table>
