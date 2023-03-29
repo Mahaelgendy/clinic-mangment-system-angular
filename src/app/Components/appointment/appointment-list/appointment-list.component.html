@@ -1,9 +1,9 @@
 <div class="mb-3">
-  <a [routerLink]="['/appointment','addAppointment']" class="btn btn-success">Reserve an appointment</a>
+  <a [routerLink]="['/appointment','addAppointment']" class="btn btn-primary">Reserve an appointment</a>
 </div>
-<table class="table">
-    <thead class="thead-dark">
-      <tr class="text-light">
+<table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);">
+    <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
+      <tr>
         <th scope="col">#</th>
         <th scope="col">Clinic</th>
         <th scope="col">Doctor</th>
@@ -30,8 +30,8 @@
           <td>{{item.to | date:'HH:mm:ss'}}</td>
           <td>{{item.status}}</td>
           <td>{{item.reservation_method}}</td>
-          <td><a [routerLink]="['/appointment','edit',item._id]" class="btn btn-warning">Update</a></td>
-          <td><a [routerLink]="['/appointment','detailsAppointment',item._id]" class="btn btn-info">Details</a></td>
+          <td><a [routerLink]="['/appointment','edit',item._id]" class="btn btn-primary">Update</a></td>
+          <td><a [routerLink]="['/appointment','detailsAppointment',item._id]" class="btn btn-success">Details</a></td>
       </tr>
     </tbody>
   </table>
