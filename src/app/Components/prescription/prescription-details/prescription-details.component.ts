@@ -22,7 +22,6 @@ export class PrescriptionDetailsComponent {
 
       this.prescriptionService.getPrescriptionById(this.prescriptionId).subscribe(res =>
         {
-          console.log(res);
           this.prescription = res;
         });
     }
