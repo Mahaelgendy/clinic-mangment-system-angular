@@ -187,6 +187,9 @@ export class InvoiceAddComponent{
           console.log(searchResults);
           this.targetPatient = searchResults;
           this.patient_id = this.targetPatient._id??-1;
+          console.log(this.patient_id)
+          console.log(this.doctor_id)
+          console.log(this.clinic_id)
           this.getAppointment();
         }else{
           this.patientSearch.setErrors({ apiError: true })
@@ -228,6 +231,7 @@ export class InvoiceAddComponent{
   }
 
   getTargetClinic(){
+    console.log(this.targetemployee.clinicId)
     this.clinicService.getById(this.targetemployee.clinicId).subscribe(clinic=>{
       console.log("From clinic")
       this.targetClinic = clinic;
@@ -239,12 +243,13 @@ export class InvoiceAddComponent{
 
   getTargetEmployee(){
 
-    this.employeeService.getEmployeeById(3).subscribe(emp=>{
+    this.employeeService.getEmployeeById(5).subscribe(emp=>{
       console.log("From emp subs");
       this.targetemployee = emp;
       this.employee_id = this.targetemployee._id??-1;
       console.log(this.targetemployee)
 
+      this.clinic_id = this.targetemployee.clinicId;
       this.getTargetClinic();
 
     });
