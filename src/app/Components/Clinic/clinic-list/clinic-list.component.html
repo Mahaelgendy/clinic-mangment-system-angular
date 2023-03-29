@@ -1,15 +1,15 @@
 
 <a routerLink="/clinics/add" class="btn btn-primary" >Add Clinic </a>
 <div class="table-responsive">
-    <table class="table table  text-center">
-        <thead class="bg-info">
+    <table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);">
+        <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
             <tr>
                 <th scope="col"> #</th>
                 <th scope="col">Clinic Name</th>
                 <th scope="col">Clinic Location</th>
                 <th scope="col">Details</th>
                 <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
+                <!-- <th scope="col">Delete</th> -->
 
             </tr>                
 
@@ -21,17 +21,17 @@
                 <td>{{ clinic.clinic_location ? clinic.clinic_location.building :''}}
                     {{ clinic.clinic_location ? clinic.clinic_location.street : '' }} Street, 
                     {{ clinic.clinic_location ? clinic.clinic_location.city : '' }}, Egypt</td>
-                 <td><a [routerLink]="['/clinics','details',clinic._id]" class="btn btn-secondary">Details</a></td>
+                 <td><a [routerLink]="['/clinics','details',clinic._id]" class="btn btn-success">Details</a></td>
                 <td>
-                    <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" (click)="show(clinic)">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" (click)="show(clinic)">
                         <i class="fa-solid fa-pen-to-square"></i></button>
 
                 </td> 
 
-                <td>
+                <!-- <td>
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="deleteDialog(clinic._id)">
                     <i class="fa-solid fa-trash"></i></button>
-                </td>
+                </td> -->
 
             </tr>
          

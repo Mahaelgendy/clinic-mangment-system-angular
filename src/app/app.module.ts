@@ -4,20 +4,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './Core/core/core.module';
-import { HeaderComponent } from './Core/core/header/header.component';
 import { UserLoginComponent } from './Components/user-login/user-login.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
-import { LogOutComponent } from './Components/log-out/log-out.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'
 import { RegisterComponent } from './Components/register/register.component'
 import {PatientListComponent} from './Components/patient/patient-list/patient-list.component'
 import {DoctorModule} from './Components/doctor/doctor.module';
 import { FormsModule } from '@angular/forms';
-import { TopbarComponent } from './Core/core/topbar/topbar.component'
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatRadioModule } from '@angular/material/radio';
 import { MaterialModule } from 'src/material.module';
 import { ConfirmDeleteDialogComponent } from './Components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { AuthIntercepentorService } from './Services/auth-intercepentor.service';

@@ -1,4 +1,3 @@
-
 <div class="container-fluid sticky-top bg-white shadow-sm">
   <div class="container">
     <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
@@ -16,7 +15,7 @@
         id="navbarCollapse">
         <div class="navbar-nav ms-auto py-0">
           <a href="#" class="nav-item nav-link active">Home</a>
-          <a href="#" class="nav-item nav-link">About</a>
+          <a routerLink="/doctors"  class="nav-item nav-link">doctor</a>
           <a href="#" class="nav-item nav-link">Service</a>
           <a href="#" class="nav-item nav-link">Pricing</a>
           <div class="nav-item dropdown">
@@ -28,14 +27,11 @@
               <a href="#" class="dropdown-item">Blog Grid</a>
               <a href="#" class="dropdown-item">Blog Detail</a>
               <a href="#" class="dropdown-item">The Team</a>
-              <a href="#" class="dropdown-item">Testimonual</a>
-              <a href="#" class="dropdown-item">Appintment</a>
-              <a href="#" class="dropdown-item">Search</a>
             </div>
           </div>
           <a href="#" class="nav-item nav-link">Contact</a>
         </div>
-
+        <router-outlet></router-outlet>
       </div>
     </nav>
   </div>
