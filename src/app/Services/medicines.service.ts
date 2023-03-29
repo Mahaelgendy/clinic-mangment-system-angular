@@ -58,7 +58,7 @@ export class MedicinesService {
 
   updateMedicines(id:number , updatedMedicines:Medicines){
     return this.httpClinet
-    .put<Medicines>(`${environment.apiUrl}/medicines`,JSON.stringify(updatedMedicines),this.httpOption)
+    .patch<Medicines>(`${environment.apiUrl}/medicines`,JSON.stringify(updatedMedicines),this.httpOption)
     .pipe(
       retry(2),
       catchError(this.handleError)

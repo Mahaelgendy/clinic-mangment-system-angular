@@ -82,9 +82,7 @@ export class AppointmentAddComponent {
       return;
     }
     else{
-      console.log(this.appointmentForm.value);
       const appointment =  Appointment.fromFormValues(this.appointmentForm.value);
-      console.log(appointment)
       this.appointmentService.add(appointment).subscribe(
         (response) => {
           console.log('Added appointment:', response);
