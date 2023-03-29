@@ -1,9 +1,9 @@
 <div class="mb-3">
     <a [routerLink]="['/medicine','add']" class="btn btn-success">Add Medicin</a>
   </div>
-  <table class="table">
-      <thead class="thead-dark">
-        <tr class="text-light">
+  <table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);">
+      <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
+        <tr>
           <th scope="col">#</th>
           <th scope="col">Medicine Name</th>
           <th scope="col">Company Name</th>
@@ -20,8 +20,8 @@
             <td>{{item.companyName}}</td>
             <td>{{item.speciality}}</td>
             <td>{{item.description}}</td>
-            <td><a [routerLink]="['/medicine','edit',item._id]" class="btn btn-warning">Update</a></td>
-            <td><a [routerLink]="['/medicine','details',item._id]" class="btn btn-info">Details</a></td>
+            <td><a [routerLink]="['/medicine','edit',item._id]" class="btn btn-primary">Update</a></td>
+            <td><a [routerLink]="['/medicine','details',item._id]" class="btn btn-success">Details</a></td>
         </tr>
       </tbody>
     </table>

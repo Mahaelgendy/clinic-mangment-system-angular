@@ -3,8 +3,8 @@
   <a [routerLink]="['/doctors','add']" class="btn btn-success">Add Doctor </a>
 </div>
 <div class="mt-3 row justify-content-center" >
-  <table class="table mt-3">
-    <thead class="thead-dark">
+  <table cclass="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);">
+    <thead class="t_header" style="background-color:  rgb(180, 212, 223);">
       <tr>
         <th scope="col">FullName</th>
         <th scope="col">Email</th>
@@ -28,8 +28,8 @@
         <td>{{doctor.specialization}}</td>
         <td>{{doctor.price}}</td>
 
-        <td> <a [routerLink]="['/doctors', 'details',doctor._id]" class="btn btn-primary">Details</a> </td>
-        <td> <a [routerLink]="['/doctors', 'edit', doctor._id]" class="btn btn-warning">Update</a> </td>
+        <td> <a [routerLink]="['/doctors', 'details',doctor._id]" class="btn btn-success">Details</a> </td>
+        <td> <a [routerLink]="['/doctors', 'edit', doctor._id]" class="btn btn-primary">Update</a> </td>
         <!-- <td>
           <button class="btn btn-danger" (click)="alertToDelte(doctor._id)">Delete</button>
         </td> -->
