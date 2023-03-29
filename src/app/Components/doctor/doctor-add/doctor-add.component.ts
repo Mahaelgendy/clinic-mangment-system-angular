@@ -69,15 +69,17 @@ export class DoctorAddComponent {
 
       const doctor = new Doctors(user, this.doctorForm.value.specialization, this.doctorForm.value.price);
 
-      const dialogRef = this.dialog.open(AlertComponent, {
-        width: '300px',
-        data: 'Doctor Added Successfully'
-      });
-
       this.doctorService.addDoctor(doctor).subscribe(result => {
+
 
           this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
           this.router.navigate(['/doctors']);
+
+          this.dialog.open(AlertComponent, {
+            width: '300px',
+            data: 'Doctor Added Successfully'
+          });
+          
         })
       });
 

@@ -1,11 +1,14 @@
+
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/Models/address';
 import { Doctors } from 'src/app/Models/doctors';
 import { Role } from 'src/app/Models/Enums';
 import { User } from 'src/app/Models/user';
 import { DoctorsService } from 'src/app/Services/doctors.service';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-doctor-edit',
@@ -25,7 +28,12 @@ export class DoctorEditComponent {
   ];
 
 
-  constructor(public doctorService:DoctorsService, public router: Router, private activatedRoute:ActivatedRoute)
+  constructor(
+    public doctorService:DoctorsService,
+    public router: Router,
+    private activatedRoute:ActivatedRoute,
+    private dialog: MatDialog
+    )
   {
     this.doctorForm = new FormGroup({
       fullName: new FormControl('',[Validators.required, Validators.pattern(`${/^[a-zA-Z]+((['_,. -][a-zA-Z ])?[a-zA-Z]*)*$/}`)]  ),
@@ -78,7 +86,7 @@ export class DoctorEditComponent {
       if(this.doctorForm.errors){
         return;
       }
-      
+
       console.log("this.doctorForm.value");
       console.log(this.doctorForm.value);
 
@@ -98,6 +106,12 @@ export class DoctorEditComponent {
           console.log(result);
           this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
           this.router.navigate(['/doctors']);
+
+          this.dialog.open(AlertComponent, {
+            width: '300px',
+            data: 'Doctor Updated Successfully'
+          });
+
         })
       });
     }
