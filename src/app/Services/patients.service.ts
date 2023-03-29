@@ -54,6 +54,7 @@ export class PatientsService {
       catchError(this.handleError)
       );
   }
+
   getPatientByID(patientID:number |undefined):Observable <Patients>
   {
     if(patientID == undefined) patientID=-1;
@@ -64,6 +65,19 @@ export class PatientsService {
       catchError(this.handleError)
       );
   }
+
+  getPatientByName(fullName:string):Observable<Patients>{
+    console.log("From get");
+    console.log(fullName);
+
+    return this.httpClient
+      .get<Patients>(`${environment.apiUrl}/patients/fullName/${fullName}`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
   addPatient(newPatient:Patients): Observable <Patients>
   {
     return this.httpClient
@@ -85,7 +99,7 @@ export class PatientsService {
   }
 
   deletePatientByID(patientID:number |undefined)
-  { 
+  {
     if(patientID == undefined) patientID = -1;
       return this.httpClient
       .delete<Patients>(`${environment.apiUrl}/patients/${patientID}`,this.httpOption)

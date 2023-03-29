@@ -34,7 +34,7 @@ export class ScheduleService {
 
   getAllSchedules():Observable<Schedules[]>{
     return this.httpClient
-    .get<Schedules[]>(`${environment.apiUrl}/schedules`)
+    .get<Schedules[]>(`${environment.apiUrl}/schedule`)
     .pipe(
       retry(2),
       catchError(this.handleError)
@@ -43,7 +43,7 @@ export class ScheduleService {
 
   getScheduleByID(id:number):Observable<Schedules>{
     return this.httpClient
-      .get<Schedules>(`${environment.apiUrl}/schedules/${id}`)
+      .get<Schedules>(`${environment.apiUrl}/schedule/${id}`)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -52,7 +52,7 @@ export class ScheduleService {
 
   addSchedule(schedule:Schedules):Observable<Schedules>{
     return this.httpClient
-      .post<Schedules>(`${environment.apiUrl}/schedules`,JSON.stringify(Schedules),this.httpOption)
+      .post<Schedules>(`${environment.apiUrl}/schedule`,JSON.stringify(Schedules),this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -71,7 +71,7 @@ export class ScheduleService {
 
   updateSchedule(id:number, schedule:Schedules){
     return this.httpClient
-      .patch<Schedules>(`${environment.apiUrl}/schedules/${id}`,JSON.stringify(schedule), this.httpOption)
+      .patch<Schedules>(`${environment.apiUrl}/schedule/${id}`,JSON.stringify(schedule), this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -80,7 +80,7 @@ export class ScheduleService {
 
   deleteScheduleByID(id:number){
     return this.httpClient
-      .delete<Schedules>(`${environment.apiUrl}/schedules/${id}`, this.httpOption)
+      .delete<Schedules>(`${environment.apiUrl}/schedule/${id}`, this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -89,7 +89,7 @@ export class ScheduleService {
 
   deleteAllSchedules(){
     return this.httpClient
-      .delete<Schedules>(`${environment.apiUrl}/schedules`, this.httpOption)
+      .delete<Schedules>(`${environment.apiUrl}/schedule`, this.httpOption)
       .pipe(
         retry(2),
         catchError(this.handleError)

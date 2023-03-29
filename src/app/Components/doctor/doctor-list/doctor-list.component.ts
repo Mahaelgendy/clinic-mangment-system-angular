@@ -16,7 +16,12 @@ export class DoctorListComponent {
 
   displayedColumns: string[] = ['FullName', 'Email', 'Age', 'Address','Specialization','Price','action'];
   doctors:Doctors[]=[];
-  constructor(public userService:UserService, public doctorService:DoctorsService, private router:Router,private activatedRoute:ActivatedRoute, public dialog: MatDialog){}
+  constructor(
+    public userService:UserService,
+    public doctorService:DoctorsService,
+    private router:Router,
+    private activatedRoute:ActivatedRoute,
+    public dialog: MatDialog){}
 
   ngOnInit(){
     this.doctorService.getAllDoctors().subscribe(data=>{

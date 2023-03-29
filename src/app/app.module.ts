@@ -28,7 +28,7 @@ import { ConfirmDeleteDialogComponent } from './Components/confirm-delete-dialog
     NotFoundComponent,
     RegisterComponent,
     PatientListComponent,
-    ConfirmDeleteDialogComponent
+    ConfirmDeleteDialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,6 @@ import { PaymentMethod, PaymentStatus } from "./Enums";
 
 export class Invoice {
   constructor(
-    public _id:number,
     public doctor_id:any,
     public patient_id:any,
     public employee_id:any,
@@ -15,6 +14,7 @@ export class Invoice {
     public actualPaid:number,
     public date:string,
     public time:string,
-    public transaction_id:string
+    public transaction_id?:string,
+    public _id?:number,
   ){}
 }

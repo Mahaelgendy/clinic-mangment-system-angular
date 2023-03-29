@@ -1,0 +1,37 @@
+<div class="mb-3">
+  <a [routerLink]="['/invoice','add']" class="btn btn-success">Add Invoice </a>
+</div>
+<table class="table">
+    <thead class="thead-dark">
+      <tr class="text-light">
+        <th scope="col">#</th>
+        <th scope="col">Clinic</th>
+        <th scope="col">Doctor</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Employee</th>
+        <th scope="col">Service</th>
+        <th scope="col" style="width: 100px;">Date</th>
+        <th scope="col">Payment Method</th>
+        <th scope="col">Payment Status</th>
+        <th scope="col">Total Cost</th>
+        <th scope="col">Actual Paid</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody >
+        <tr *ngFor="let item of invoice; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.clinic_id?.clinicName}}</td>
+          <td>{{item.doctor_id?.userData?.fullName}}</td>
+          <td>{{item.patient_id.patientData?.fullName}}</td>
+          <td>{{item.employee_id?.employeeData?.fullName}}</td>
+          <td>{{item.service_id.name}}</td>
+          <td>{{item.date}}</td>
+          <td>{{item.paymentMethod}}</td>
+          <td>{{item.paymentStatus}}</td>
+          <td>{{item.totalCost}}</td>
+          <td>{{item.actualPaid}}</td>
+          <td><a class="btn btn-danger" (click)="alertToDelte(item._id)">Delete</a></td>
+      </tr>
+    </tbody>
+  </table>

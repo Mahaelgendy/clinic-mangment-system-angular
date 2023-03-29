@@ -9,6 +9,7 @@ import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
 import { DoctorEditComponent } from './doctor-edit/doctor-edit.component';
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.componen
     DoctorHomeComponent,
     DoctorEditComponent,
     DoctorSidebarComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,

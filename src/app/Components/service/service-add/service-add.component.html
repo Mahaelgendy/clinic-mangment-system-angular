@@ -1,0 +1,33 @@
+
+<div class="card d-flex justify-content-center">
+    <h1 class="title">Add Service</h1>
+    <form [formGroup]="serviceForm" (ngSubmit)="save(serviceForm)" class="form-group px-3 py-3 ">
+
+        <label for="name" class="form-label h6">Service Name</label>
+        <input type='text' class="form-control mx-2" placeholder="Name"
+         formControlName="name" />
+
+         <label for="salary" class="form-label h6 mt-3">Service Cost</label>
+         <input type='number' class="form-control mx-2" placeholder="Cost"
+          formControlName="salary" />
+
+          
+            <label for="doctor_id" class="form-label h6 mt-3">Doctor</label>
+            <select class="form-select" formControlName="doctor_id" ngDefaultControl>
+                <option *ngFor="let doctor of doctors" [value]="doctor._id">{{ doctor.userData?.fullName }}</option>
+            </select>
+            
+
+            <label for="clinic_id" class="form-label h6 mt-3">Clinic</label>
+            <select class="form-select" formControlName="clinic_id" ngDefaultControl>
+              <option *ngFor="let clinic of clinics" [value]="clinic._id">{{ clinic.clinicName }}</option>
+            </select>
+           
+         
+
+        <button class="btn btn-info  text-center w-100 my-3">Add</button>
+
+
+    </form>
+</div>
+
