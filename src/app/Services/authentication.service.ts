@@ -34,6 +34,11 @@ export class AuthenticationService {
     this.decodedToken = this.helper.decodeToken(this.token);
     return this.decodedToken.email;
   }
+  getId(token : any) {
+    this.decodedToken = this.helper.decodeToken(token);
+    console.log(this.decodedToken)
+    return this.decodedToken.id;
+  }
   getToken(){
 
     return this.token = sessionStorage.getItem('token') != null ? sessionStorage.getItem('token')?.toString() : '';

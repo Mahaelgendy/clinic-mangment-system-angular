@@ -34,11 +34,23 @@ export class UserLoginComponent {
         this.token = _token;
         if (this.token) {
           console.log(this.token)
+          let id= this.authServices.getId(this.token.token)
           sessionStorage.setItem('token', this.token.token);
           sessionStorage.setItem('role', this.token.message);
-          this.router.navigate(['']);
+          sessionStorage.setItem('id', id);
+
+          if(this.token.message =="admin"){
+            this.router.navigate(['adminPage']);
+          }
+          else if(this.token.message =="patient"){
+            this.router.navigate(['patientPage']);
+          }
+          else if(this.token.message =="employee"){
+            this.router.navigate(['employeePage']);
+          }
         } else {
-          // this.toastr.error('Invalid credentials');
+          this.router.navigate(['doctorPage']);
+
         }
       });
     } else {

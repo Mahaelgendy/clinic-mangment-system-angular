@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Schedules } from 'src/app/Models/schedules';
 import { ScheduleService } from 'src/app/Services/schedule.service';
 
@@ -14,13 +14,18 @@ export class ScheduleListComponent {
   deletedId = 0;  
 
   schedules:Schedules[]=[];
-  constructor(public scheduleService:ScheduleService, public activatedRoute:ActivatedRoute){
+  constructor(public scheduleService:ScheduleService, public activatedRoute:ActivatedRoute,private router: Router){
 
   }
   ngOnInit(){
-    this.scheduleService.getAllSchedules().subscribe(data=>{
-      this.schedules=data;
-    })
+    if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'doctor'){
+      this.scheduleService.getAllSchedules().subscribe(data=>{
+        this.schedules=data;
+      })
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
   }
 
   deleteDialog(id:number| undefined = 0) {

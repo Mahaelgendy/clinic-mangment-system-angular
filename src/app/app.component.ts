@@ -42,13 +42,13 @@ export class AppComponent {
     this.role = this.authService.getRole()
     if(this.role=='admin'){
       this.isAdmin = true;
-      this.router.navigate(['']);
+      this.router.navigate(['adminPage']);
     }else if(this.role=='doctor'){
       this.isDoctor = true;
-      this.router.navigate(['']);
+      this.router.navigate(['doctorPage']);
     }else if(this.role=='patient'){
       this.isPatient = true;
-      this.router.navigate(['']);
+      this.router.navigate(['patientPage']);
     }else if(this.role=='employee'){
       this.isEmployee = true;
       this.router.navigate(['']);

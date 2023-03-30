@@ -6,6 +6,7 @@ import { AdminComponent } from './admin/admin.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { PatientComponent } from './patient/patient.component';
+import { RouterModule, Routes } from '@angular/router';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PatientComponent } from './patient/patient.component';
   ],
   imports: [
     CommonModule,
-    LandingPagesRoutingModule
+    LandingPagesRoutingModule,
+    RouterModule
   ]
 })
 export class LandingPagesModule { }

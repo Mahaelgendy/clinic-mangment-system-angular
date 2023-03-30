@@ -16,18 +16,32 @@ export class DoctorListComponent {
 
   displayedColumns: string[] = ['FullName', 'Email', 'Age', 'Address','Specialization','Price','action'];
   doctors:Doctors[]=[];
+  role:string | null;
+
   constructor(
     public userService:UserService,
     public doctorService:DoctorsService,
     private router:Router,
     private activatedRoute:ActivatedRoute,
-    public dialog: MatDialog){}
+    public dialog: MatDialog){
+    this.role = sessionStorage.getItem('role');
+    }
 
   ngOnInit(){
-    this.doctorService.getAllDoctors().subscribe(data=>{
-      this.doctors = data;
-      console.log(this.doctors)
-    });
+    if(this.role == "admin"){
+      this.doctorService.getAllDoctors().subscribe(
+        (response) => {
+          this.doctors = response;
+          console.log('Added appointment:', response);
+        },
+        (error) => {
+          console.error('Error adding appointment:', error);
+        }
+      );
+    }
+    else{
+      this.router.navigate(['']);
+    }
   }
 
 
