@@ -16,7 +16,7 @@ export class DoctorListComponent {
 
   displayedColumns: string[] = ['FullName', 'Email', 'Age', 'Address','Specialization','Price','action'];
   doctors:Doctors[]=[];
-  role:string | null;
+
 
   constructor(
     public userService:UserService,
@@ -24,11 +24,11 @@ export class DoctorListComponent {
     private router:Router,
     private activatedRoute:ActivatedRoute,
     public dialog: MatDialog){
-    this.role = sessionStorage.getItem('role');
     }
 
   ngOnInit(){
-    if(this.role == "admin"){
+    
+    if(sessionStorage.getItem('role')== 'admin'){
       this.doctorService.getAllDoctors().subscribe(
         (response) => {
           this.doctors = response;
@@ -40,7 +40,7 @@ export class DoctorListComponent {
       );
     }
     else{
-      this.router.navigate(['']);
+      this.router.navigate(['notFound']);
     }
   }
 

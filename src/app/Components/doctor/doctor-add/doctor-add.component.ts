@@ -17,6 +17,7 @@ import { AlertComponent } from '../alert/alert.component';
 })
 export class DoctorAddComponent {
 
+  role!:string | null;
   doctorForm:FormGroup;
   count:number;
   GenderObtion = [
@@ -48,40 +49,46 @@ export class DoctorAddComponent {
 
   }
 
+
   genders =["Female" , "Male"];
 
   onSubmit(){
 
-    this.doctorForm.markAllAsTouched();
-    if(this.doctorForm.errors){
-      return;
-    }
-      const user = new User(
-        this.doctorForm.value.fullName,
-        this.doctorForm.value.password,
-        this.doctorForm.value.email,
-        this.doctorForm.value.age,
-        new Address(this.doctorForm.value.city, this.doctorForm.value.street, this.doctorForm.value.building),
-        this.doctorForm.value.gender,
-        Role.doctor,
-        // this.doctorForm.value.image
-      );
+    if(sessionStorage.getItem('role')== 'admin'){
+      this.doctorForm.markAllAsTouched();
+      if(this.doctorForm.errors){
+        return;
+      }
+        const user = new User(
+          this.doctorForm.value.fullName,
+          this.doctorForm.value.password,
+          this.doctorForm.value.email,
+          this.doctorForm.value.age,
+          new Address(this.doctorForm.value.city, this.doctorForm.value.street, this.doctorForm.value.building),
+          this.doctorForm.value.gender,
+          Role.doctor,
+          // this.doctorForm.value.image
+        );
 
-      const doctor = new Doctors(user, this.doctorForm.value.specialization, this.doctorForm.value.price);
+        const doctor = new Doctors(user, this.doctorForm.value.specialization, this.doctorForm.value.price);
 
-      this.doctorService.addDoctor(doctor).subscribe(result => {
+        this.doctorService.addDoctor(doctor).subscribe(result => {
 
 
-          this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
-          this.router.navigate(['/doctors']);
+            this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+            this.router.navigate(['/doctors']);
 
-          this.dialog.open(AlertComponent, {
-            width: '300px',
-            data: 'Doctor Added Successfully'
-          });
-          
-        })
+            this.dialog.open(AlertComponent, {
+              width: '300px',
+              data: 'Doctor Added Successfully'
+            });
+
+          })
       });
+
+    }else{
+      this.router.navigate(['notFound']);
+    }
 
   }
 

@@ -14,7 +14,7 @@ import { ScheduleService } from 'src/app/Services/schedule.service';
 })
 export class ScheduleUpdateComponent {
 
-  
+
   scheduleData: any;
   editForm: FormGroup = new FormGroup({});
   newFromFormat:any;
@@ -31,10 +31,10 @@ export class ScheduleUpdateComponent {
     required: 'Time is required.',
     pattern: 'Please enter a valid time in the format hh:mm:ss.'
   };
-  
+
 
   constructor(public scheduleService: ScheduleService,public clinicService:ClinicService ,
-    public doctorService: DoctorsService, public router: Router, public builder: FormBuilder, public activatedRoute: ActivatedRoute) { 
+    public doctorService: DoctorsService, public router: Router, public builder: FormBuilder, public activatedRoute: ActivatedRoute) {
       this.editForm = this.builder.group({
         _id:0,
         doc_id:this.builder.control(null,[Validators.required]),
@@ -50,56 +50,56 @@ export class ScheduleUpdateComponent {
     }
 
     ngOnInit(){
-      this.activatedRoute.params.subscribe(param => {
-        this.scheduleService.getScheduleByID(param['id']).subscribe(data => {
-          console.log(data)
-          this.scheduleData = data;
-          console.log(this.scheduleData.from.split('T')[1].split('.')[0])
-          this.newFromFormat=this.scheduleData.from.split('T')[1].split('.')[0];
-          this.newToFormat=this.scheduleData.to.split('T')[1].split('.')[0];
+        if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'doctor'){
+          this.activatedRoute.params.subscribe(param => {
+            this.scheduleService.getScheduleByID(param['id']).subscribe(data => {
+              console.log(data)
+              this.scheduleData = data;
+              console.log(this.scheduleData.from.split('T')[1].split('.')[0])
+              this.newFromFormat=this.scheduleData.from.split('T')[1].split('.')[0];
+              this.newToFormat=this.scheduleData.to.split('T')[1].split('.')[0];
+              this.editForm.patchValue({
+                _id:this.scheduleData?._id,
+                doc_id:this.scheduleData?.doc_id,
+                clinic_id:this.scheduleData?.clinic_id,
+                date:this.scheduleData?.date,
+                from:this.newFromFormat,
+                to:this.newToFormat,
+                duration_in_minutes:this.scheduleData?.duration_in_minutes,
+              });
+            })
+          })
 
-          this.editForm.patchValue({
-            _id:this.scheduleData?._id,
-            doc_id:this.scheduleData?.doc_id,
-            clinic_id:this.scheduleData?.clinic_id,
-            date:this.scheduleData?.date,
-            from:this.newFromFormat,
-            to:this.newToFormat,
-            duration_in_minutes:this.scheduleData?.duration_in_minutes,
-    
-          });
-        
-  
-        })
-      })
+            this.clinicService.getAll().subscribe(data=>{
+              this.clinics = data;
+            });
 
-    
-        this.clinicService.getAll().subscribe(data=>{
-          this.clinics = data;
-        });
-        
-        this.doctorService.getAllDoctors().subscribe(data=>{
-          this.doctors = data;
-          console.log(data)
-        })
+            this.doctorService.getAllDoctors().subscribe(data=>{
+              this.doctors = data;
+              console.log(data)
+            })
+
+        }else{
+          this.router.navigate(['notFound']);
+        }
+
     }
 
-    
     save(formData: any) {
       console.log("==========")
      console.log(formData.value)
       if (this.editForm.errors) {
         return;
       }
-  
+
      if (this.editForm.valid) {
-    
+
         this.scheduleService.updateSchedule(formData.value).subscribe(data => {
-          
+
           this.router.navigateByUrl("/schedules");
-  
+
         });
-  
+
       }
     }
 }

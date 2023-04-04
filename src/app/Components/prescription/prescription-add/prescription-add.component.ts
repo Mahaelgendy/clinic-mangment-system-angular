@@ -69,6 +69,10 @@ export class PrescriptionAddComponent  implements OnInit {
     })
 
   }
+
+
+
+  
   onDatetimeSelected(event: MatDatepickerInputEvent<Date>) {
     const selectedDatetime = event.value;
   }
@@ -89,14 +93,14 @@ export class PrescriptionAddComponent  implements OnInit {
         this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
           this.router.navigate(['/patients'])})
         })
-      } 
+      }
       get medicine_id(): FormArray {
         return this.newPrescriptionForm.get('medicine_id') as FormArray;
       }
   formatDate(date : Date ){
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2);
-    const day = date.getDate().toString().padStart(2); 
+    const day = date.getDate().toString().padStart(2);
     return `${year}-${month}-${day}`;
   }
   getControl(fullName:any |undefined): AbstractControl |null

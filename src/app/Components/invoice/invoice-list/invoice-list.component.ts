@@ -21,10 +21,17 @@ export class InvoiceListComponent {
     ){}
 
   ngOnInit(){
-    this.invoiceService.getAllInvoices().subscribe(data=>{
-      console.log(data[0]);
-      this.invoice = data;
-    })
+
+    if(sessionStorage.getItem('role')== 'employee' || sessionStorage.getItem('role')== 'admin'){
+      this.invoiceService.getAllInvoices().subscribe(data=>{
+        console.log(data[0]);
+        this.invoice = data;
+      });
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
+    
   }
 
   alertToDelte(id:number|undefined){
