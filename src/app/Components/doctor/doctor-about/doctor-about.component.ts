@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Doctors } from 'src/app/Models/doctors';
 import { DoctorsService } from 'src/app/Services/doctors.service';
 import { UserService } from 'src/app/Services/user.service';
@@ -14,15 +14,21 @@ export class DoctorAboutComponent {
   doctor!:Doctors;
 
   id = 60;
-  constructor(public doctorService:DoctorsService, public userServices:UserService, public activatedRoute:ActivatedRoute){}
+  constructor(public doctorService:DoctorsService, public userServices:UserService, public activatedRoute:ActivatedRoute , public router:Router){}
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(a=>{
-      this.doctorService.getDoctorByID(a['id']).subscribe(data=>{
-        console.log(this.doctor);
-        this.doctor = data;
-      });
 
-    })
+    if(sessionStorage.getItem('role')== 'doctor'){
+      this.activatedRoute.params.subscribe(a=>{
+        this.doctorService.getDoctorByID(a['id']).subscribe(data=>{
+          console.log(this.doctor);
+          this.doctor = data;
+        });
+      });
+      
+    }else{
+      this.router.navigate(['notFound']);
+    }
+
   }
 
 }

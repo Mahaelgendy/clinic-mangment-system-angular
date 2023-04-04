@@ -68,9 +68,13 @@ export class EmployeeAddComponent {
       }
 
       console.log(form.value);
-      this.employeeService.add(form.value).subscribe(res=>{
-
-        this.router.navigateByUrl('/employees');
-      })
+      if(sessionStorage.getItem('role')== 'admin'){
+        this.employeeService.add(form.value).subscribe(res=>{
+          this.router.navigateByUrl('/employees');
+        })
+      }
+      else{
+        this.router.navigate(['notFound']);
+      }
     }
 }

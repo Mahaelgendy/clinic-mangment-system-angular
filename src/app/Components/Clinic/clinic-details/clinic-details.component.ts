@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { ClinicModels } from 'src/app/Models/clinic-models';
 import { ClinicService } from 'src/app/Services/clinic.service';
 
@@ -16,17 +16,23 @@ export class ClinicDetailsComponent {
    };
   
   clinic: ClinicModels = new ClinicModels(0, '', this.defaultLocation);
-  constructor(public clinicService: ClinicService , public activatedRoute:ActivatedRoute) {
+  constructor(public clinicService: ClinicService , public activatedRoute:ActivatedRoute,private router:Router) {
      
   }
    ngOnInit() {
     this.activatedRoute.params.subscribe(param => {
       console.log(param)
-      this.clinicService.getById(param['id']).subscribe(data => {
-        console.log(data);
-        this.clinic = data;
-        console.log(this.clinic);
-      })
+      if(sessionStorage.getItem('role')== 'admin'||sessionStorage.getItem('role')== 'employee'||sessionStorage.getItem('role')== 'doctor' ||sessionStorage.getItem('role')== 'patient'){
+        this.clinicService.getById(param['id']).subscribe(data => {
+          console.log(data);
+          this.clinic = data;
+          console.log(this.clinic);
+        })
+      }
+      else{
+        this.router.navigate(['notFound']);
+      }
+
     })
   }
 }

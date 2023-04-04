@@ -106,50 +106,59 @@ export class InvoiceAddComponent{
 
   ngOnInit(){
 
-    this.getAllDoctors();
+    if(sessionStorage.getItem('role')== 'employee'){
+        this.getAllDoctors();
 
-    this.doctorOption.valueChanges.pipe(debounceTime(200)).subscribe(docId=>{
-      this.doctor_id = docId;
-      this.doctorInput.reset();
-      this.doctorText=''
-      this.getTargetDoctor();
-    });
+        this.doctorOption.valueChanges.pipe(debounceTime(200)).subscribe(docId=>{
+        this.doctor_id = docId;
+        this.doctorInput.reset();
+        this.doctorText=''
+        this.getTargetDoctor();
+      });
 
-    this.getAllServices();
+        this.getAllServices();
 
-    this.serviceOptions.valueChanges.pipe(debounceTime(200)).subscribe(serId=>{
-      this.service_id = serId;
-      this.serviceInput.reset();
-      this.serviceSearchText=''
-      this.getTargetService();
-    })
+        this.serviceOptions.valueChanges.pipe(debounceTime(200)).subscribe(serId=>{
+        this.service_id = serId;
+        this.serviceInput.reset();
+        this.serviceSearchText=''
+        this.getTargetService();
+      })
 
-    this.appointmentOptions.valueChanges.pipe(debounceTime(200)).subscribe(appId=>{
-      this.appointment_id = appId;
-      this.appointmentInput.reset();
-      this.serviceSearchText='';
+        this.appointmentOptions.valueChanges.pipe(debounceTime(200)).subscribe(appId=>{
+        this.appointment_id = appId;
+        this.appointmentInput.reset();
+        this.serviceSearchText='';
 
-    })
+      })
 
-    this.paymentMethodFC.valueChanges.subscribe(val=>{
-      this.paymethod = val;
-      console.log(this.paymethod)
-    })
+      this.paymentMethodFC.valueChanges.subscribe(val=>{
+        this.paymethod = val;
+        console.log(this.paymethod)
+      })
 
-    this.paymentStatusFC.valueChanges.subscribe(val=>{
-      this.paystat = val;
-      console.log(this.paystat)
-    })
+      this.paymentStatusFC.valueChanges.subscribe(val=>{
+        this.paystat = val;
+        console.log(this.paystat)
+      })
 
-    this.actualPaidFC.valueChanges.subscribe(val=>{
-      this.actpaid = val;
-      console.log(this.actpaid)
-    })
+      this.actualPaidFC.valueChanges.subscribe(val=>{
+        this.actpaid = val;
+        console.log(this.actpaid)
+      })
 
-    this.getTargetEmployee();
-    this.getTargetPatient();
+      this.getTargetEmployee();
+      this.getTargetPatient();
 
-  }
+    }else{
+      this.router.navigate(['notFound']);
+    }
+
+  }//End Of OnInit
+
+
+
+
   getTargetDoctor(){
     this.doctorService.getDoctorByID(this.doctor_id).subscribe(doc=>{
       console.log(doc)

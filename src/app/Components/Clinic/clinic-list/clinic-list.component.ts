@@ -26,9 +26,15 @@ export class ClinicListComponent {
   }
 
   ngOnInit() {
-    this.clinicService.getAll().subscribe(data => {
-      this.clinics = data;
-    })
+    if(sessionStorage.getItem('role')== 'admin'){
+      this.clinicService.getAll().subscribe(data => {
+        this.clinics = data;
+      })
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
+
   }
 
   registerForm = this.builder.group({
@@ -58,9 +64,7 @@ export class ClinicListComponent {
       })
   })
 
-
   }
-
 
   save(RegisterForm:any) {
 
@@ -69,12 +73,15 @@ export class ClinicListComponent {
     }
 
    if (this.registerForm.valid) {
-            this.clinicService.edit(RegisterForm.value).subscribe(data => {
-        this.showModal = false;
-        location.reload();
-
-      });
-
+      if(sessionStorage.getItem('role')== 'admin'){
+        this.clinicService.edit(RegisterForm.value).subscribe(data => {
+          this.showModal = false;
+          location.reload();
+        });
+      }
+      else{
+        this.router.navigate(['notFound']);
+      }
     }
   }
 
@@ -84,13 +91,16 @@ export class ClinicListComponent {
   }
 
   delete(id: number) {
+    if(sessionStorage.getItem('role')== 'admin'){
       this.clinicService.deleteById(id).subscribe(data => {
         console.log(data);
         this.deleteModal = false;
         location.reload();
-
       })
-   
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
   }
  
 

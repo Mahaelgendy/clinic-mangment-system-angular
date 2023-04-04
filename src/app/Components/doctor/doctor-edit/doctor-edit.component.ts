@@ -52,28 +52,35 @@ export class DoctorEditComponent {
 
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((a)=>{
-      this.doctorId = a['id'];
-      this.doctorService.getDoctorByID(a['id']).subscribe(data=>{
-        this.doctor = data;
 
-        this.doctorForm.setValue({
-          fullName: data.userData?.fullName || '',
-          email: data.userData?.email || '',
-          password: data.userData?.password || '',
-          age: data.userData?.age || '',
-          city: data.userData?.address?.city || '',
-          street: data.userData?.address?.street || '',
-          building: data.userData?.address?.building || '',
-          specialization: data.specialization || '',
-          price: data.price || '',
-          gender: data.userData?.gender || '',
-          role: Role.doctor,
-        });
+    if(sessionStorage.getItem('role')== 'admin'){
+      this.activatedRoute.params.subscribe((a)=>{
+        this.doctorId = a['id'];
+        this.doctorService.getDoctorByID(a['id']).subscribe(data=>{
+          this.doctor = data;
 
+          this.doctorForm.setValue({
+            fullName: data.userData?.fullName || '',
+            email: data.userData?.email || '',
+            password: data.userData?.password || '',
+            age: data.userData?.age || '',
+            city: data.userData?.address?.city || '',
+            street: data.userData?.address?.street || '',
+            building: data.userData?.address?.building || '',
+            specialization: data.specialization || '',
+            price: data.price || '',
+            gender: data.userData?.gender || '',
+            role: Role.doctor,
+          });
+        })
       })
-    })
+      
+    }else{
+      this.router.navigate(['notFound']);
+    }
+
   }
+
   genders =["Female" , "Male"];
 
 

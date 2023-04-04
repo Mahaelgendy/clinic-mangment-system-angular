@@ -70,10 +70,16 @@ export class UpdatePatientComponent implements OnInit {
            this.user,
            this.updatedPatientform.get('email')?.value);
           //  console.log(this.pateientAfterUpdate);
-           this.patientService.updatePatient(this.patientId, this.pateientAfterUpdate).subscribe(x=>
+          if(sessionStorage.getItem('role')== 'doctor'){
+            this.patientService.updatePatient(this.patientId, this.pateientAfterUpdate).subscribe(x=>
               this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
                 this.router.navigate(['/patients'])})
            )
+          }
+          else{
+            this.router.navigate(['notFound']);
+          }
+
       }
       else{
         this.dialog.open(AlertComponent);

@@ -23,10 +23,16 @@ export class PatientListComponent  {
 
   }
   ngOnInit(): void {
-    this.patientService.getAllPatients().subscribe(patient =>
-      {
-        this.Allpatients = patient;
-      });
+    if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'doctor'){
+      this.patientService.getAllPatients().subscribe(patient =>
+        {
+          this.Allpatients = patient;
+        });
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
+
   }
   showPatientDetails(patientId: number |undefined) {
     this.router.navigate(['/patients/details', patientId]);
@@ -48,11 +54,16 @@ export class PatientListComponent  {
     dialogRef.afterClosed().subscribe (result => {
       if(result){
         this.activatedRoute.params.subscribe(data=>{
-          this.patientService.deletePatientByID(id).subscribe(res=>{
-            this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
-              this.router.navigate(['/patients']);
+          if(sessionStorage.getItem('role')== 'admin'){
+            this.patientService.deletePatientByID(id).subscribe(res=>{
+              this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+                this.router.navigate(['/patients']);
+              })
             })
-          })
+          }
+          else{
+            this.router.navigate(['notFound']);
+          }
         })
       }
 
