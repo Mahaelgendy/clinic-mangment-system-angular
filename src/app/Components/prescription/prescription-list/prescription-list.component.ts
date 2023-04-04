@@ -12,8 +12,14 @@ import { PrescriptionDetailsComponent } from '../prescription-details/prescripti
   templateUrl: './prescription-list.component.html',
   styleUrls: ['./prescription-list.component.css']
 })
-export class PrescriptionListComponent 
+export class PrescriptionListComponent
 {
+  role!:string | null;
+  isDocOrPatientOrAdmin = false;
+  isDoctor = false;
+  isDoctorOrAdmin = false;
+
+  
   title:string ="All Prescriptions";
   displayedColumns: string[] = ['doctorName', 'patientName', 'ExaminationDate', 'prescription'];
   public allPescriptions: Prescription[] =[];
@@ -23,15 +29,34 @@ export class PrescriptionListComponent
       public dialog: MatDialog,
       private router: Router,
       private activatedRoute:ActivatedRoute){
+        this.role = sessionStorage.getItem('role');
 
   }
   ngOnInit(){
-   this.prescriptionService.getAllPrescription().subscribe((item)=>{
-      for(let i =0 ;i < item.length;i++){
-          this.allPescriptions.push(item[i])
-      }
 
-      }) 
+    if(this.role == 'doctor' || this.role == 'admin' || this.role == 'patient'){
+      this.isDocOrPatientOrAdmin = true;
+    }
+    if(this.role == 'doctor'){
+      this.isDoctor = true;
+    }
+    if(this.role == 'doctor' || this.role == 'admin'){
+      this.isDoctorOrAdmin = true
+    }
+    if(sessionStorage.getItem('role')== 'doctor'||
+      sessionStorage.getItem('role')== 'admin'||
+      sessionStorage.getItem('role')== 'patient'
+      ){
+      this.prescriptionService.getAllPrescription().subscribe((item)=>{
+        for(let i =0 ;i < item.length;i++){
+            this.allPescriptions.push(item[i])
+        }
+
+      });
+    }else{
+      this.router.navigate(['notFound']);
+    }
+
   }
   ShowPrescription(presId: number |undefined){
     if(presId != undefined){
@@ -60,11 +85,11 @@ export class PrescriptionListComponent
             })
           })
         }
-        
+
       })
   }
   AddPrescription(){
-    
+
   }
 
 }
