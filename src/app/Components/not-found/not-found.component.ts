@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Location} from '@angular/common'
 
 @Component({
   selector: 'app-not-found',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./not-found.component.css']
 })
 export class NotFoundComponent {
-
+  
+  constructor(private location:Location){
+  }
+  goBack(){
+    window.history.go(-2);   
+  }
 }
