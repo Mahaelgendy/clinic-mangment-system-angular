@@ -35,6 +35,7 @@ export class ServiceAddComponent {
     }
 
     ngOnInit(){
+      if(sessionStorage.getItem('role')== 'admin'){
         this.clinicService.getAll().subscribe(data=>{
           this.clinics = data;
         });
@@ -43,6 +44,10 @@ export class ServiceAddComponent {
           this.doctors = data;
         })
       }
+      else{
+        this.router.navigate(['notFound']);
+      }
+    }
 
 
     serviceForm = this.builder.group({

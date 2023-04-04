@@ -64,18 +64,23 @@ export class AppointmentAddComponent {
   get f() { return this.appointmentForm.controls; }
 
   ngOnInit(){
-    this.clinicService.getAll().subscribe(data=>{
-      this.clinics = data;
-    });
-    this.patientService.getAllPatients().subscribe(data=>{
-      this.patients = data;
-    })
-    this.doctorService.getAllDoctors().subscribe(data=>{
-      this.doctors = data;
-    })
-    this.employeeService.getAllEmployees().subscribe(data=>{
-      this.employees = data;
-    })
+    if(sessionStorage.getItem('role')== 'employee' || sessionStorage.getItem('role')== 'patient'){
+      this.clinicService.getAll().subscribe(data=>{
+        this.clinics = data;
+      });
+      this.patientService.getAllPatients().subscribe(data=>{
+        this.patients = data;
+      })
+      this.doctorService.getAllDoctors().subscribe(data=>{
+        this.doctors = data;
+      })
+      this.employeeService.getAllEmployees().subscribe(data=>{
+        this.employees = data;
+      })
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
   }
   onSubmit() {
     if (this.appointmentForm.invalid) {
@@ -92,7 +97,7 @@ export class AppointmentAddComponent {
         }
         );
         console.log('Form submitted successfully!');
-        this.router.navigate(['/']);
+        this.router.navigate(['/appointment']);
       }
   }
   isString(value: any): boolean {

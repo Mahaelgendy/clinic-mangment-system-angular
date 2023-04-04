@@ -69,40 +69,46 @@ export class AppointmentUpdateComponent {
   get f() { return this.appointmentForm.controls; }
 
   ngOnInit(){
-    this.clinicService.getAll().subscribe(data=>{
-      this.clinics = data;
-    });
-    this.patientService.getAllPatients().subscribe(data=>{
-      this.patients = data;
-    })
-    this.doctorService.getAllDoctors().subscribe(data=>{
-      this.doctors = data;
-    })
-    this.employeeService.getAllEmployees().subscribe(data=>{
-      this.employees = data;
-    })
-    this.activatedRoute.params.subscribe((a)=>{
-      this.appointmentId = a['id'];
-      this.appointmentService.getAppointmentById(a['id']).subscribe(data=>{
-        console.log(data)
-        this.appointment = data;
-        console.log(this.appointment)
-        this.getSchedule(this.appointment.doctor_id?._id);
-          
-
-        this.appointmentForm.setValue({
-          clinics: data.clinic_id.clinicName || '',
-          patients: data.patient_id?.patientData?.fullName || '',
-          doctors: data.doctor_id?.userData?.fullName || '',
-          employees :data.employee_id?.employeeData?.fullName || '',
-          date: data.date,
-          from : data.from || '',
-          status : data.status.toString() || '',
-          reserMethod: data.reservation_method?.toString() || ''
-        });
-
+    if(sessionStorage.getItem('role')== 'employee' || sessionStorage.getItem('role')== 'patient'){
+      this.clinicService.getAll().subscribe(data=>{
+        this.clinics = data;
+      });
+      this.patientService.getAllPatients().subscribe(data=>{
+        this.patients = data;
       })
-    })
+      this.doctorService.getAllDoctors().subscribe(data=>{
+        this.doctors = data;
+      })
+      this.employeeService.getAllEmployees().subscribe(data=>{
+        this.employees = data;
+      })
+      this.activatedRoute.params.subscribe((a)=>{
+        this.appointmentId = a['id'];
+        this.appointmentService.getAppointmentById(a['id']).subscribe(data=>{
+          console.log(data)
+          this.appointment = data;
+          console.log(this.appointment)
+          this.getSchedule(this.appointment.doctor_id?._id);
+            
+  
+          this.appointmentForm.setValue({
+            clinics: data.clinic_id.clinicName || '',
+            patients: data.patient_id?.patientData?.fullName || '',
+            doctors: data.doctor_id?.userData?.fullName || '',
+            employees :data.employee_id?.employeeData?.fullName || '',
+            date: data.date,
+            from : data.from || '',
+            status : data.status.toString() || '',
+            reserMethod: data.reservation_method?.toString() || ''
+          });
+  
+        })
+      })
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
+    
   }
 
   onSubmit() {
@@ -123,7 +129,7 @@ export class AppointmentUpdateComponent {
         }
         );
         console.log('Form submitted successfully!');
-        this.router.navigate(['/']);
+        this.router.navigate(['/appointment']);
       }
   }
   isString(value: any): boolean {

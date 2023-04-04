@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Medicines } from 'src/app/Models/medicines';
 import { MedicinesService } from 'src/app/Services/medicines.service';
 
@@ -10,12 +11,16 @@ import { MedicinesService } from 'src/app/Services/medicines.service';
 export class MedicinListComponent {
   medicines:Medicines[]=[];
 
-  constructor(public medicinService:MedicinesService){
+  constructor(public medicinService:MedicinesService, private router : Router){
   }
   ngOnInit(){
-    this.medicinService.getAllMedicines().subscribe(data=>{
-      console.log(data);
-      this.medicines = data;
-    })
+    if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'doctor'){
+      this.medicinService.getAllMedicines().subscribe(data=>{
+        this.medicines = data;
+      })
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
   }
 }

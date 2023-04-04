@@ -31,6 +31,12 @@ export class MedicinAddComponent {
     });
   }
   get f() { return this.medicineForm.controls; }
+
+  ngOnInit(){
+    if(sessionStorage.getItem('role') != 'admin' || sessionStorage.getItem('role') != 'doctor'){
+      this.router.navigate(['notFound']);
+    }
+  }
   
   onSubmit() {
     if (this.medicineForm.invalid) {
@@ -48,7 +54,7 @@ export class MedicinAddComponent {
         }
         );
         console.log('Form submitted successfully!');
-        this.router.navigate(['/']);
+        this.router.navigate(['/medicine']);
         
       }
     }

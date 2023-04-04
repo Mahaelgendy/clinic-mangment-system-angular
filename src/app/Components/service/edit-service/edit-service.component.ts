@@ -36,39 +36,42 @@ export class EditServiceComponent {
     }
   
   ngOnInit() {
-      
-    this.activatedRoute.params.subscribe(param => {
-      this.serviceService.getById(param['id']).subscribe(data => {
-        console.log(data)
-        this.serviceData = data;
-        console.log(this.serviceData)
-
-        this.editForm.patchValue({
-          _id: this.serviceData?._id,
-          name: this.serviceData?.name,
-          salary: this.serviceData?.salary,
-          doctor_id: this.serviceData?.doctor_id,
-          clinic_id: this.serviceData?.clinic_id
-        });
-      
-
-      })
-    })
-
-    
-      this.serviceService.getAll().subscribe(data => {
-        this.services = data;
+    if(sessionStorage.getItem('role')== 'admin'){
+      this.activatedRoute.params.subscribe(param => {
+        this.serviceService.getById(param['id']).subscribe(data => {
+          console.log(data)
+          this.serviceData = data;
+          console.log(this.serviceData)
+  
+          this.editForm.patchValue({
+            _id: this.serviceData?._id,
+            name: this.serviceData?.name,
+            salary: this.serviceData?.salary,
+            doctor_id: this.serviceData?.doctor_id,
+            clinic_id: this.serviceData?.clinic_id
+          });
+        
+  
+        })
       })
   
-      this.clinicService.getAll().subscribe(data=>{
-        this.clinics = data;
-      });
       
-      this.doctorService.getAllDoctors().subscribe(data=>{
-        this.doctors = data;
-      })
-      
+        this.serviceService.getAll().subscribe(data => {
+          this.services = data;
+        })
+    
+        this.clinicService.getAll().subscribe(data=>{
+          this.clinics = data;
+        });
+        
+        this.doctorService.getAllDoctors().subscribe(data=>{
+          this.doctors = data;
+        })
     }
+    else{
+      this.router.navigate(['notFound']);
+    }
+  }
 
   
   save(formData: any) {

@@ -37,20 +37,25 @@ export class MedicinDetailsComponent {
   get f() { return this.medicineForm.controls; }
 
   ngOnInit(){
-    this.activatedRoute.params.subscribe((a)=>{
-      this.medicineId = a['id'];
-      this.medicineService.getMedicinesById(a['id']).subscribe(data=>{
-        this.medicine = data;
-        console.log(this.medicine)          
-
-        this.medicineForm.setValue({
-          name: data.medicineName || '',
-          companyName: data.companyName || '',
-          speciality: data.speciality || '',
-          description :data.description || ''
-        });
-
+    if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'doctor'){
+      this.activatedRoute.params.subscribe((a)=>{
+        this.medicineId = a['id'];
+        this.medicineService.getMedicinesById(a['id']).subscribe(data=>{
+          this.medicine = data;
+          console.log(this.medicine)          
+  
+          this.medicineForm.setValue({
+            name: data.medicineName || '',
+            companyName: data.companyName || '',
+            speciality: data.speciality || '',
+            description :data.description || ''
+          });
+  
+        })
       })
-    })
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
   }
 }
