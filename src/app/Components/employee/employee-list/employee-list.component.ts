@@ -14,13 +14,21 @@ export class EmployeeListComponent {
   employees:Employee []=[];
   deleteId:Number=0;
   deleteModel:boolean=false;
+  role : string| null;
+  isEmployeeOrAdmin: boolean=false;
+  Admin:boolean=false;
   constructor(public employeeService:EmployeeService,private router:Router, public activatedRouter:ActivatedRoute,public dialog:MatDialog)
   {
-
+    this.role = sessionStorage.getItem('role');
   }
   ngOnInit()
   {
+    if(sessionStorage.getItem('role')=='admin')
+    {
+      this.Admin=true;
+    }
     if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'employee'){
+      this.isEmployeeOrAdmin=true;
       this.employeeService.getAllEmployees().subscribe(employeesData=>{
         this.employees= employeesData;
       })
@@ -39,7 +47,7 @@ export class EmployeeListComponent {
       if(result)
       {
         this.activatedRouter.params.subscribe(data=>{
-          
+
           if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'employee'){
             this.employeeService.deleteById(id).subscribe(res=>{
               this.router.navigate(['./'],{skipLocationChange:true}).then(()=>{
