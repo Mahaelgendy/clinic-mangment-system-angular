@@ -51,6 +51,7 @@ export class AppComponent {
       this.router.navigate(['patientPage']);
     }else if(this.role=='employee'){
       this.isEmployee = true;
+      this.router.navigate(['employeePage']);
       this.router.navigate(['']);
     }
   }
