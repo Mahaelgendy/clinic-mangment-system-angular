@@ -16,12 +16,17 @@ export class EmployeeListComponent {
   deleteModel:boolean=false;
   role : string| null;
   isEmployeeOrAdmin: boolean=false;
+  Admin:boolean=false;
   constructor(public employeeService:EmployeeService,private router:Router, public activatedRouter:ActivatedRoute,public dialog:MatDialog)
   {
     this.role = sessionStorage.getItem('role');
   }
   ngOnInit()
   {
+    if(sessionStorage.getItem('role')=='admin')
+    {
+      this.Admin=true;
+    }
     if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'employee'){
       this.isEmployeeOrAdmin=true;
       this.employeeService.getAllEmployees().subscribe(employeesData=>{

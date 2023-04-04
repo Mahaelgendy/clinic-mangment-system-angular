@@ -1,6 +1,6 @@
 <div>
     <h2>All Employees Data</h2>
-    <a class="btn btn-primary" role="button" routerLink="/employees/add" >Add Employee</a>
+    <a *ngIf="Admin" class="btn btn-primary" role="button" routerLink="/employees/add" >Add Employee</a>
 
 </div>
 <table class="table mt-3" style="box-shadow:  5px 5px 5px 5px rgb(180, 212, 223);" >
