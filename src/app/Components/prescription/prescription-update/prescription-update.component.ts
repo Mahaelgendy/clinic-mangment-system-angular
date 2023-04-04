@@ -41,6 +41,7 @@ export class PrescriptionUpdateComponent {
     this.SelcetedMedicine = new FormControl();
   }
   ngOnInit(){
+   if(sessionStorage.getItem('role')== 'doctor'){
     this.prescriptionService.getPrescriptionById(this.prescriptionId).subscribe((pres)=>{
       this.prescription = pres;
       this.medicineService.getMedicineByspeciality(pres.doctor_id.specialization).subscribe(med =>
@@ -56,6 +57,9 @@ export class PrescriptionUpdateComponent {
         })
         this.SelcetedMedicine.patchValue(pres.medicine_id);
     })
+   }else{
+    this.router.navigate(['notFound']);
+   }
 
   }
   onSubmit(){
@@ -66,7 +70,7 @@ export class PrescriptionUpdateComponent {
       this.prescription.doctor_id,
       this.PrescriptionForm.get('patient_id')?.value,
       this.SelcetedMedicine.value);
-     
+
       this.prescriptionService.updatePrescription(this.prescriptionId ,UpdatedPrescription).subscribe((x)=>{
         this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
           this.router.navigate(['/prescription'])})

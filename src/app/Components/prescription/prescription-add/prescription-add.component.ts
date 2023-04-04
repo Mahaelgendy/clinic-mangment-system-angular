@@ -46,33 +46,37 @@ export class PrescriptionAddComponent  implements OnInit {
       });
   }
   ngOnInit(){
-    this.patientservice.getAllPatients().subscribe((patient)=>
-    {
-      for(let i =0 ; i < patient.length ;i++){
-        this.patients.push(patient[i]);
-      }
-    })
-    this.docttorService.getDoctorByID(this.doctorId).subscribe((data)=>
-    {
-      this.doctorName = data.userData?.fullName;
-      this.medicineService.getMedicineByspeciality(data.specialization).subscribe((med)=>{
-        for(let i =0 ;i< med.length;i++){
-          this.medicines.push(med[i]);
+    if(sessionStorage.getItem('role')== 'doctor'){
+      this.patientservice.getAllPatients().subscribe((patient)=>
+      {
+        for(let i =0 ; i < patient.length ;i++){
+          this.patients.push(patient[i]);
         }
       })
-      //to get selected medicine
-      this.SelcetedMedicine.valueChanges.subscribe(x =>{
-        for(let i = 0; i < x.length;i++){
-          this.medicinesIds.push(x[i])
-        }
+      this.docttorService.getDoctorByID(this.doctorId).subscribe((data)=>
+      {
+        this.doctorName = data.userData?.fullName;
+        this.medicineService.getMedicineByspeciality(data.specialization).subscribe((med)=>{
+          for(let i =0 ;i< med.length;i++){
+            this.medicines.push(med[i]);
+          }
+        })
+        //to get selected medicine
+        this.SelcetedMedicine.valueChanges.subscribe(x =>{
+          for(let i = 0; i < x.length;i++){
+            this.medicinesIds.push(x[i])
+          }
+        })
       })
-    })
+    }else{
+      this.router.navigate(['notFound']);
+    }
 
   }
 
 
 
-  
+
   onDatetimeSelected(event: MatDatepickerInputEvent<Date>) {
     const selectedDatetime = event.value;
   }
