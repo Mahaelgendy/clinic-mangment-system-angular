@@ -24,7 +24,7 @@ export class ScheduleAddComponent {
   constructor(private scheduleService :ScheduleService,
     private clinicServices : ClinicService,
     private doctorService :DoctorsService,
-    private routee:Router,
+    private router:Router,
     private route :ActivatedRoute,
    )
   {
@@ -37,20 +37,27 @@ export class ScheduleAddComponent {
       duration_in_minutes: new FormControl('', [Validators.required])
     })
   }
-  
+
   ngOnInit(){
-    this.clinicServices.getAll().subscribe(clinic =>{
-      this.allClinic = clinic;
-      console.log(this.allClinic)
-    })
-    this.doctorService.getAllDoctors().subscribe(doctor=>{
-       this.allDoctors = doctor;
-      // console.log(doctor[0].userData?.fullName);
-    })
+
+    if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'doctor'){
+      this.clinicServices.getAll().subscribe(clinic =>{
+        this.allClinic = clinic;
+        console.log(this.allClinic)
+      })
+      this.doctorService.getAllDoctors().subscribe(doctor=>{
+         this.allDoctors = doctor;
+        // console.log(doctor[0].userData?.fullName);
+      });
+    }else{
+      this.router.navigate(['notFound']);
+    }
+
   }
+  
   submit(){
     console.log(this.schecduleForm.value);
-  
+
       this.shcedule= new Schedules(
         parseInt(this.schecduleForm.get('doc_id')?.value),
         parseInt(this.schecduleForm.get('clinic_id')?.value),
@@ -63,7 +70,7 @@ export class ScheduleAddComponent {
         )
 // console.log("-----")
 //      console.log(this.shcedule);
-    
+
   }
   getControl(fullName:any |undefined): AbstractControl |null
   {
