@@ -13,8 +13,8 @@
            <th>Position</th>
            <th>Phone</th>
            <th>Salary</th>
-           <th>Details</th>
-           <th>Edit</th>
+           <th >Details</th>
+           <th *ngIf="isEmployeeOrAdmin">Edit</th>
            <!-- <th>Delete</th> -->
         </tr>
     </thead>
@@ -29,7 +29,7 @@
             <td>{{employee.salary}}</td>
 
             <td> <a class="btn btn-success" role="button"[routerLink]="[employee._id]">Details</a></td>
-            <td> <a class="btn btn-primary" role="button"[routerLink]="['/employees', 'update',employee._id]">Edit</a></td>
+            <td *ngIf="isEmployeeOrAdmin"> <a class="btn btn-primary" role="button"[routerLink]="['/employees', 'update',employee._id]">Edit</a></td>
             <!-- <td> <a class="btn btn-danger" role="button" (click)="deleteDialog(employee._id)">Delete</a></td> -->
         </tr>
     </tbody>
