@@ -20,10 +20,14 @@ export class EmployeeListComponent {
   }
   ngOnInit()
   {
-    this.employeeService.getAllEmployees().subscribe(employeesData=>{
-      this.employees= employeesData;
-      console.log(employeesData);
-    })
+    if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'employee'){
+      this.employeeService.getAllEmployees().subscribe(employeesData=>{
+        this.employees= employeesData;
+      })
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
   }
   deleteDialog(id:any)
   {
@@ -35,11 +39,17 @@ export class EmployeeListComponent {
       if(result)
       {
         this.activatedRouter.params.subscribe(data=>{
-          this.employeeService.deleteById(id).subscribe(res=>{
-            this.router.navigate(['./'],{skipLocationChange:true}).then(()=>{
-              this.router.navigate(['/employees']);
+          
+          if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'employee'){
+            this.employeeService.deleteById(id).subscribe(res=>{
+              this.router.navigate(['./'],{skipLocationChange:true}).then(()=>{
+                this.router.navigate(['/employees']);
+              })
             })
-          })
+          }
+          else{
+            this.router.navigate(['notFound']);
+          }
         })
       }
      })

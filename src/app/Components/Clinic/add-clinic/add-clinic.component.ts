@@ -33,11 +33,16 @@ export class AddClinicComponent {
     }
   
     if (this.registerForm.valid) {
-      
-      this.clinicService.add(RegisterForm.value).subscribe(data => {
-        console.log(data);
-        this.router.navigateByUrl("/clinics");
-      });
+      if(sessionStorage.getItem('role')== 'admin'){
+        this.clinicService.add(RegisterForm.value).subscribe(data => {
+          console.log(data);
+          this.router.navigateByUrl("/clinics");
+        });
+      }
+      else{
+        this.router.navigate(['notFound']);
+      }
+
     
     } 
   }

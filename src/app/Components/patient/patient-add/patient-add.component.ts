@@ -57,10 +57,17 @@ export class PatientAddComponent implements OnInit {
              this.newPatientform.get('phone')?.value,
              this.user[0],
              this.newPatientform.get('email')?.value);
-             this.patientservice.addPatient(this.patient).subscribe(x=>
-             this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
-              this.router.navigate(['/patients'])})
-            )
+
+            if(sessionStorage.getItem('role')== 'doctor'|| sessionStorage.getItem('role')== 'admin'){
+              this.patientservice.addPatient(this.patient).subscribe(x=>
+                this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
+                 this.router.navigate(['/patients'])})
+               )
+            }
+            else{
+              this.router.navigate(['notFound']);
+            }
+
 
         }
         else{

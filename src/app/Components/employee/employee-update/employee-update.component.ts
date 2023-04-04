@@ -108,12 +108,18 @@ export class EmployeeUpdateComponent {
         this.EmployeeForm.value._id,
       )
       console.log(this.employee);
-      this.employeeService.edit(this.employeeId,employee).subscribe(result => {
+      if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'employee'){
+        this.employeeService.edit(this.employeeId,employee).subscribe(result => {
           console.log(result);
           this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
           this.router.navigate(['/employees']);
         })
       });
+      }
+      else{
+        this.router.navigate(['notFound']);
+      }
+
     }
   }
 

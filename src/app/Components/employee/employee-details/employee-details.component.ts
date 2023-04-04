@@ -30,12 +30,15 @@ export class EmployeeDetailsComponent {
     {
       this.currentId=params['id'];
     })
-
-    this.employeeService.getEmployeeById(this.currentId).subscribe(employeeData=>{
-      
-      this.emp = employeeData;
-      console.log(this.emp);
-    })
+    if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'employee'){
+      this.employeeService.getEmployeeById(this.currentId).subscribe(employeeData=>{
+        this.emp = employeeData;
+        console.log(this.emp);
+      })
+    }
+    else{
+      this.router.navigate(['notFound']);
+    }
   }
   PreviousEmp()
   {
