@@ -7,7 +7,7 @@ import {UpdatePatientComponent} from './update-patient/update-patient.component'
 import{PatientAddComponent} from './patient-add/patient-add.component'
 const routes: Routes = [
   {path:'', component: PatientListComponent },
-  {path:'profile/:id',component:PatientProfileComponent},
+  {path:'profile',component:PatientProfileComponent},
   {path:'details/:id', component: PatientDetailsComponent },
   {path:'update/:id', component: UpdatePatientComponent },
   {path:"add", component:PatientAddComponent}

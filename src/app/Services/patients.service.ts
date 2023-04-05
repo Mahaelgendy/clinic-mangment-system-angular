@@ -45,10 +45,10 @@ export class PatientsService {
 
 
   getPatientByEmail(patientEmail: String):Observable <Patients>{
-    const params = new HttpParams().set('email', patientEmail.toString());
+    // const params = new HttpParams().set('email', patientEmail.toString());
 
     return this.httpClient
-    .get<Patients>(`${environment.apiUrl}/patients`,{params})
+    .get<Patients>(`${environment.apiUrl}/patients/email/${patientEmail}`)
     .pipe(
       retry(2),
       catchError(this.handleError)
