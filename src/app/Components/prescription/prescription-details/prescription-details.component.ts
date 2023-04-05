@@ -16,6 +16,7 @@ export class PrescriptionDetailsComponent {
                private router: Router){
     this.route.params.subscribe((params: Params) => {
       this.prescriptionId = params['id'];
+      console.log(this.prescriptionId);
    });
   }
   ngOnInit(){
@@ -27,6 +28,7 @@ export class PrescriptionDetailsComponent {
         this.prescriptionService.getPrescriptionById(this.prescriptionId).subscribe(res =>
           {
             this.prescription = res;
+            console.log(this.prescription)
           });
       }
     }else{
