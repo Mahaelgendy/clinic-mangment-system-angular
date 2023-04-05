@@ -10,11 +10,15 @@ import { MedicinesService } from 'src/app/Services/medicines.service';
 })
 export class MedicinListComponent {
   medicines:Medicines[]=[];
+  role : string| null;
+  isDoctorOrAdmin: boolean=false;
 
   constructor(public medicinService:MedicinesService, private router : Router){
+    this.role = sessionStorage.getItem('role');
   }
   ngOnInit(){
     if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'doctor'){
+      this.isDoctorOrAdmin=true;
       this.medicinService.getAllMedicines().subscribe(data=>{
         this.medicines = data;
       })
