@@ -47,11 +47,11 @@ export class UserLoginComponent {
           }
           else if(this.token.message =="employee"){
             this.router.navigate(['employeePage']);
-          }
-          else if(this.token.message =="doctor"){
+          }else {
             this.router.navigate(['doctorPage']);
           }
-
+        } else {
+          this.router.navigate(['doctorPage']);
 
         }
       });

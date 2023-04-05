@@ -33,7 +33,7 @@ export class DoctorListComponent {
     if(sessionStorage.getItem('role')== 'admin'){
       this.isAdmin = true;
     }
-    
+
     if(sessionStorage.getItem('role')== 'admin'||
     sessionStorage.getItem('role')== 'doctor')
     {
@@ -47,6 +47,7 @@ export class DoctorListComponent {
     if(sessionStorage.getItem('role')== 'admin'){
       this.doctorService.getAllDoctors().subscribe(
         (response) => {
+          console.log(response);
           this.doctors = response;
           console.log('Added appointment:', response);
         },

@@ -39,6 +39,15 @@ export class DoctorsService {
       catchError(this.handleError)
     );
   }
+  getDoctorByEmail(email:string):Observable<Doctors>{
+
+    return this.httpClient
+      .get<Doctors>(`${environment.apiUrl}/doctors/email/${email}`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
 
   getDoctorByID(id:number|undefined):Observable<Doctors>{
     if(id==undefined)

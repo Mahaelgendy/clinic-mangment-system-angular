@@ -1,18 +1,112 @@
-<div class="toolbar" role="banner">
+<!-- <div class="toolbar" role="banner">
     <img width="40" alt="Angular Logo"
       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
     <span>Welcome</span>
-    <a routerLink="" class="mx-3">Home</a>
-    <a routerLink="/doctors/details/:id"class="mx-3">doctor</a>
-    <a routerLink="/patients" class="mx-3">patient</a>
-    <a routerLink="/appointment" class="mx-3">appointment</a>
-    <a routerLink="/medicine"  class="mx-3">Medicin</a>
-    <a routerLink="/prescriptions"  class="mx-3">prescriptions</a>  
-    <a routerLink="/schedules"  class="mx-3">shedule</a>
-    <a routerLink="/login" >Logout</a>
+    <a routerLink="" style="color: black;" class="mx-3">Home</a>
+    <a routerLink="/doctors/details/:id" style="color: black;" class="mx-3">doctor</a>
+    <a routerLink="/patients" style="color: black;" class="mx-3">patient</a>
+    <a routerLink="/appointment" style="color: black;" class="mx-3">appointment</a>
+    <a routerLink="/medicine" style="color: black;" class="mx-3">Medicin</a>
+    <a routerLink="/prescriptions" style="color: black;" class="mx-3">prescriptions</a>
+    <a routerLink="/schedules" style="color: black;" class="mx-3">shedule</a>
+    <a routerLink="/login" style="color: black;">Logout</a>
   </div>
-  
+
   <div class="content" style="width: 100%;display: block;" role="main">
     <router-outlet></router-outlet>
-  
+
+  </div> -->
+
+
+
+
+
+<div class="container-fluid sticky-top bg-white shadow-sm">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
+      <a href="#" class="navbar-brand">
+        <h1 class="m-0 text-uppercase text-primary">
+          <i class="fa fa-clinic-medical me-2"></i>Medinova</h1>
+      </a>
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarCollapse">
+        <span class="navbar-togger-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse"
+        id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+          <a routerLink="" style="color: black;" class="nav-item nav-link active">Home</a>
+          <a routerLink="/doctors/details/:id" style="color: black;" class="nav-item nav-link">doctor</a>
+          <a routerLink="/patients" style="color: black;" class="nav-item nav-link">patient</a>
+          <a routerLink="/appointment" style="color: black;" class="nav-item nav-link">appointment</a>
+          <a routerLink="/medicine" style="color: black;" class="nav-item nav-link">Medicin</a>
+          <a routerLink="/prescriptions" style="color: black;" class="nav-item nav-link">prescriptions</a>
+          <a routerLink="/schedules" style="color: black;" class="nav-item nav-link">shedule</a>
+          <a routerLink="/login" style="color: black;" class="nav-item nav-link">Logout</a>
+        </div>
+        <!-- <router-outlet></router-outlet> -->
+      </div>
+    </nav>
   </div>
+</div>
+
+<div class="container-fluid bg-primary py-5 mb-5 hero-header">
+  <div class="container py-5">
+      <div class="row justify-content-start">
+          <div class="col-lg-8 text-center text-lg-start">
+              <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To Medinova</h5>
+              <h1 class="display-1 text-white mb-md-4">Best Healthcare Solution In Your City</h1>
+              <div class="pt-2">
+                  <a href="/doctors" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Find Doctor</a>
+                  <a href="/appointment" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="container-fluid py-5">
+  <div class="container">
+      <div class="row gx-5">
+          <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+              <div class="position-relative h-100">
+                  <img class="position-absolute w-100 h-100 rounded" src="../assets/about.jpg" style="object-fit: cover;">
+              </div>
+          </div>
+          <div class="col-lg-7">
+              <div class="mb-4">
+                  <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">About Us</h5>
+                  <h1 class="display-4">Best Medical Care For Yourself and Your Family</h1>
+              </div>
+              <p>Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt magna dolores aliquyam dolores dolore. Amet erat amet et magna</p>
+              <div class="row g-3 pt-3">
+                  <div class="col-sm-3 col-6">
+                      <div class="bg-light text-center rounded-circle py-4">
+                          <i class="fa fa-3x fa-user-md text-primary mb-3"></i>
+                          <h6 class="mb-0">Qualified<small class="d-block text-primary">Doctors</small></h6>
+                      </div>
+                  </div>
+                  <div class="col-sm-3 col-6">
+                      <div class="bg-light text-center rounded-circle py-4">
+                          <i class="fa fa-3x fa-procedures text-primary mb-3"></i>
+                          <h6 class="mb-0">Emergency<small class="d-block text-primary">Services</small></h6>
+                      </div>
+                  </div>
+                  <div class="col-sm-3 col-6">
+                      <div class="bg-light text-center rounded-circle py-4">
+                          <i class="fa fa-3x fa-microscope text-primary mb-3"></i>
+                          <h6 class="mb-0">Accurate<small class="d-block text-primary">Testing</small></h6>
+                      </div>
+                  </div>
+                  <div class="col-sm-3 col-6">
+                      <div class="bg-light text-center rounded-circle py-4">
+                          <i class="fa fa-3x fa-ambulance text-primary mb-3"></i>
+                          <h6 class="mb-0">Free<small class="d-block text-primary">Ambulance</small></h6>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
