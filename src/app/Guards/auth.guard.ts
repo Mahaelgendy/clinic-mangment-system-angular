@@ -24,6 +24,7 @@ export class AuthGuard implements CanActivate {
             ( menu == '/employees'||
               menu == '/employees/add'||
               menu == '/employees/update/:id'||
+              menu == '/employees/profile'||
               menu == '/employees/:id'||
               menu == '/patients' ||
               menu == '/patients/profile/:id' ||

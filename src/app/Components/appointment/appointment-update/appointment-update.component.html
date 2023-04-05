@@ -33,7 +33,7 @@
                 <div *ngIf="appointmentForm.get('doctors')?.errors?.['required']">Doctor is required.</div>
             </div>
         </div>
-        <div class="form-group col-6" >
+        <div *ngIf(!isPatient) class="form-group col-6" >
             <label for="employees" class="form-label">Employee</label>
             <select class="form-select" formControlName="employees">
                 <option *ngFor="let employee of employees" [value]="employee._id" [selected]="employee._id === appointment?.employee_id?._id">{{ employee.employeeData.fullName }}</option>

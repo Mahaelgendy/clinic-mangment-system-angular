@@ -39,6 +39,7 @@ export class AppointmentUpdateComponent {
   appointmentTime : string = "";
   appointmentStatus = Object.values(AppointmentStatus);
   reserMethod = Object.values(ReservationMethod);
+  isPatient:boolean=false;
 
   appointmentForm = new FormGroup({
     clinics: new FormControl(''),
@@ -79,9 +80,6 @@ export class AppointmentUpdateComponent {
       this.doctorService.getAllDoctors().subscribe(data=>{
         this.doctors = data;
       })
-      this.employeeService.getAllEmployees().subscribe(data=>{
-        this.employees = data;
-      })
       this.activatedRoute.params.subscribe((a)=>{
         this.appointmentId = a['id'];
         this.appointmentService.getAppointmentById(a['id']).subscribe(data=>{
@@ -107,6 +105,14 @@ export class AppointmentUpdateComponent {
     }
     else{
       this.router.navigate(['notFound']);
+    }
+    if(sessionStorage.getItem('role')== 'employee' ){
+      this.employeeService.getAllEmployees().subscribe(data=>{
+        this.employees = data;
+      })
+    }
+    else{
+      this.isPatient=true;
     }
     
   }

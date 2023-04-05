@@ -52,7 +52,7 @@ export class AppComponent {
     }else if(this.role=='employee'){
       this.isEmployee = true;
       this.router.navigate(['employeePage']);
-      this.router.navigate(['']);
+      // this.router.navigate(['']);
     }
   }
 }
