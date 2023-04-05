@@ -22,6 +22,8 @@ export class PatientAddComponent implements OnInit {
   selectedStatus!:string;
   patientStatus! :PatientStatus;
   added:boolean=false;
+  isDoctorOrAdmin : boolean = false;
+
   
   constructor(public route: ActivatedRoute,
     public router : Router,
@@ -47,7 +49,6 @@ export class PatientAddComponent implements OnInit {
         this.user = user;
         if(user[0] != null &&user[0].role == 'patient' )
          {
-          //  console.log(this.user[0]._id);
            this.patient = new Patients(
              this.newPatientform.get('status')?.value,
              this.newPatientform.get('history')?.value,

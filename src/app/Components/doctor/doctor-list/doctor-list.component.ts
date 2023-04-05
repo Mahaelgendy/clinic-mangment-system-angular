@@ -17,7 +17,9 @@ export class DoctorListComponent {
   displayedColumns: string[] = ['FullName', 'Email', 'Age', 'Address','Specialization','Price','action'];
   doctors:Doctors[]=[];
 
-
+  isAdmin = false;
+  isDoctorOrAdmin = false;
+  isDoctor = false;
   constructor(
     public userService:UserService,
     public doctorService:DoctorsService,
@@ -27,10 +29,25 @@ export class DoctorListComponent {
     }
 
   ngOnInit(){
-    
+
+    if(sessionStorage.getItem('role')== 'admin'){
+      this.isAdmin = true;
+    }
+
+    if(sessionStorage.getItem('role')== 'admin'||
+    sessionStorage.getItem('role')== 'doctor')
+    {
+      this.isDoctorOrAdmin = true;
+    }
+
+    if(sessionStorage.getItem('role')== 'doctor'){
+      this.isDoctor = true;
+    }
+
     if(sessionStorage.getItem('role')== 'admin'){
       this.doctorService.getAllDoctors().subscribe(
         (response) => {
+          console.log(response);
           this.doctors = response;
           console.log('Added appointment:', response);
         },

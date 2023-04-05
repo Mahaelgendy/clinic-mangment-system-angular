@@ -59,7 +59,7 @@ export class UpdatePatientComponent implements OnInit {
       this.user= user[0];
       if(user[0] != null &&user[0].role == 'patient' && this.patientId != undefined )
        {
-        //  console.log(this.user._id);
+         console.log(this.user._id);
          this.pateientAfterUpdate = new Patients(
            this.updatedPatientform.get('status')?.value,
            this.updatedPatientform.get('history')?.value,
@@ -69,8 +69,8 @@ export class UpdatePatientComponent implements OnInit {
            this.updatedPatientform.get('phone')?.value,
            this.user,
            this.updatedPatientform.get('email')?.value);
-          //  console.log(this.pateientAfterUpdate);
-          if(sessionStorage.getItem('role')== 'doctor'){
+            console.log(this.pateientAfterUpdate);
+          if(sessionStorage.getItem('role')== 'doctor' ||sessionStorage.getItem('role')== 'admin' ){
             this.patientService.updatePatient(this.patientId, this.pateientAfterUpdate).subscribe(x=>
               this.router.navigate(['./'], {skipLocationChange:true}).then(()=>{
                 this.router.navigate(['/patients'])})

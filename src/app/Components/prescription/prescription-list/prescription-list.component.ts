@@ -18,6 +18,7 @@ export class PrescriptionListComponent
   isDocOrPatientOrAdmin = false;
   isDoctor = false;
   isDoctorOrAdmin = false;
+  noPrescriptions = false;
 
   
   title:string ="All Prescriptions";
@@ -48,10 +49,10 @@ export class PrescriptionListComponent
       sessionStorage.getItem('role')== 'patient'
       ){
       this.prescriptionService.getAllPrescription().subscribe((item)=>{
-        for(let i =0 ;i < item.length;i++){
-            this.allPescriptions.push(item[i])
+        this.allPescriptions = item;
+        if(this.allPescriptions.length ==0){
+         this.noPrescriptions=true;
         }
-
       });
     }else{
       this.router.navigate(['notFound']);

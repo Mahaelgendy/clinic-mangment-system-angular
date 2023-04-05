@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { AdminComponent } from './landing-pages/admin/admin.component';
 import { EmployeeComponent } from './landing-pages/employee/employee.component';
 import { PatientComponent } from './landing-pages/patient/patient.component';
+import { DoctorComponent } from './landing-pages/doctor/doctor.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'adminPage', component: AdminComponent, pathMatch: "full", },
   { path: 'employeePage', component: EmployeeComponent, pathMatch: "full", },
   { path: 'patientPage', component: PatientComponent, pathMatch: "full", },
-  { path: 'doctorPage', component: EmployeeComponent, pathMatch: "full", },
+  { path: 'doctorPage', component: DoctorComponent, pathMatch: "full", },
   { path: "appointment", loadChildren: () => import("./Components/appointment/appointment.module").then(m => m.AppointmentModule),canActivate:[AuthGuard] },
   { path: "medicine", loadChildren: () => import("./Components/medicin/medicin.module").then(m => m.MedicinModule),canActivate:[AuthGuard] },
   { path:'doctors', loadChildren:()=>import("./Components/doctor/doctor.module").then(a=>a.DoctorModule),canActivate:[AuthGuard]},
