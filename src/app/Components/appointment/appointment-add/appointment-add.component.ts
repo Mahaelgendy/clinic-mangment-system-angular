@@ -34,6 +34,7 @@ export class AppointmentAddComponent {
   SelectedDoctor: number = 0;
   appointmentStatus = Object.values(AppointmentStatus);
   reserMethod = Object.values(ReservationMethod);
+  isPatient:boolean=false;
 
   appointmentForm = new FormGroup({
     clinics: new FormControl(''),
@@ -54,7 +55,7 @@ export class AppointmentAddComponent {
       clinics: ['', Validators.required],
       patients: ['', Validators.required],
       doctors: ['', Validators.required],
-      employees: ['', Validators.required],
+      employees: ['', ],
       date: ['', Validators.required],
       from: ['', Validators.required],
       status: ['', Validators.required],
@@ -74,14 +75,20 @@ export class AppointmentAddComponent {
       this.doctorService.getAllDoctors().subscribe(data=>{
         this.doctors = data;
       })
-      this.employeeService.getAllEmployees().subscribe(data=>{
-        this.employees = data;
-      })
-    }
+    } 
     else{
       this.router.navigate(['notFound']);
     }
+
+    if(sessionStorage.getItem('role')== 'employee' ){
+      this.employeeService.getAllEmployees().subscribe(data=>{
+        this.employees = data;
+      })
+    }else{
+      this.isPatient=true;
+    }
   }
+  
   onSubmit() {
     if (this.appointmentForm.invalid) {
       return;
