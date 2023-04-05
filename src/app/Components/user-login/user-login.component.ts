@@ -50,6 +50,9 @@ export class UserLoginComponent {
           }else {
             this.router.navigate(['doctorPage']);
           }
+        } else {
+          this.router.navigate(['doctorPage']);
+
         }
       });
     } else {

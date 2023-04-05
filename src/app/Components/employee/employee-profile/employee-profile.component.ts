@@ -15,15 +15,17 @@ export class EmployeeProfileComponent {
   employeeData?: Employee;
   constructor (public employeeService:EmployeeService,
               public activatedRoute:ActivatedRoute){
-                this.activatedRoute.params.subscribe((params:Params)=>{
-                  this.employeeId= params ['id'];
-                });
-                this.employeeService.getEmployeeById(this.employeeId).subscribe(employee=>{
-                  if(employee !=null && employee.employeeData!=null){
-                    this.employeeFullData= employee;
-                  }
-                 
-                })
+                // this.activatedRoute.params.subscribe((params:Params)=>{
+                //   this.employeeId= params ['id'];
+                // });
+                
               }
 
+  ngOnInit(){
+    this.employeeService.getEmployeeByUserId(Object(sessionStorage.getItem('id'))).subscribe(employee=>{
+      if(employee !=null && employee.employeeData!=null){
+        this.employeeFullData= employee;
+      }
+    })
+  }
 }

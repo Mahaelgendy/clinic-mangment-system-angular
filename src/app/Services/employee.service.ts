@@ -54,6 +54,16 @@ export class EmployeeService {
       catchError(this.handleError)
       );
   }
+  getEmployeeByUserId(id:object | null){
+    console.log("here")
+    console.log(id);
+    return this.httpClient
+    .get<Employee>(`${environment.apiUrl}/emp/${id}`,this.httpOption)
+    .pipe(
+      retry(2),
+      catchError(this.handleError)
+      );
+  }
 
   // getEmployeeByName(name:string):Observable<Employee>{
   //   const fullName = new HttpParams().set('fullName', name);

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Appointment } from 'src/app/Models/appointment';
 import { AppointmentService } from 'src/app/Services/appointment.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-appointment-list',
@@ -13,7 +14,7 @@ export class AppointmentListComponent {
   role : string| null;
   isEmployeeOrPatient: boolean=false;
 
-  constructor(public appointmentService:AppointmentService){
+  constructor(public appointmentService:AppointmentService,private location: Location){
     this.role = sessionStorage.getItem('role');
   }
   ngOnInit(){
@@ -22,8 +23,6 @@ export class AppointmentListComponent {
     }
     this.appointmentService.getAllAppointments().subscribe(data=>{
       this.appointments = data;
-      console.log(this.appointments);
-    })
-    
+    })    
   }
 }

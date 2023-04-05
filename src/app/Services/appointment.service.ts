@@ -67,7 +67,7 @@ export class AppointmentService {
   }
 
   // getbyQueryString(queryParam: string){
-  //   const url = `${environment.apiUrl}/appointments?${queryParam}`;
+  //   const url = `${environment.apiUrl}/appointmentsByDate?${queryParam}`;
   //   return this.httpClient
   //     .get<Appointment[]>(url, this.httpOption)
   //     .pipe(
@@ -83,7 +83,7 @@ export class AppointmentService {
       params = params.append(key, queryParam[key]);
     });
 
-    const url = `${environment.apiUrl}/appointments`;
+    const url = `${environment.apiUrl}/appointmentsByDate`;
     return this.httpClient
       .get<Appointment[]>(url, {params})
       .pipe(

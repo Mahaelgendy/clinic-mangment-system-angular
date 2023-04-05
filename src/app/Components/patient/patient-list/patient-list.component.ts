@@ -12,8 +12,9 @@ import { ConfirmDeleteDialogComponent } from '../../confirm-delete-dialog/confir
 })
 export class PatientListComponent  {
   public Allpatients!:Patients[];
-  displayedColumns: string[] = [ "Name" , "Status", "History","Phone","Details","Update" , "Delete"];
+  displayedColumns: string[] = [ "Name" , "Status", "History","Phone","Details","Update" ];
   clickedRows = new Set<Patients>();
+  isDoctor:boolean = false;
   constructor(public patientService:PatientsService ,
     private router: Router , 
     public activatedRoute:ActivatedRoute,
@@ -23,6 +24,9 @@ export class PatientListComponent  {
 
   }
   ngOnInit(): void {
+    if(sessionStorage.getItem('role')== 'doctor'){
+      this.isDoctor =true;
+    }
     if(sessionStorage.getItem('role')== 'admin' || sessionStorage.getItem('role')== 'doctor'){
       this.patientService.getAllPatients().subscribe(patient =>
         {

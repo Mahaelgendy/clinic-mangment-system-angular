@@ -213,11 +213,11 @@ export class InvoiceAddComponent{
   }
 
   getAppointment(){
-    this.appointmentService.getbyQueryString({
-      doctorId:this.doctor_id,
-      patientId:this.patient_id,
-      clinicId:this.clinic_id
-    }
+    this.appointmentService.getbyQueryString(`
+      doctorId= ${this.doctor_id},
+      patientId= ${this.patient_id},
+      clinicId= ${this.clinic_id}
+    `
     ).subscribe(data=>{
       console.log("From Appointment")
       console.log(data[0].date)
