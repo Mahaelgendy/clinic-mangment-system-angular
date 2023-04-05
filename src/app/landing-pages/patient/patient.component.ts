@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class PatientComponent {
 
+  close()
+  {
+    sessionStorage.clear();
+  }
 }
