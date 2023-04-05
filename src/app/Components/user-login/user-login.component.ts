@@ -48,8 +48,10 @@ export class UserLoginComponent {
           else if(this.token.message =="employee"){
             this.router.navigate(['employeePage']);
           }
-        } else {
-          this.router.navigate(['doctorPage']);
+          else if(this.token.message =="doctor"){
+            this.router.navigate(['doctorPage']);
+          }
+
 
         }
       });
